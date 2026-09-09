@@ -1,0 +1,56 @@
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Subsystems/GameInstanceSubsystem.h"
+#include "MedievalKnight/Public/Story/StoryTypes.h"
+#include "MedievalKnight/Public/Story/StoryNodeDataAsset.h"
+#include "StorySubsystem.generated.h"
+
+class UPendragonCharacterComponent;
+
+// Delegates pour l'UI
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStoryNodeChanged, const UStoryNodeDataAsset*, NewNode);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCheckResolved, EPendragonCheckResult, Result, int32, RollValue);
+
+UCLASS()
+class MEDIEVALKNIGHT_API UStorySubsystem : public UGameInstanceSubsystem
+{
+    GENERATED_BODY()
+
+public:
+    // Événement déclenché quand le nœud courant change (pour rafraîchir l'UI)
+    UPROPERTY(BlueprintAssignable, Category = "Pendragon|Story")
+    FOnStoryNodeChanged OnStoryNodeChanged;
+
+    // Événement déclenché lors d'un jet de dés pour afficher le résultat à l'écran
+    UPROPERTY(BlueprintAssignable, Category = "Pendragon|Story")
+    FOnCheckResolved OnCheckResolved;
+
+    // Démarrer la narration à partir d'un nœud donné
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Story")
+    void StartStory(UStoryNodeDataAsset* StartingNode, UPendragonCharacterComponent* PlayerCharacter);
+
+    // Sélectionner un choix par son index dans le nœud courant
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Story")
+    void SelectChoice(int32 ChoiceIndex);
+
+    // Vérifier si le joueur remplit les prérequis d'un choix
+    UFUNCTION(BlueprintPure, Category = "Pendragon|Story")
+    bool CanSelectChoice(const FStoryChoice& Choice) const;
+
+    // Obtenir le nœud d'histoire actuellement chargé
+    UFUNCTION(BlueprintPure, Category = "Pendragon|Story")
+    const UStoryNodeDataAsset* GetCurrentNode() const { return CurrentNode; }
+
+private:
+    UPROPERTY()
+    TObjectPtr<UStoryNodeDataAsset> CurrentNode;
+
+    UPROPERTY()
+    TObjectPtr<UPendragonCharacterComponent> CharacterComponent;
+
+    // Utilitaires internes
+    void ApplyEffect(const FPendragonEffect& Effect);
+    bool EvaluateRequirement(const FPendragonRequirement& Req) const;
+    void TransitionToNode(TSoftObjectPtr<UStoryNodeDataAsset> NextNodePtr);
+};
