@@ -1,0 +1,27 @@
+# Unreal Engine temporaires et builds
+Binaries/
+DerivedDataCache/
+Engine/
+Intermediate/
+Saved/
+Build/
+.unreal/
+
+# Fichiers de solution et d'IDE (Rider, Visual Studio)
+.idea/
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.suo
+*.opensdf
+*.sdf
+
+# Exécutables et paquets
+*.exe
+*.app
+
+# Fichiers système
+.DS_Store
+Thumbs.db
