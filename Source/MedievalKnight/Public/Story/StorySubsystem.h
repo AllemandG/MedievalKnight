@@ -10,7 +10,9 @@ class UPendragonCharacterComponent;
 
 // Delegates pour l'UI
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStoryNodeChanged, const UStoryNodeDataAsset*, NewNode);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCheckResolved, EPendragonCheckResult, Result, int32, RollValue);
+
+// Delegate FourParams mis à jour
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnCheckResolved, EPendragonCheckResult, Result, int32, RollValue, int32, TargetValue, FName, CheckName);
 
 UCLASS()
 class MEDIEVALKNIGHT_API UStorySubsystem : public UGameInstanceSubsystem
@@ -18,11 +20,10 @@ class MEDIEVALKNIGHT_API UStorySubsystem : public UGameInstanceSubsystem
     GENERATED_BODY()
 
 public:
-    // Événement déclenché quand le nœud courant change (pour rafraîchir l'UI)
     UPROPERTY(BlueprintAssignable, Category = "Pendragon|Story")
     FOnStoryNodeChanged OnStoryNodeChanged;
 
-    // Événement déclenché lors d'un jet de dés pour afficher le résultat à l'écran
+    // Déclaration du membre OnCheckResolved
     UPROPERTY(BlueprintAssignable, Category = "Pendragon|Story")
     FOnCheckResolved OnCheckResolved;
 

@@ -116,13 +116,18 @@ void UStorySubsystem::SelectChoice(int32 ChoiceIndex)
     if (Choice.bRequiresCheck)
     {
         int32 TargetValue = 10;
+        FName ResolvedCheckName = NAME_None;
 
         if (Choice.CheckType == ERequirementType::Trait)
         {
             TargetValue = CharacterComponent ? CharacterComponent->GetTraitValue(Choice.CheckTrait, Choice.bCheckPrimaryTrait) : 10;
+        
+            UEnum* TraitEnum = StaticEnum<EPendragonTrait>();
+            ResolvedCheckName = TraitEnum ? FName(*TraitEnum->GetDisplayNameTextByValue(static_cast<int64>(Choice.CheckTrait)).ToString()) : FName(TEXT("Trait"));
         }
         else if (Choice.CheckType == ERequirementType::Skill)
         {
+            ResolvedCheckName = Choice.CheckName;
             if (const int32* Val = CharacterComponent->Skills.Find(Choice.CheckName))
             {
                 TargetValue = *Val;
@@ -132,7 +137,7 @@ void UStorySubsystem::SelectChoice(int32 ChoiceIndex)
         int32 Roll = 0;
         EPendragonCheckResult Result = UPendragonCharacterComponent::PerformD20Check(TargetValue, Roll);
 
-        OnCheckResolved.Broadcast(Result, Roll);
+        OnCheckResolved.Broadcast(Result, Roll, TargetValue, ResolvedCheckName);
 
         TSoftObjectPtr<UStoryNodeDataAsset> TargetNode = Choice.FailureNode;
 
