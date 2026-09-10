@@ -14,6 +14,8 @@ class MEDIEVALKNIGHT_API AMedievalPlayerController : public APlayerController
 public:
 	AMedievalPlayerController();
 
+	virtual void BeginPlay() override;
+
 	// Composant principal gérant les attributs, traits, passions et compétences du chevalier
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pendragon|Character", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UPendragonCharacterComponent> CharacterComponent;
