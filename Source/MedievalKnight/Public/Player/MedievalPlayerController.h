@@ -18,6 +18,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pendragon|Character", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UPendragonCharacterComponent> CharacterComponent;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pendragon|Character", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UPendragonInventoryComponent> InventoryComponent;
+
 	// Helper pour récupérer rapidement le composant depuis les Blueprints ou l'UI
 	UFUNCTION(BlueprintPure, Category = "Pendragon|Character")
 	UPendragonCharacterComponent* GetCharacterComponent() const { return CharacterComponent; }
