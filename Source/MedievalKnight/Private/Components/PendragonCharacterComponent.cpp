@@ -72,3 +72,77 @@ EPendragonCheckResult UPendragonCharacterComponent::CheckTrait(EPendragonTrait T
     int32 TargetVal = GetTraitValue(TraitPair, bCheckPrimary);
     return PerformD20Check(TargetVal, OutRoll);
 }
+
+void UPendragonCharacterComponent::AddOrUpdatePassion(EPendragonPassionType Type, const FString& Target, int32 Value)
+{
+    for (FPendragonPassion& Passion : Passions)
+    {
+        if (Passion.PassionType == Type && Passion.Target.Equals(Target, ESearchCase::IgnoreCase))
+        {
+            Passion.Value = FMath::Clamp(Value, 0, 20);
+            return;
+        }
+    }
+
+    FPendragonPassion NewPassion;
+    NewPassion.PassionType = Type;
+    NewPassion.Target = Target;
+    NewPassion.Value = FMath::Clamp(Value, 0, 20);
+    Passions.Add(NewPassion);
+}
+
+int32 UPendragonCharacterComponent::GetPassionValue(EPendragonPassionType Type, const FString& Target) const
+{
+    for (const FPendragonPassion& Passion : Passions)
+    {
+        if (Passion.PassionType == Type && Passion.Target.Equals(Target, ESearchCase::IgnoreCase))
+        {
+            return Passion.Value;
+        }
+    }
+    return 0;
+}
+
+void UPendragonCharacterComponent::SetSkillValue(FName SkillID, int32 Value)
+{
+    if (FPendragonSkillData* Skill = CharacterSkills.Find(SkillID))
+    {
+        Skill->Value = FMath::Max(0, Value);
+    }
+    else
+    {
+        FPendragonSkillData NewSkill;
+        NewSkill.SkillID = SkillID;
+        NewSkill.DisplayName = FText::FromName(SkillID);
+        NewSkill.Value = FMath::Max(0, Value);
+        CharacterSkills.Add(SkillID, NewSkill);
+    }
+}
+
+int32 UPendragonCharacterComponent::GetSkillValue(FName SkillID) const
+{
+    if (const FPendragonSkillData* Skill = CharacterSkills.Find(SkillID))
+    {
+        return Skill->Value;
+    }
+    return 0;
+}
+
+void UPendragonCharacterComponent::CheckSkillForImprovement(FName SkillID)
+{
+    if (FPendragonSkillData* Skill = CharacterSkills.Find(SkillID))
+    {
+        Skill->bCheckedForImprovement = true;
+    }
+}
+
+void UPendragonCharacterComponent::CheckPassionForImprovement(EPendragonPassionType Type, const FString& Target)
+{
+    for (FPendragonPassion& Passion : Passions)
+    {
+        if (Passion.PassionType == Type && Passion.Target.Equals(Target, ESearchCase::IgnoreCase))
+        {
+            Passion.bCheckedForImprovement = true;
+        }
+    }
+}

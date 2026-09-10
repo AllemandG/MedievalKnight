@@ -31,16 +31,13 @@ bool UStorySubsystem::EvaluateRequirement(const FPendragonRequirement& Req) cons
         break;
 
     case ERequirementType::Skill:
-        if (const int32* Val = CharacterComponent->Skills.Find(Req.Name))
-        {
-            return *Val >= Req.MinimumValue;
-        }
-        return false;
+        return CharacterComponent->GetSkillValue(Req.Name) >= Req.MinimumValue;
 
     case ERequirementType::Passion:
         for (const FPendragonPassion& Passion : CharacterComponent->Passions)
         {
-            if (Passion.PassionName == Req.Name)
+            if (Passion.Target.Equals(Req.Name.ToString(), ESearchCase::IgnoreCase) ||
+                Passion.GetDisplayName().ToString().Equals(Req.Name.ToString(), ESearchCase::IgnoreCase))
             {
                 return Passion.Value >= Req.MinimumValue;
             }
@@ -86,15 +83,16 @@ void UStorySubsystem::ApplyEffect(const FPendragonEffect& Effect)
     }
     case EEffectType::ModifySkill:
     {
-        int32& Val = CharacterComponent->Skills.FindOrAdd(Effect.Name, 0);
-        Val = FMath::Max(0, Val + Effect.ModifierValue);
+        int32 CurrentSkillVal = CharacterComponent->GetSkillValue(Effect.Name);
+        CharacterComponent->SetSkillValue(Effect.Name, CurrentSkillVal + Effect.ModifierValue);
         break;
     }
     case EEffectType::ModifyPassion:
     {
         for (FPendragonPassion& Passion : CharacterComponent->Passions)
         {
-            if (Passion.PassionName == Effect.Name)
+            if (Passion.Target.Equals(Effect.Name.ToString(), ESearchCase::IgnoreCase) ||
+                Passion.GetDisplayName().ToString().Equals(Effect.Name.ToString(), ESearchCase::IgnoreCase))
             {
                 Passion.Value = FMath::Clamp(Passion.Value + Effect.ModifierValue, 0, 20);
                 break;
@@ -128,10 +126,7 @@ void UStorySubsystem::SelectChoice(int32 ChoiceIndex)
         else if (Choice.CheckType == ERequirementType::Skill)
         {
             ResolvedCheckName = Choice.CheckName;
-            if (const int32* Val = CharacterComponent->Skills.Find(Choice.CheckName))
-            {
-                TargetValue = *Val;
-            }
+            TargetValue = CharacterComponent ? CharacterComponent->GetSkillValue(Choice.CheckName) : 10;
         }
 
         int32 Roll = 0;

@@ -26,13 +26,13 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Traits")
     TMap<EPendragonTrait, int32> Traits;
 
-    // Passions array
+    // Liste des Passions du chevalier
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Passions")
     TArray<FPendragonPassion> Passions;
 
-    // Skills map (Skill Name -> Value)
+    // Dictionnaire enrichi des Compétences
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Skills")
-    TMap<FName, int32> Skills;
+    TMap<FName, FPendragonSkillData> CharacterSkills;
 
     // --- Helpers & Logic ---
 
@@ -51,4 +51,23 @@ public:
     // Helper to perform a check against a specific trait
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Mechanics")
     EPendragonCheckResult CheckTrait(EPendragonTrait TraitPair, bool bCheckPrimary, int32& OutRoll) const;
+
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Passions")
+    void AddOrUpdatePassion(EPendragonPassionType Type, const FString& Target, int32 Value);
+
+    UFUNCTION(BlueprintPure, Category = "Pendragon|Passions")
+    int32 GetPassionValue(EPendragonPassionType Type, const FString& Target) const;
+
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Skills")
+    void SetSkillValue(FName SkillID, int32 Value);
+
+    UFUNCTION(BlueprintPure, Category = "Pendragon|Skills")
+    int32 GetSkillValue(FName SkillID) const;
+
+    // Coche une case d'expérience suite à un succès
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Progression")
+    void CheckSkillForImprovement(FName SkillID);
+
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Progression")
+    void CheckPassionForImprovement(EPendragonPassionType Type, const FString& Target);
 };
