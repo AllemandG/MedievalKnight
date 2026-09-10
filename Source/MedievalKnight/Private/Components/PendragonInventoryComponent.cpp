@@ -138,8 +138,15 @@ bool UPendragonInventoryComponent::RemoveItemByID(FName ItemID, int32 Quantity)
 bool UPendragonInventoryComponent::EquipWeapon(const FWeapon& Weapon, EEquipmentSlot TargetSlot)
 {
     UnequipSlot(TargetSlot);
-    EquippedWeapon = Weapon;
-    EquippedItems.Add(TargetSlot, Weapon);
+
+    FEquippedItemSlot NewSlot;
+    NewSlot.Slot = TargetSlot;
+    NewSlot.bIsOccupied = true;
+    NewSlot.EquippedItemType = Weapon.ItemType;
+    NewSlot.BaseItem = Weapon;
+    NewSlot.EquippedWeapon = Weapon;
+
+    EquippedSlots.Add(TargetSlot, NewSlot);
     RemoveItemByID(Weapon.ItemID, 1);
     OnInventoryUpdated.Broadcast();
     return true;
@@ -164,8 +171,15 @@ bool UPendragonInventoryComponent::EquipArmor(const FArmor& Armor)
     }
 
     UnequipSlot(SlotToUse);
-    EquippedArmors.Add(SlotToUse, Armor);
-    EquippedItems.Add(SlotToUse, Armor);
+
+    FEquippedItemSlot NewSlot;
+    NewSlot.Slot = SlotToUse;
+    NewSlot.bIsOccupied = true;
+    NewSlot.EquippedItemType = Armor.ItemType;
+    NewSlot.BaseItem = Armor;
+    NewSlot.EquippedArmor = Armor;
+
+    EquippedSlots.Add(SlotToUse, NewSlot);
     RemoveItemByID(Armor.ItemID, 1);
     OnInventoryUpdated.Broadcast();
     return true;
@@ -174,8 +188,15 @@ bool UPendragonInventoryComponent::EquipArmor(const FArmor& Armor)
 bool UPendragonInventoryComponent::EquipShield(const FShield& Shield)
 {
     UnequipSlot(EEquipmentSlot::OffHand);
-    EquippedShield = Shield;
-    EquippedItems.Add(EEquipmentSlot::OffHand, Shield);
+
+    FEquippedItemSlot NewSlot;
+    NewSlot.Slot = EEquipmentSlot::OffHand;
+    NewSlot.bIsOccupied = true;
+    NewSlot.EquippedItemType = Shield.ItemType;
+    NewSlot.BaseItem = Shield;
+    NewSlot.EquippedShield = Shield; // Un bouclier fournit de la protection comme une armure
+
+    EquippedSlots.Add(EEquipmentSlot::OffHand, NewSlot);
     RemoveItemByID(Shield.ItemID, 1);
     OnInventoryUpdated.Broadcast();
     return true;
@@ -184,8 +205,15 @@ bool UPendragonInventoryComponent::EquipShield(const FShield& Shield)
 bool UPendragonInventoryComponent::EquipMount(const FHorse& Mount, EEquipmentSlot Slot)
 {
     UnequipSlot(Slot);
-    EquippedWarMount = Mount;
-    EquippedItems.Add(Slot, Mount);
+
+    FEquippedItemSlot NewSlot;
+    NewSlot.Slot = Slot;
+    NewSlot.bIsOccupied = true;
+    NewSlot.EquippedItemType = Mount.ItemType;
+    NewSlot.BaseItem = Mount;
+    NewSlot.EquippedHorse = Mount;
+
+    EquippedSlots.Add(Slot, NewSlot);
     RemoveItemByID(Mount.ItemID, 1);
     OnInventoryUpdated.Broadcast();
     return true;
@@ -193,48 +221,34 @@ bool UPendragonInventoryComponent::EquipMount(const FHorse& Mount, EEquipmentSlo
 
 bool UPendragonInventoryComponent::UnequipSlot(EEquipmentSlot Slot)
 {
-    bool bUnequippedAny = false;
-
-    if (EquippedArmors.Contains(Slot))
+    if (!EquippedSlots.Contains(Slot))
     {
-        AddArmor(EquippedArmors[Slot]);
-        EquippedArmors.Remove(Slot);
-        bUnequippedAny = true;
+        return false;
     }
 
-    if (Slot == EEquipmentSlot::MainHand && EquippedWeapon.ItemID != NAME_None)
+    FEquippedItemSlot OccupiedSlot = EquippedSlots[Slot];
+
+    // Restitution dans le sac à backpack selon le type
+    if (OccupiedSlot.EquippedWeapon.ItemID != NAME_None)
     {
-        AddWeapon(EquippedWeapon);
-        EquippedWeapon = FWeapon();
-        bUnequippedAny = true;
+        AddWeapon(OccupiedSlot.EquippedWeapon);
+    }
+    else if (OccupiedSlot.EquippedHorse.ItemID != NAME_None)
+    {
+        AddMount(OccupiedSlot.EquippedHorse);
+    }
+    else if (OccupiedSlot.EquippedShield.ItemID != NAME_None)
+    {
+        AddShield(OccupiedSlot.EquippedShield);
+    }
+    else if (OccupiedSlot.EquippedArmor.ItemID != NAME_None)
+    {
+        AddArmor(OccupiedSlot.EquippedArmor);
     }
 
-    if (Slot == EEquipmentSlot::OffHand && EquippedShield.ItemID != NAME_None)
-    {
-        AddShield(EquippedShield);
-        EquippedShield = FShield();
-        bUnequippedAny = true;
-    }
-
-    if (Slot == EEquipmentSlot::WarMount && EquippedWarMount.ItemID != NAME_None)
-    {
-        AddMount(EquippedWarMount);
-        EquippedWarMount = FHorse();
-        bUnequippedAny = true;
-    }
-
-    if (EquippedItems.Contains(Slot))
-    {
-        EquippedItems.Remove(Slot);
-        bUnequippedAny = true;
-    }
-
-    if (bUnequippedAny)
-    {
-        OnInventoryUpdated.Broadcast();
-    }
-
-    return bUnequippedAny;
+    EquippedSlots.Remove(Slot);
+    OnInventoryUpdated.Broadcast();
+    return true;
 }
 
 int32 UPendragonInventoryComponent::GetTotalKnightArmorProtection() const
@@ -258,9 +272,15 @@ int32 UPendragonInventoryComponent::GetTotalKnightArmorProtection() const
 
 int32 UPendragonInventoryComponent::GetActiveMountArmorProtection() const
 {
-    if (EquippedWarMount.ItemID != NAME_None)
+    if (const FEquippedItemSlot* WarMountSlot = EquippedSlots.Find(EEquipmentSlot::WarMount))
     {
-        return EquippedWarMount.GetArmorProtection();
+        return WarMountSlot->EquippedHorse.GetArmorProtection();
     }
+    
+    if (const FEquippedItemSlot* RidingHorseSlot = EquippedSlots.Find(EEquipmentSlot::RidingMount))
+    {
+        return RidingHorseSlot->EquippedHorse.GetArmorProtection();
+    }
+    
     return 0;
 }

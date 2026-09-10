@@ -35,9 +35,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Inventory|Mounts")
     TArray<FHorse> Mounts;
 
-    // Équipement actuellement équipé sur le chevalier (Slot -> FPendragonItem)
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Equipment")
-    TMap<EEquipmentSlot, FPendragonItem> EquippedItems;
+    // Remplacement de TMap<EEquipmentSlot, FPendragonItem>
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment")
+    TMap<EEquipmentSlot, FEquippedItemSlot> EquippedSlots;
 
     // Armures spécifiques actuellement équipées
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Equipment")

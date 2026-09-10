@@ -26,7 +26,6 @@ enum class EEquipmentSlot : uint8
 	BeltSecondary	UMETA(DisplayName = "Belt Secondary"),
 	RangedWeapon	UMETA(DisplayName = "Ranged Weapon"),
 	Clothing		UMETA(DisplayName = "Clothing"),
-	Armor			UMETA(DisplayName = "Armor"),
 	ArmorMailPlate	UMETA(DisplayName = "Armor Mail/Plate"),
 	ArmorTextile	UMETA(DisplayName = "Armor Textile"),
 	ArmorHelm		UMETA(DisplayName = "Armor Helm"),
@@ -298,4 +297,37 @@ struct FHorse : public FPendragonItem
 	{
 		return NaturalArmorProtection + HorseArmor.ArmorProtection;
 	}
+};
+
+// Représente un emplacement d'équipement actif avec son contenu typé
+USTRUCT(BlueprintType)
+struct FEquippedItemSlot
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment")
+	EEquipmentSlot Slot = EEquipmentSlot::None;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment")
+	bool bIsOccupied = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment")
+	EItemType EquippedItemType = EItemType::General;
+
+	// Métadonnées de base
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (EditCondition = "EquippedItemType == EItemType::General || EquippedItemType == EItemType::Clothing", EditConditionHides))
+	FPendragonItem BaseItem;
+
+	// Données spécifiques selon le type d'objet équipé
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (EditCondition = "EquippedItemType == EItemType::Weapon", EditConditionHides))
+	FWeapon EquippedWeapon;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (EditCondition = "EquippedItemType == EItemType::Shield", EditConditionHides))
+	FShield EquippedShield;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (EditCondition = "EquippedItemType == EItemType::Armor", EditConditionHides))
+	FArmor EquippedArmor;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment", meta = (EditCondition = "EquippedItemType == EItemType::Mount", EditConditionHides))
+	FHorse EquippedHorse;
 };
