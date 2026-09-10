@@ -146,6 +146,13 @@ struct FPendragonPassion
 	}
 };
 
+UENUM(BlueprintType)
+enum class EPendragonSkillCategory : uint8
+{
+	Combat      UMETA(DisplayName = "Combat"),
+	Civilian    UMETA(DisplayName = "Civilian / Non-Combat")
+};
+
 // Structure d'une Compétence (ex: Horsemanship 15, Sword 13, Courtesy 10)
 USTRUCT(BlueprintType)
 struct FPendragonSkillData
@@ -160,7 +167,11 @@ struct FPendragonSkillData
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skill")
 	int32 Value = 5;
-
+	
+	// Catégorie : Combat ou Civile
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skill")
+	EPendragonSkillCategory Category = EPendragonSkillCategory::Civilian;
+	
 	// Est-ce une compétence de chevalier (ex: Épée, Lance, Équitation) ou de courtisan ?
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skill")
 	bool bIsKnightlySkill = false;
