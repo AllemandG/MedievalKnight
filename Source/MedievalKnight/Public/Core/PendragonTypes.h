@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PendragonEnums.h"
 #include "PendragonTypes.generated.h"
 
 USTRUCT(BlueprintType)
@@ -179,4 +180,27 @@ struct FPendragonSkillData
 	// Case à cocher pour progression
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skill")
 	bool bCheckedForImprovement = false;
+};
+
+USTRUCT(BlueprintType)
+struct FPendragonTraitPair
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Trait")
+	EPendragonTrait PrimaryTrait = EPendragonTrait::Chaste;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Trait")
+	EPendragonTrait OppositeTrait = EPendragonTrait::Lustful;
+
+	// Valeur du trait principal (0 à 20). Le trait opposé vaut toujours (20 - Value)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Trait")
+	int32 Value = 10;
+
+	// Case à cocher pour la progression (phase d'hiver)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Trait")
+	bool bPrimaryCheckedForImprovement = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Trait")
+	bool bOppositeCheckedForImprovement = false;
 };
