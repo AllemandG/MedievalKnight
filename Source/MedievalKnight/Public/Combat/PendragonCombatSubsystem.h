@@ -68,9 +68,20 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Combat")
     void StartCombat(UPendragonCharacterComponent* PlayerChar, UPendragonInventoryComponent* PlayerInv, const FPendragonNPC& Enemy);
 
-    /** Exécuter une attaque standard pour le round en cours */
+    /** 
+     * Exécute le round de combat avec une tactique spécifique
+     * @param Tactic Posture tactique choisie pour ce round
+     * @param SkillUsed Compétence utilisée (Épée, Lance, etc.)
+     */
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Combat")
-    void ExecutePlayerAttack(FName SkillUsed = TEXT("Sword"));
+    void ExecutePlayerAttack(EPendragonCombatTactic Tactic = EPendragonCombatTactic::Normal, FName SkillUsed = TEXT("Sword"));
+
+    /** Active/Désactive l'état monté pour la charge à la lance */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Combat")
+    bool bPlayerIsMounted = false;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Combat")
+    bool bEnemyIsMounted = false;
 
 protected:
     UPROPERTY()
