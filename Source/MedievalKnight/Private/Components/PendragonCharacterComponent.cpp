@@ -7,6 +7,12 @@ UPendragonCharacterComponent::UPendragonCharacterComponent()
     // ==========================================
     // 0. DONNÉES DE TEST : TRAITS DE DÉPART
     // ==========================================
+    Attributes.Size = 12;
+    Attributes.Dexterity = 13;
+    Attributes.Strength = 15;
+    Attributes.Constitution = 13;
+    Attributes.Appearance = 13;
+    
     auto AddTraitPair = [this](EPendragonTrait Primary, EPendragonTrait Opposite, int32 DefaultVal = 10)
     {
         FPendragonTraitPair Pair;

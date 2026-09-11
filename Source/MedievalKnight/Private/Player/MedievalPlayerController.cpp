@@ -25,6 +25,7 @@ void AMedievalPlayerController::BeginPlay()
         ArmingSword.WeaponType = EWeaponType::Sword;
         ArmingSword.WeaponSubType = EWeaponSubType::ArmingSword;
         ArmingSword.Slot = EEquipmentSlot::MainHand;
+    	ArmingSword.FootMountedType = EFootMountedType::Both;
         ArmingSword.BonusDamage = 0;
         ArmingSword.ValueInDenarii = 120;
 
@@ -82,6 +83,60 @@ void AMedievalPlayerController::BeginPlay()
     	KiteShield.ArmorProtection = 6;
     	KiteShield.ValueInDenarii = 30;
 
+    	// 7. Une Arbalète légère
+    	FWeapon CrossbowLight;
+    	CrossbowLight.ItemID = TEXT("CrossbowLight_01");
+    	CrossbowLight.ItemName = FText::FromString(TEXT("Arbalète Légère"));
+    	CrossbowLight.Description = FText::FromString(TEXT("Une arbalète légère, nécessite d'être à pieds pour être rechargée."));
+    	CrossbowLight.ItemType = EItemType::Weapon;
+    	CrossbowLight.WeaponType = EWeaponType::Crossbow;
+    	CrossbowLight.WeaponSubType = EWeaponSubType::CrossbowLight;
+    	CrossbowLight.Slot = EEquipmentSlot::RangedWeapon;
+    	CrossbowLight.FootMountedType = EFootMountedType::Both;
+    	CrossbowLight.BonusDamage = 1;
+    	CrossbowLight.FlatDamage = 10;
+    	CrossbowLight.ValueInDenarii = 60;
+
+    	// Autres
+    	FWeapon Dagger;
+    	Dagger.ItemID = TEXT("Dagger_01");
+    	Dagger.ItemName = FText::FromString(TEXT("Dague"));
+    	Dagger.Description = FText::FromString(TEXT("Une dague en acier trempé."));
+    	Dagger.ItemType = EItemType::Weapon;
+    	Dagger.WeaponType = EWeaponType::Thrown;
+    	Dagger.WeaponAltType = EWeaponType::Brawling;
+    	Dagger.WeaponSubType = EWeaponSubType::Dagger;
+    	Dagger.Slot = EEquipmentSlot::BeltSecondary;
+    	Dagger.FootMountedType = EFootMountedType::Both;
+    	Dagger.BonusDamage = 2;
+    	Dagger.ValueInDenarii = 20;
+
+    	FWeapon Lance;
+    	Lance.ItemID = TEXT("Lance_01");
+    	Lance.ItemName = FText::FromString(TEXT("Lance"));
+    	Lance.Description = FText::FromString(TEXT("Une Lance."));
+    	Lance.ItemType = EItemType::Weapon;
+    	Lance.WeaponType = EWeaponType::Charge;
+    	Lance.WeaponSubType = EWeaponSubType::Lance;
+    	Lance.Slot = EEquipmentSlot::MainHand;
+    	Lance.FootMountedType = EFootMountedType::Mounted;
+    	Lance.BonusDamage = 0;
+    	Lance.ValueInDenarii = 30;
+
+    	FWeapon JoustingLance;
+    	JoustingLance.ItemID = TEXT("JoustingLance_01");
+    	JoustingLance.ItemName = FText::FromString(TEXT("Lance de joutes"));
+    	JoustingLance.Description = FText::FromString(TEXT("Une Lance de joutes, concue pour se briser plus facilement à l'impact."));
+    	JoustingLance.ItemType = EItemType::Weapon;
+    	JoustingLance.WeaponType = EWeaponType::Charge;
+    	JoustingLance.WeaponSubType = EWeaponSubType::JoustingLance;
+    	JoustingLance.Slot = EEquipmentSlot::MainHand;
+    	JoustingLance.FootMountedType = EFootMountedType::Mounted;
+    	JoustingLance.BonusDamage = 0;
+    	JoustingLance.ValueInDenarii = 3;
+
+    	
+
         // Ajout à l'inventaire puis équipement direct
         InventoryComponent->AddWeapon(ArmingSword);
         InventoryComponent->AddArmor(Chainmail);
@@ -89,10 +144,21 @@ void AMedievalPlayerController::BeginPlay()
     	InventoryComponent->AddArmor(Aketon);
     	InventoryComponent->AddArmor(NasalHelm);
     	InventoryComponent->AddShield(KiteShield);
+    	InventoryComponent->AddWeapon(CrossbowLight);
+    	InventoryComponent->AddWeapon(Dagger);
+    	InventoryComponent->AddWeapon(Lance);
+    	InventoryComponent->AddWeapon(JoustingLance);
+    	InventoryComponent->AddWeapon(JoustingLance);
+    	InventoryComponent->AddWeapon(JoustingLance);
+    	InventoryComponent->AddWeapon(JoustingLance);
 
         InventoryComponent->EquipWeapon(ArmingSword, EEquipmentSlot::MainHand);
-        InventoryComponent->EquipArmor(Aketon);
         InventoryComponent->EquipMount(Charger, EEquipmentSlot::WarMount);
+        InventoryComponent->EquipArmor(Aketon);
     	InventoryComponent->EquipArmor(Chainmail);
+    	InventoryComponent->EquipArmor(NasalHelm);
+    	InventoryComponent->EquipShield(KiteShield);
+    	InventoryComponent->EquipWeapon(CrossbowLight, EEquipmentSlot::RangedWeapon);
+    	InventoryComponent->EquipWeapon(Dagger, EEquipmentSlot::BeltSecondary);
     }
 }

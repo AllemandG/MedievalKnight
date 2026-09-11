@@ -60,8 +60,18 @@ void UPendragonCombatSubsystem::ExecutePlayerAttack(FName SkillUsed)
         // Coche la compétence d'épée/combat du joueur pour la phase d'hiver
         PlayerCharacterComp->CheckSkillForImprovement(SkillUsed);
 
-        Log.LogMessage = FText::FromString(FString::Printf(TEXT("Vous touchez %s et infligez %d dégâts (%d absorbés)."), 
+        if (Log.bIsMajorWound)
+        {
+            Log.LogMessage = FText::FromString(FString::Printf(
+                TEXT("COUP TERRIBLE ! Vous infligez %d dégâts à %s. Une Blessure Majeure est subie !"),
+                Log.FinalDamageTaken, *CurrentEnemy.Name.ToString()
+            ));
+        }
+        else
+        {
+            Log.LogMessage = FText::FromString(FString::Printf(TEXT("Vous touchez %s et infligez %d dégâts (%d absorbés)."), 
             *CurrentEnemy.Name.ToString(), Log.FinalDamageTaken, Log.ArmorAbsorbed));
+        }
     }
     else if (Log.CheckResult.Outcome == EOpposedOutcome::DefenderWins)
     {
@@ -79,8 +89,18 @@ void UPendragonCombatSubsystem::ExecutePlayerAttack(FName SkillUsed)
         PlayerCharacterComp->Attributes.CurrentHealth -= Log.FinalDamageTaken;
         Log.bIsMajorWound = (Log.FinalDamageTaken >= PlayerCharacterComp->Attributes.Constitution);
 
-        Log.LogMessage = FText::FromString(FString::Printf(TEXT("%s vous touche et inflige %d dégâts (%d absorbés par votre armure)."), 
+        if (Log.bIsMajorWound)
+        {
+            Log.LogMessage = FText::FromString(FString::Printf(
+                TEXT("COUP TERRIBLE ! %s vous touche et inflige %d dégâts. Une Blessure Majeure est subie !"),
+                *CurrentEnemy.Name.ToString(), Log.FinalDamageTaken
+            ));
+        }
+        else
+        {
+            Log.LogMessage = FText::FromString(FString::Printf(TEXT("%s vous touche et inflige %d dégâts (%d absorbés par votre armure)."), 
             *CurrentEnemy.Name.ToString(), Log.FinalDamageTaken, Log.ArmorAbsorbed));
+        }
     }
     else
     {

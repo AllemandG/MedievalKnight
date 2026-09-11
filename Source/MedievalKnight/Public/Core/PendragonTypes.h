@@ -67,46 +67,6 @@ struct FPendragonAttributes
 	}
 };
 
-// Types de Passions dans Pendragon
-UENUM(BlueprintType)
-enum class EPendragonPassionGroup : uint8
-{
-	None        UMETA(DisplayName = "None / Individual"),
-	Fidelitas   UMETA(DisplayName = "Fidelitas"),
-	Fervor      UMETA(DisplayName = "Fervor"),
-	Adoratio    UMETA(DisplayName = "Adoratio"),
-	Civilitas   UMETA(DisplayName = "Civilitas")
-};
-
-UENUM(BlueprintType)
-enum class EPendragonPassionType : uint8
-{
-	// Fidelitas
-	Duty        UMETA(DisplayName = "Duty"),
-	Fealty      UMETA(DisplayName = "Fealty"),
-	Homage      UMETA(DisplayName = "Homage"),
-	Loyalty     UMETA(DisplayName = "Loyalty"),
-
-	// Fervor
-	Hate        UMETA(DisplayName = "Hate"),
-	Love        UMETA(DisplayName = "Love"),
-
-	// Adoratio
-	Adoration   UMETA(DisplayName = "Adoration"),
-	Devotion    UMETA(DisplayName = "Devotion"),
-
-	// Civilitas
-	Chivalry    UMETA(DisplayName = "Chivalry"),
-	Hospitality UMETA(DisplayName = "Hospitality"),
-	Station     UMETA(DisplayName = "Station"),
-
-	// Indépendant
-	Honor       UMETA(DisplayName = "Honor"),
-	Avarice     UMETA(DisplayName = "Avarice"),
-	Fear        UMETA(DisplayName = "Fear"),
-	Jealousy	UMETA(DisplayName = "Jealousy")
-};
-
 // Structure d'une Passion (ex: Loyalty (Lord) 15, Hate (Saxons) 12)
 USTRUCT(BlueprintType)
 struct FPendragonPassion
@@ -165,13 +125,6 @@ struct FPendragonPassion
 	}
 };
 
-UENUM(BlueprintType)
-enum class EPendragonSkillCategory : uint8
-{
-	Combat      UMETA(DisplayName = "Combat"),
-	Civilian    UMETA(DisplayName = "Civilian / Non-Combat")
-};
-
 // Structure d'une Compétence (ex: Horsemanship 15, Sword 13, Courtesy 10)
 USTRUCT(BlueprintType)
 struct FPendragonSkillData
@@ -222,3 +175,4 @@ struct FPendragonTraitPair
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Trait")
 	bool bOppositeCheckedForImprovement = false;
 };
+
