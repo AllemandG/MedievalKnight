@@ -35,6 +35,29 @@ public:
     TMap<FName, FPendragonSkillData> CharacterSkills;
 
     // --- Helpers & Logic ---
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Traits")
+    int32 GetKnockdown () const { return Attributes.GetKnockdown(); }
+
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Traits")
+    int32 GetDamageBonus() const { return Attributes.GetDamageBonus(); }
+
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Traits")
+    int32 GetBrawlingDamage() const { return Attributes.GetBrawlingDamage(); }
+
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Traits")
+    int32 GetMovementRate() const { return Attributes.GetMovementRate(); }
+
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Traits")
+    int32 GetMajorWoundThreshold() const { return Attributes.GetMajorWoundThreshold(); }
+
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Traits")
+    int32 GetHealRate() const { return Attributes.GetHealRate(); }
+
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Traits")
+    int32 GetMaxHealth() const { return Attributes.GetMaxHealth(); }
+
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Traits")
+    int32 GetUnconscious() const { return Attributes.GetUnconscious(); }
 
     // Get the value of a trait (Primary or Opposed)
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Traits")

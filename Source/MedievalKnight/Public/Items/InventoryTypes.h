@@ -225,6 +225,9 @@ struct FWeapon : public FPendragonItem
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "ItemType == EItemType::Weapon", EditConditionHides))
 	int32 BonusDamage = 0;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "WeaponType == EWeaponType::Thrown", EditConditionHides))
+	int32 BonusThrown = 0;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "ItemType == EItemType::Weapon", EditConditionHides))
 	int32 FlatDamage = 0;
 };
@@ -280,7 +283,28 @@ struct FHorse : public FPendragonItem
 	EHorseSubType HorseSubType = EHorseSubType::Charger;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
-	FPendragonAttributes Attributes;
+	int32 Size = 40;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
+	int32 Dexterity = 13;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
+	int32 Strength = 32;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
+	int32 Constitution = 15;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
+	int32 Move = 16;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
+	int32 HP = 55;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
+	int32 NormalDamage = 3;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
+	int32 ChargeDamage = 6;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
 	FHorseArmor Caparison;
@@ -290,7 +314,7 @@ struct FHorse : public FPendragonItem
 
 	// Statistiques d'équipement
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "ItemType == EItemType::Mount", EditConditionHides))
-	int32 NaturalArmorProtection = 0;
+	int32 NaturalArmorProtection = 5;
 
 	// Derived Statistics (Getters)
 	int32 GetArmorProtection() const

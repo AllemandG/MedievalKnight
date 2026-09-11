@@ -255,16 +255,16 @@ int32 UPendragonInventoryComponent::GetTotalKnightArmorProtection() const
 {
     int32 TotalProtection = 0;
 
-    // Somme des armures superposées (ex: Gambison textile + Haubert de maille + Casque)
-    for (const auto& Pair : EquippedArmors)
+    for (const auto& Pair : EquippedSlots)
     {
-        TotalProtection += Pair.Value.ArmorProtection;
-    }
-
-    // Ajout du bouclier s'il est équipé
-    if (EquippedShield.ItemID != NAME_None)
-    {
-        TotalProtection += EquippedShield.ArmorProtection;
+        const FEquippedItemSlot& SlotData = Pair.Value;
+        
+        // Exclut les montures du calcul de protection du chevalier
+        if (SlotData.Slot != EEquipmentSlot::WarMount && SlotData.Slot != EEquipmentSlot::RidingMount)
+        {
+            TotalProtection += SlotData.EquippedArmor.ArmorProtection;
+            TotalProtection += SlotData.EquippedShield.ArmorProtection;
+        }
     }
 
     return TotalProtection;
