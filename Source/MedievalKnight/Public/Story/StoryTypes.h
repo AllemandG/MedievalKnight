@@ -35,7 +35,7 @@ struct FPendragonRequirement
 
     // Utilisé si RequirementType est Trait
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Requirement", meta = (EditCondition = "RequirementType == ERequirementType::Trait", EditConditionHides))
-    EPendragonTrait Trait = EPendragonTrait::Valiant_Cowardly;
+    EPendragonTrait Trait = EPendragonTrait::Valorous;
 
     // Indique si la condition porte sur le trait primaire (ex: Valiant) ou secondaire (ex: Cowardly)
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Requirement", meta = (EditCondition = "RequirementType == ERequirementType::Trait", EditConditionHides))
@@ -60,7 +60,7 @@ struct FPendragonEffect
     EEffectType EffectType = EEffectType::ModifyTrait;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect", meta = (EditCondition = "EffectType == EEffectType::ModifyTrait", EditConditionHides))
-    EPendragonTrait Trait = EPendragonTrait::Valiant_Cowardly;
+    EPendragonTrait Trait = EPendragonTrait::Valorous;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Effect", meta = (EditCondition = "EffectType == EEffectType::ModifySkill || EffectType == EEffectType::ModifyPassion", EditConditionHides))
     FName Name = NAME_None;
@@ -92,7 +92,7 @@ struct FStoryChoice
     ERequirementType CheckType = ERequirementType::Trait;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Choice|Check", meta = (EditCondition = "bRequiresCheck && CheckType == ERequirementType::Trait", EditConditionHides))
-    EPendragonTrait CheckTrait = EPendragonTrait::Valiant_Cowardly;
+    EPendragonTrait CheckTrait = EPendragonTrait::Valorous;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Choice|Check", meta = (EditCondition = "bRequiresCheck && CheckType == ERequirementType::Trait", EditConditionHides))
     bool bCheckPrimaryTrait = true;

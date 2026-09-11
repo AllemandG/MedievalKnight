@@ -22,9 +22,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Attributes")
     FPendragonAttributes Attributes;
 
-    // Traits map (Stores value for the primary trait of each pair, secondary is 20 - value)
+    // Liste des 13 paires de traits (Chaste/Lustful, Energetic/Lazy, etc.)
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Traits")
-    TMap<EPendragonTrait, int32> Traits;
+    TArray<FPendragonTraitPair> Traits;
 
     // Liste des Passions du chevalier
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Passions")
@@ -68,6 +68,23 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Progression")
     void CheckSkillForImprovement(FName SkillID);
 
+    // Coche la case d'expérience d'un trait (principal ou opposé)
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Progression")
+    void CheckTraitForImprovement(EPendragonTrait Trait, bool bIsPrimaryTrait);
+
+    // Coche la case d'expérience d'une passion
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Progression")
     void CheckPassionForImprovement(EPendragonPassionType Type, const FString& Target);
+
+    // Coche la case d'expérience d'un attribut
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Progression")
+    void CheckAttributeForImprovement(EPendragonAttribute Attribute);
+
+    /** Arrondit une division au plus proche (0,5 et plus -> supérieur). Ex: 27/6 = 4.5 -> 5 */
+    UFUNCTION(BlueprintPure, Category = "Pendragon|Math")
+    static FORCEINLINE int32 RoundDivide(int32 Dividend, int32 Divisor)
+    {
+        if (Divisor == 0) return 0;
+        return FMath::RoundToInt(static_cast<float>(Dividend) / static_cast<float>(Divisor));
+    }
 };

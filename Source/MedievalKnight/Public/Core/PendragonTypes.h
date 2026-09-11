@@ -13,10 +13,10 @@ struct FPendragonAttributes
 	int32 Size = 10;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
-	int32 Strength = 10;
+	int32 Dexterity = 10;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
-	int32 Dexterity = 10;
+	int32 Strength = 10;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
 	int32 Constitution = 10;
@@ -27,25 +27,43 @@ struct FPendragonAttributes
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes|State")
 	int32 CurrentHealth = 20;
 
+	// Cases à cocher pour l'amélioration en phase d'hiver
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
+	bool bSizeChecked = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
+	bool bDexterityChecked = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
+	bool bStrengthChecked = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
+	bool bConstitutionChecked = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
+	bool bAppearanceChecked = false;
+
 	// Derived Statistics (Getters)
-	int32 GetMaxHealth() const
-	{
-		return Size + Constitution;
-	}
+	int32 GetKnockdown () const { return Size; }
 
-	int32 GetMajorWoundThreshold() const
-	{
-		return Constitution;
-	}
+	int32 GetDamageBonus() const { return RoundDivide(Size + Strength, 6); }
 
-	int32 GetHealRate() const
-	{
-		return FMath::Max(1, Constitution / 5);
-	}
+	int32 GetBrawlingDamage() const { return RoundDivide(Size + Strength, 6); }
 
-	int32 GetDamageBonus() const
+	int32 GetMovementRate() const { return (RoundDivide(Strength + Dexterity, 2)+5); }
+
+	int32 GetMajorWoundThreshold() const { return Constitution; }
+
+	int32 GetHealRate() const { return FMath::Max(1, RoundDivide(Constitution, 5)); }
+	
+	int32 GetMaxHealth() const { return Constitution + Size; }
+
+	int32 GetUnconscious() const { return RoundDivide(GetMaxHealth(),4); }
+
+	static FORCEINLINE int32 RoundDivide(int32 Dividend, int32 Divisor)
 	{
-		return (Strength + Size) / 6;
+		if (Divisor == 0) return 0;
+		return FMath::RoundToInt(static_cast<float>(Dividend) / static_cast<float>(Divisor));
 	}
 };
 

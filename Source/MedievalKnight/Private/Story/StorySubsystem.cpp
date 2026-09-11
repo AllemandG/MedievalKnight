@@ -116,24 +116,94 @@ void UStorySubsystem::SelectChoice(int32 ChoiceIndex)
         int32 TargetValue = 10;
         FName ResolvedCheckName = NAME_None;
 
-        if (Choice.CheckType == ERequirementType::Trait)
+        // 1. Résolution de la valeur cible selon le type de test
+        switch (Choice.CheckType)
+        {
+        case ERequirementType::Trait:
         {
             TargetValue = CharacterComponent ? CharacterComponent->GetTraitValue(Choice.CheckTrait, Choice.bCheckPrimaryTrait) : 10;
-        
             UEnum* TraitEnum = StaticEnum<EPendragonTrait>();
             ResolvedCheckName = TraitEnum ? FName(*TraitEnum->GetDisplayNameTextByValue(static_cast<int64>(Choice.CheckTrait)).ToString()) : FName(TEXT("Trait"));
+            break;
         }
-        else if (Choice.CheckType == ERequirementType::Skill)
+        case ERequirementType::Skill:
         {
             ResolvedCheckName = Choice.CheckName;
             TargetValue = CharacterComponent ? CharacterComponent->GetSkillValue(Choice.CheckName) : 10;
+            break;
+        }
+        case ERequirementType::Passion:
+        {
+            ResolvedCheckName = Choice.CheckName;
+            if (CharacterComponent)
+            {
+                for (const FPendragonPassion& Passion : CharacterComponent->Passions)
+                {
+                    if (Passion.Target.Equals(Choice.CheckName.ToString(), ESearchCase::IgnoreCase) ||
+                        Passion.GetDisplayName().ToString().Equals(Choice.CheckName.ToString(), ESearchCase::IgnoreCase))
+                    {
+                        TargetValue = Passion.Value;
+                        break;
+                    }
+                }
+            }
+            break;
+        }
+        case ERequirementType::Attribute:
+        {
+            ResolvedCheckName = Choice.CheckName;
+            if (CharacterComponent)
+            {
+                if (Choice.CheckName == "Size") TargetValue = CharacterComponent->Attributes.Size;
+                else if (Choice.CheckName == "Strength") TargetValue = CharacterComponent->Attributes.Strength;
+                else if (Choice.CheckName == "Dexterity") TargetValue = CharacterComponent->Attributes.Dexterity;
+                else if (Choice.CheckName == "Constitution") TargetValue = CharacterComponent->Attributes.Constitution;
+                else if (Choice.CheckName == "Appearance") TargetValue = CharacterComponent->Attributes.Appearance;
+            }
+            break;
+        }
         }
 
+        // 2. Jet d20
         int32 Roll = 0;
         EPendragonCheckResult Result = UPendragonCharacterComponent::PerformD20Check(TargetValue, Roll);
 
         OnCheckResolved.Broadcast(Result, Roll, TargetValue, ResolvedCheckName);
 
+        // 3. Application de la case de progression (Check for Improvement) en cas de succès
+        if ((Result == EPendragonCheckResult::Success || Result == EPendragonCheckResult::CriticalSuccess) && CharacterComponent)
+        {
+            switch (Choice.CheckType)
+            {
+            case ERequirementType::Trait:
+                CharacterComponent->CheckTraitForImprovement(Choice.CheckTrait, Choice.bCheckPrimaryTrait);
+                break;
+            case ERequirementType::Skill:
+                CharacterComponent->CheckSkillForImprovement(Choice.CheckName);
+                break;
+            case ERequirementType::Passion:
+                // Coche la passion correspondante
+                for (FPendragonPassion& Passion : CharacterComponent->Passions)
+                {
+                    if (Passion.Target.Equals(Choice.CheckName.ToString(), ESearchCase::IgnoreCase) ||
+                        Passion.GetDisplayName().ToString().Equals(Choice.CheckName.ToString(), ESearchCase::IgnoreCase))
+                    {
+                        Passion.bCheckedForImprovement = true;
+                        break;
+                    }
+                }
+                break;
+            case ERequirementType::Attribute:
+                if (Choice.CheckName == "Size") CharacterComponent->CheckAttributeForImprovement(EPendragonAttribute::Size);
+                else if (Choice.CheckName == "Strength") CharacterComponent->CheckAttributeForImprovement(EPendragonAttribute::Strength);
+                else if (Choice.CheckName == "Dexterity") CharacterComponent->CheckAttributeForImprovement(EPendragonAttribute::Dexterity);
+                else if (Choice.CheckName == "Constitution") CharacterComponent->CheckAttributeForImprovement(EPendragonAttribute::Constitution);
+                else if (Choice.CheckName == "Appearance") CharacterComponent->CheckAttributeForImprovement(EPendragonAttribute::Appearance);
+                break;
+            }
+        }
+
+        // 4. Transition vers le nœud de destination
         TSoftObjectPtr<UStoryNodeDataAsset> TargetNode = Choice.FailureNode;
 
         switch (Result)

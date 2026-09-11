@@ -3,21 +3,33 @@
 UPendragonCharacterComponent::UPendragonCharacterComponent()
 {
     PrimaryComponentTick.bCanEverTick = false;
+    
+    // ==========================================
+    // 0. DONNÉES DE TEST : TRAITS DE DÉPART
+    // ==========================================
+    auto AddTraitPair = [this](EPendragonTrait Primary, EPendragonTrait Opposite, int32 DefaultVal = 10)
+    {
+        FPendragonTraitPair Pair;
+        Pair.PrimaryTrait = Primary;
+        Pair.OppositeTrait = Opposite;
+        Pair.Value = DefaultVal;
+        Traits.Add(Pair);
+    };
 
-    // Initialize default trait values (10/10 balance by default)
-    Traits.Add(EPendragonTrait::Chaste_Lustful, 10);
-    Traits.Add(EPendragonTrait::Energetic_Lazy, 10);
-    Traits.Add(EPendragonTrait::Forgiving_Vengeful, 10);
-    Traits.Add(EPendragonTrait::Generous_Selfish, 10);
-    Traits.Add(EPendragonTrait::Honest_Deceitful, 10);
-    Traits.Add(EPendragonTrait::Just_Arbitrary, 10);
-    Traits.Add(EPendragonTrait::Merciful_Cruel, 10);
-    Traits.Add(EPendragonTrait::Modest_Proud, 10);
-    Traits.Add(EPendragonTrait::Pious_Worldly, 10);
-    Traits.Add(EPendragonTrait::Prudent_Reckless, 10);
-    Traits.Add(EPendragonTrait::Temperate_Indulgent, 10);
-    Traits.Add(EPendragonTrait::Trusting_Suspicious, 10);
-    Traits.Add(EPendragonTrait::Valiant_Cowardly, 10);
+    Traits.Empty();
+    AddTraitPair(EPendragonTrait::Chaste,     EPendragonTrait::Lustful,     13);
+    AddTraitPair(EPendragonTrait::Energetic,  EPendragonTrait::Lazy,        12);
+    AddTraitPair(EPendragonTrait::Forgiving,  EPendragonTrait::Vengeful,    10);
+    AddTraitPair(EPendragonTrait::Generous,   EPendragonTrait::Selfish,     11);
+    AddTraitPair(EPendragonTrait::Honest,     EPendragonTrait::Deceitful,   12);
+    AddTraitPair(EPendragonTrait::Just,       EPendragonTrait::Arbitrary,   14);
+    AddTraitPair(EPendragonTrait::Merciful,   EPendragonTrait::Cruel,       10);
+    AddTraitPair(EPendragonTrait::Modest,     EPendragonTrait::Proud,       10);
+    AddTraitPair(EPendragonTrait::Spiritual,  EPendragonTrait::Worldly,     10);
+    AddTraitPair(EPendragonTrait::Prudent,    EPendragonTrait::Reckless,    11);
+    AddTraitPair(EPendragonTrait::Temperate,  EPendragonTrait::Indulgent,   10);
+    AddTraitPair(EPendragonTrait::Trusting,   EPendragonTrait::Suspicious,  10);
+    AddTraitPair(EPendragonTrait::Valorous,   EPendragonTrait::Cowardly,    15);
 
     // ==========================================
     // 1. DONNÉES DE TEST : PASSIONS DE DÉPART
@@ -91,18 +103,37 @@ void UPendragonCharacterComponent::BeginPlay()
     Attributes.CurrentHealth = Attributes.GetMaxHealth();
 }
 
-int32 UPendragonCharacterComponent::GetTraitValue(EPendragonTrait TraitPair, bool bGetPrimary) const
+int32 UPendragonCharacterComponent::GetTraitValue(EPendragonTrait Trait, bool bIsPrimaryTrait) const
 {
-    const int32* PrimaryValue = Traits.Find(TraitPair);
-    int32 Val = PrimaryValue ? *PrimaryValue : 10;
-
-    return bGetPrimary ? Val : (20 - Val);
+    for (const FPendragonTraitPair& Pair : Traits)
+    {
+        if (Pair.PrimaryTrait == Trait)
+        {
+            return bIsPrimaryTrait ? Pair.Value : (20 - Pair.Value);
+        }
+        if (Pair.OppositeTrait == Trait)
+        {
+            return bIsPrimaryTrait ? (20 - Pair.Value) : Pair.Value;
+        }
+    }
+    return 10; // Valeur par défaut
 }
 
-void UPendragonCharacterComponent::SetTraitValue(EPendragonTrait TraitPair, int32 NewValue)
+void UPendragonCharacterComponent::SetTraitValue(EPendragonTrait Trait, int32 NewValue)
 {
-    int32 ClampedValue = FMath::Clamp(NewValue, 0, 20);
-    Traits.Add(TraitPair, ClampedValue);
+    for (FPendragonTraitPair& Pair : Traits)
+    {
+        if (Pair.PrimaryTrait == Trait)
+        {
+            Pair.Value = FMath::Clamp(NewValue, 0, 20);
+            return;
+        }
+        if (Pair.OppositeTrait == Trait)
+        {
+            Pair.Value = FMath::Clamp(20 - NewValue, 0, 20);
+            return;
+        }
+    }
 }
 
 EPendragonCheckResult UPendragonCharacterComponent::PerformD20Check(int32 TargetValue, int32& OutRoll)
@@ -207,5 +238,36 @@ void UPendragonCharacterComponent::CheckPassionForImprovement(EPendragonPassionT
         {
             Passion.bCheckedForImprovement = true;
         }
+    }
+}
+
+void UPendragonCharacterComponent::CheckTraitForImprovement(EPendragonTrait Trait, bool bIsPrimaryTrait)
+{
+    for (FPendragonTraitPair& Pair : Traits)
+    {
+        if (Pair.PrimaryTrait == Trait)
+        {
+            if (bIsPrimaryTrait) Pair.bPrimaryCheckedForImprovement = true;
+            else Pair.bOppositeCheckedForImprovement = true;
+            return;
+        }
+        if (Pair.OppositeTrait == Trait)
+        {
+            if (bIsPrimaryTrait) Pair.bOppositeCheckedForImprovement = true;
+            else Pair.bPrimaryCheckedForImprovement = true;
+            return;
+        }
+    }
+}
+
+void UPendragonCharacterComponent::CheckAttributeForImprovement(EPendragonAttribute Attribute)
+{
+    switch (Attribute)
+    {
+    case EPendragonAttribute::Size:         Attributes.bSizeChecked = true; break;
+    case EPendragonAttribute::Dexterity:    Attributes.bDexterityChecked = true; break;
+    case EPendragonAttribute::Strength:     Attributes.bStrengthChecked = true; break;
+    case EPendragonAttribute::Constitution: Attributes.bConstitutionChecked = true; break;
+    case EPendragonAttribute::Appearance:   Attributes.bAppearanceChecked = true; break;
     }
 }
