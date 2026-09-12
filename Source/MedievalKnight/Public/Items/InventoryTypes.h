@@ -43,7 +43,7 @@ struct FWeapon : public FPendragonItem
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon", meta = (EditCondition = "ItemType == EItemType::Weapon", EditConditionHides))
 	EWeaponType WeaponType = EWeaponType::Sword;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon", meta = (EditCondition = "WeaponType == EWeaponType::Thrown", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon", meta = (EditCondition = "WeaponSubType == EWeaponSubType::Dagger || WeaponSubType == EWeaponSubType::Francisca || WeaponSubType == EWeaponSubType::Javelin || WeaponSubType == EWeaponSubType::Spear", EditConditionHides))
 	EWeaponType WeaponAltType = EWeaponType::Spear;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon", meta = (EditCondition = "ItemType == EItemType::Weapon", EditConditionHides))
@@ -52,7 +52,7 @@ struct FWeapon : public FPendragonItem
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon)", meta = (EditCondition = "ItemType == EItemType::Weapon", EditConditionHides))
 	EFootMountedType FootMountedType = EFootMountedType::Foot;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon)", meta = (EditCondition = "WeaponType == EWeaponType::Bow || WeaponType == EWeaponType::Crossbow || WeaponType == EWeaponType::Thrown", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon)", meta = (EditCondition = "WeaponType == EWeaponType::Bow || WeaponType == EWeaponType::Crossbow || WeaponType == EWeaponType::Thrown || WeaponAltType == EWeaponType::Thrown", EditConditionHides))
 	ERange Range = ERange::Medium;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon", meta = (EditCondition = "ItemType == EItemType::Weapon", EditConditionHides))
@@ -62,11 +62,14 @@ struct FWeapon : public FPendragonItem
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "ItemType == EItemType::Weapon", EditConditionHides))
 	int32 BonusDamage = 0;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "WeaponType == EWeaponType::Thrown", EditConditionHides))
-	int32 BonusThrown = 0;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "ItemType == EItemType::Weapon", EditConditionHides))
 	int32 FlatDamage = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "WeaponType == EWeaponType::Thrown || WeaponAltType == EWeaponType::Thrown", EditConditionHides))
+	int32 BonusThrown = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "WeaponType == EWeaponType::Thrown || WeaponAltType == EWeaponType::Thrown", EditConditionHides))
+	int32 FlatThrown = 0;
 };
 
 USTRUCT(BlueprintType)

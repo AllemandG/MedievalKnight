@@ -103,8 +103,8 @@ void AMedievalPlayerController::BeginPlay()
     	Dagger.ItemName = FText::FromString(TEXT("Dague"));
     	Dagger.Description = FText::FromString(TEXT("Une dague en acier trempé."));
     	Dagger.ItemType = EItemType::Weapon;
-    	Dagger.WeaponType = EWeaponType::Thrown;
-    	Dagger.WeaponAltType = EWeaponType::Brawling;
+    	Dagger.WeaponType = EWeaponType::Brawling;
+    	Dagger.WeaponAltType = EWeaponType::Thrown;
     	Dagger.WeaponSubType = EWeaponSubType::Dagger;
     	Dagger.Slot = EEquipmentSlot::BeltSecondary;
     	Dagger.FootMountedType = EFootMountedType::Both;
