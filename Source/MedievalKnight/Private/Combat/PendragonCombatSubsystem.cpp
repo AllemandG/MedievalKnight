@@ -62,13 +62,18 @@ void UPendragonCombatSubsystem::ExecutePlayerAttack(EPendragonCombatTactic Tacti
     // 3. Résolution du jet opposé
     Log.CheckResult = UPendragonOpposedCheck::ResolveOpposedCheck(PlayerSkill, EnemySkill);
 
+    FString AttackerResultStr = FString::Printf(TEXT("Attaquant : %d (Dé: %d)"), Log.CheckResult.Attacker.TargetValue, Log.CheckResult.Attacker.DiceRoll);
+    FString DefenderResultStr = FString::Printf(TEXT("Défenseur : %d (Dé: %d)"), Log.CheckResult.Defender.TargetValue, Log.CheckResult.Defender.DiceRoll);
+    
     // 4. Traitement des dégâts
     if (Log.CheckResult.Outcome == EOpposedOutcome::AttackerWins)
     {
         if (Tactic == EPendragonCombatTactic::Defensive)
         {
             // En posture défensive, une victoire permet seulement d'annuler les dégâts adverses
-            Log.LogMessage = FText::FromString(TEXT("Vous parez brillamment l'attaque adverse grâce à votre posture défensive."));
+            Log.LogMessage = FText::FromString(FString::Printf(
+                TEXT("<Gold>PARADE !</> Vous bloquez l'attaque adverse grâce à votre posture défensive. [%s vs %s]"), 
+                *AttackerResultStr, *DefenderResultStr));
             Log.FinalDamageTaken = 0;
         }
         else
@@ -85,10 +90,9 @@ void UPendragonCombatSubsystem::ExecutePlayerAttack(EPendragonCombatTactic Tacti
             }
             
             // Dégâts doublés en Critique
-            if (Log.CheckResult.Attacker.Quality == EPendragonCheckResult::CriticalSuccess)
-            {
-                DiceToRoll *= 2;
-            }
+            bool bIsCritical = (Log.CheckResult.Attacker.Quality == EPendragonCheckResult::CriticalSuccess);
+        
+            if (bIsCritical) DiceToRoll *= 2;
 
             Log.RawDamageDealt = RollDice(DiceToRoll) + PlayerDamageBonus + PlayerInventoryComp->EquippedSlots.Find(EEquipmentSlot::MainHand)->EquippedWeapon.FlatDamage;
             Log.ArmorAbsorbed = CurrentEnemy.ArmorProtection + CurrentEnemy.ShieldProtection;
@@ -99,17 +103,19 @@ void UPendragonCombatSubsystem::ExecutePlayerAttack(EPendragonCombatTactic Tacti
 
             PlayerCharacterComp->CheckSkillForImprovement(SkillUsed);
 
+            FString BaseRollInfo = FString::Printf(TEXT("<Italic>(Jet: %d vs %d)</>"), Log.CheckResult.Attacker.DiceRoll, Log.CheckResult.Defender.DiceRoll);
+
             if (Log.bIsMajorWound)
             {
                 Log.LogMessage = FText::FromString(FString::Printf(
-                    TEXT("COUP TERRIBLE ! Vous infligez %d dégâts à %s (%d absorbés). BLESSURE MAJEURE !"),
-                    Log.FinalDamageTaken, *CurrentEnemy.Name.ToString(), Log.ArmorAbsorbed));
+                    TEXT("<Gold>COUP TERRIBLE !</> Vous infligez <Green>%d dégâts</> à %s <Gray>(%d absorbés)</>. <Red>BLESSURE MAJEURE !</> %s"),
+                    Log.FinalDamageTaken, *CurrentEnemy.Name.ToString(), Log.ArmorAbsorbed, *BaseRollInfo));
             }
             else
             {
                 Log.LogMessage = FText::FromString(FString::Printf(
-                    TEXT("Vous touchez %s et infligez %d dégâts (%d absorbés)."),
-                    *CurrentEnemy.Name.ToString(), Log.FinalDamageTaken, Log.ArmorAbsorbed));
+                    TEXT("Vous touchez %s et infligez <Green>%d dégâts</> <Gray>(%d absorbés)</>. %s"),
+                    *CurrentEnemy.Name.ToString(), Log.FinalDamageTaken, Log.ArmorAbsorbed, *BaseRollInfo));
             }
         }
     }
@@ -128,22 +134,26 @@ void UPendragonCombatSubsystem::ExecutePlayerAttack(EPendragonCombatTactic Tacti
         PlayerCharacterComp->Attributes.CurrentHealth -= Log.FinalDamageTaken;
         Log.bIsMajorWound = (Log.FinalDamageTaken >= PlayerCharacterComp->Attributes.Constitution);
 
+        FString BaseRollInfo = FString::Printf(TEXT("<Italic>(Jet: %d vs %d)</>"), Log.CheckResult.Attacker.DiceRoll, Log.CheckResult.Defender.DiceRoll);
+
         if (Log.bIsMajorWound)
         {
             Log.LogMessage = FText::FromString(FString::Printf(
-                TEXT("BLESSURE MAJEURE SUBIE ! %s vous inflige %d dégâts (%d absorbés par l'armure)."),
-                *CurrentEnemy.Name.ToString(), Log.FinalDamageTaken, Log.ArmorAbsorbed));
+                TEXT("<Red>BLESSURE MAJEURE SUBIE !</> %s vous inflige <Red>%d dégâts</> <Gray>(%d absorbés)</>. %s"),
+                *CurrentEnemy.Name.ToString(), Log.FinalDamageTaken, Log.ArmorAbsorbed, *BaseRollInfo));
         }
         else
         {
             Log.LogMessage = FText::FromString(FString::Printf(
-                TEXT("%s vous touche et inflige %d dégâts (%d absorbés par l'armure)."),
-                *CurrentEnemy.Name.ToString(), Log.FinalDamageTaken, Log.ArmorAbsorbed));
+                TEXT("%s vous touche et inflige <Red>%d dégâts</> <Gray>(%d absorbés)</>. %s"),
+                *CurrentEnemy.Name.ToString(), Log.FinalDamageTaken, Log.ArmorAbsorbed, *BaseRollInfo));
         }
     }
     else
     {
-        Log.LogMessage = FText::FromString(TEXT("Égalité ! Vos armes se heurtent sans infliger de dégâts."));
+        Log.LogMessage = FText::FromString(FString::Printf(
+            TEXT("<Gray>ÉGALITÉ !</> Vos armes se heurtent sans infliger de dégâts. <Italic>(Joueur: %d | Ennemi: %d)</>"),
+            Log.CheckResult.Attacker.DiceRoll, Log.CheckResult.Defender.DiceRoll));
     }
 
     // 5. Mise à jour de l'état
