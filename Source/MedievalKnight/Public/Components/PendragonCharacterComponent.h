@@ -18,9 +18,26 @@ protected:
     virtual void BeginPlay() override;
 
 public:
-    // Identity & Lignage
+    // Identité séparée
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-    FText CharacterName = FText::FromString(TEXT("Sire Geoffroy"));
+    FText FirstName = FText::FromString(TEXT("Geoffroy"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+    FText LastName = FText::FromString(TEXT("de Charny"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+    EPendragonGender Gender = EPendragonGender::Male;
+
+    // Héraldique & Apparence
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+    FPendragonHeraldry Heraldry;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+    FPendragonAppearanceDetails Appearance;
+
+    // Historique Familial
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+    FPendragonParentHistory ParentHistory;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
     FText HomeCulture = FText::FromString(TEXT("Française"));

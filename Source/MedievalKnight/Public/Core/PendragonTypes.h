@@ -195,45 +195,111 @@ struct FPendragonFamilyLink
     bool bIsAlive = true;
 };
 
+USTRUCT(BlueprintType)
+struct FPendragonHeraldry
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Heraldry")
+	FText ShieldDescription = FText::FromString(TEXT("D'argent à la croix de gueules")); // Description textuelle ou blasonnement
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Heraldry")
+	FText PrimaryColor = FText::FromString(TEXT("Argent"));
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Heraldry")
+	FText SecondaryColor = FText::FromString(TEXT("Gueules"));
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Heraldry")
+	FText ChargeEmblem = FText::FromString(TEXT("Croix"));
+};
+
+USTRUCT(BlueprintType)
+struct FPendragonParentHistory
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "History")
+	FText FatherName = FText::FromString(TEXT("Sire Jehan"));
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "History")
+	int32 FatherBirthYear = 1295;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "History")
+	int32 InheritedGlory = 100; // Gloire transmise par le père
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "History")
+	FText FamilyCharacteristic = FText::FromString(TEXT("Bonus de Taille (+3) ou Compétence de Lignage"));
+};
+
+USTRUCT(BlueprintType)
+struct FPendragonAppearanceDetails
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Appearance")
+	FText DistinctiveFeatures = FText::FromString(TEXT("Cicatrice au menton, regard acéré"));
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Appearance")
+	FText HairAndEyes = FText::FromString(TEXT("Cheveux bruns, yeux noisette"));
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Appearance")
+	FText HeightAndWeight = FText::FromString(TEXT("1m80, 82 kg"));
+};
+
 /** Données temporaires durant la création de personnage */
 USTRUCT(BlueprintType)
 struct FPendragonCreationData
 {
-    GENERATED_BODY()
+	GENERATED_BODY()
 
-    // Identity
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
-    FText CharacterName = FText::FromString(TEXT("Sir Gawain"));
+	// Identity
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+	FText FirstName = FText::FromString(TEXT("Geoffroy"));
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
-    FText HomeCulture = FText::FromString(TEXT("Cymric"));
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+	FText LastName = FText::FromString(TEXT("de Charny"));
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
-    FText Religion = FText::FromString(TEXT("Chrétien Britannique"));
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
+	FText HomeCulture = FText::FromString(TEXT("Cymric"));
 
-    // Liens PNJ initiaux
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
-    TArray<FPendragonFamilyLink> FamilyLinks;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
+	FText Religion = FText::FromString(TEXT("Chrétien Britannique"));
 
-    // Pools de points disponibles à attribuer
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points")
-    int32 AttributePointsPool = 10;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+	FPendragonHeraldry Heraldry;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points")
-    int32 SkillPointsPool = 20;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+	FPendragonAppearanceDetails Appearance;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points")
-    int32 PassionPointsPool = 15;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+	FPendragonParentHistory ParentHistory;
 
-    // Attributs modifiés
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
-    FPendragonAttributes BaseAttributes;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+	int32 Glory = 1000;
 
-    // Adjustements de Compétences (Nom -> Valeur attribuée)
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skills")
-    TMap<FName, int32> SkillModifiers;
+	// Liens PNJ initiaux
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
+	TArray<FPendragonFamilyLink> FamilyLinks;
 
-    // Adjustements de Passions (Nom -> Valeur attribuée)
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Passions")
-    TMap<FName, int32> PassionModifiers;
+	// Pools de points disponibles à attribuer
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points")
+	int32 AttributePointsPool = 10;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points")
+	int32 SkillPointsPool = 20;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points")
+	int32 PassionPointsPool = 15;
+
+	// Attributs modifiés
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
+	FPendragonAttributes BaseAttributes;
+
+	// Adjustements de Compétences (Nom -> Valeur attribuée)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skills")
+	TMap<FName, int32> SkillModifiers;
+
+	// Adjustements de Passions (Nom -> Valeur attribuée)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Passions")
+	TMap<FName, int32> PassionModifiers;
 };

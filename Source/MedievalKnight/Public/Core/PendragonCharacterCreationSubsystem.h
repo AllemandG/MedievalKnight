@@ -16,6 +16,10 @@ class MEDIEVALKNIGHT_API UPendragonCharacterCreationSubsystem : public UGameInst
 	GENERATED_BODY()
 
 public:
+	/** Nombre total de choix d'augmentation restants (commence à 7) */
+	UPROPERTY(BlueprintReadOnly, Category = "Pendragon|Creation")
+	int32 RemainingAugmentationChoices = 7;
+	
 	UPROPERTY(BlueprintAssignable, Category = "Pendragon|Creation")
 	FOnCreationDataChanged OnCreationDataChanged;
 
@@ -42,6 +46,22 @@ public:
 	/** Modifier une Passion par son nom (ex: "Loyalty (Lord)") */
 	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
 	bool ModifyPassion(FName PassionName, int32 Delta);
+
+	/** Applique une augmentation d'Attribut (ex: +1 Force) */
+	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
+	bool ApplyAttributeAugmentation(EPendragonAttribute Attribute);
+
+	/** Applique une augmentation de Points de Compétences (+6 au pool de compétences) */
+	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
+	bool ApplySkillPointsAugmentation();
+
+	/** Applique un bonus de caractéristique familiale (+3 sur une compétence donnée) */
+	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
+	void ApplyFamilyBonus(FName SkillName, int32 BonusAmount = 3);
+
+	/** Génère aléatoirement l'historique du père (ou attribue des valeurs par défaut) */
+	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
+	void GenerateParentHistory();
 
 	/** Calcule la somme actuelle des traits chevaleresques */
 	UFUNCTION(BlueprintPure, Category = "Pendragon|Creation")

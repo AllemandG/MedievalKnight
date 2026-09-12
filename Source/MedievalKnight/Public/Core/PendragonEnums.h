@@ -274,3 +274,20 @@ enum class EPendragonCombatTactic : uint8
 	Defensive,      // Posture défensive (+5 à la compétence, mais aucun dégât infligé)
 	Prudent         // Esquive / Retraite contrôlée
 };
+
+UENUM(BlueprintType)
+enum class EPendragonGender : uint8
+{
+	Male        UMETA(DisplayName = "Homme"),
+	Female      UMETA(DisplayName = "Femme")
+};
+
+/** Les 7 choix d'augmentation lors de la création de personnage */
+UENUM(BlueprintType)
+enum class EPendragonBonusType : uint8
+{
+	Attribute   UMETA(DisplayName = "+1 Attribut (Taille, Dextérité, Force, Constitution, Apparence)"),
+	Trait       UMETA(DisplayName = "+1 Trait ou Passion"),
+	Skills      UMETA(DisplayName = "+6 Points de Compétences")
+};
+

@@ -11,7 +11,8 @@ void UPendragonCharacterCreationSubsystem::StartNewCreation()
     CreationData = FPendragonCreationData();
 
     // Valeurs par défaut adaptées à la Guerre de Cent Ans
-    CreationData.CharacterName = FText::FromString(TEXT("Sire Geoffroy"));
+    CreationData.FirstName = FText::FromString(TEXT("Geoffroy"));
+    CreationData.LastName = FText::FromString(TEXT("de Charny"));
     CreationData.HomeCulture = FText::FromString(TEXT("Française"));
     CreationData.Religion = FText::FromString(TEXT("Chrétienne"));
     
@@ -137,6 +138,69 @@ bool UPendragonCharacterCreationSubsystem::ModifyPassion(FName PassionName, int3
     return true;
 }
 
+bool UPendragonCharacterCreationSubsystem::ApplyAttributeAugmentation(EPendragonAttribute Attribute)
+{
+    if (RemainingAugmentationChoices <= 0) return false;
+
+    switch (Attribute)
+    {
+    case EPendragonAttribute::Size:
+        CreationData.BaseAttributes.Size += 1;
+        break;
+    case EPendragonAttribute::Dexterity:
+        CreationData.BaseAttributes.Dexterity += 1;
+        break;
+    case EPendragonAttribute::Strength:
+        CreationData.BaseAttributes.Strength += 1;
+        break;
+    case EPendragonAttribute::Constitution:
+        CreationData.BaseAttributes.Constitution += 1;
+        break;
+    default:
+        return false;
+    }
+
+    RemainingAugmentationChoices--;
+    OnCreationDataChanged.Broadcast();
+    return true;
+}
+
+bool UPendragonCharacterCreationSubsystem::ApplySkillPointsAugmentation()
+{
+    if (RemainingAugmentationChoices <= 0) return false;
+
+    // Ajoute +6 au pool de points de compétences distribuables
+    CreationData.SkillPointsPool += 6;
+
+    RemainingAugmentationChoices--;
+    OnCreationDataChanged.Broadcast();
+    return true;
+}
+
+void UPendragonCharacterCreationSubsystem::ApplyFamilyBonus(FName SkillName, int32 BonusAmount)
+{
+    int32 CurrentVal = CreationData.SkillModifiers.FindRef(SkillName);
+    CreationData.SkillModifiers.Add(SkillName, CurrentVal + BonusAmount);
+
+    OnCreationDataChanged.Broadcast();
+}
+
+void UPendragonCharacterCreationSubsystem::GenerateParentHistory()
+{
+    // Exemple de génération rapide d'historique (Guerre de Cent Ans)
+    CreationData.ParentHistory.FatherName = FText::FromString(TEXT("Sire Jean de Charny"));
+    CreationData.ParentHistory.FatherBirthYear = 1292;
+    
+    // Tirage / Calcul de la Gloire héritée (1/10 de la gloire du père, ex: 100 à 300)
+    int32 FatherGloryAt14 = FMath::RandRange(1000, 2500);
+    CreationData.ParentHistory.InheritedGlory = FatherGloryAt14 / 10;
+    
+    // Intégration de la gloire héritée au personnage
+    CreationData.Glory = 1000 + CreationData.ParentHistory.InheritedGlory;
+
+    OnCreationDataChanged.Broadcast();
+}
+
 int32 UPendragonCharacterCreationSubsystem::GetChivalryTraitsSum() const
 {
     int32 Sum = 0;
@@ -191,12 +255,18 @@ bool UPendragonCharacterCreationSubsystem::FinalizeCharacterCreation(UPendragonC
     if (!TargetCharacterComp) return false;
 
     // 1. Transfert des données d'identité & lignage
-    TargetCharacterComp->CharacterName = CreationData.CharacterName;
+    TargetCharacterComp->FirstName = CreationData.FirstName;
+    TargetCharacterComp->LastName = CreationData.LastName;
     TargetCharacterComp->HomeCulture = CreationData.HomeCulture;
     TargetCharacterComp->Religion = CreationData.Religion;
     TargetCharacterComp->FamilyLinks = CreationData.FamilyLinks;
     TargetCharacterComp->BirthYear = 1312; // ex: 20 ans en 1332
-    TargetCharacterComp->Glory = 1000;
+
+    // Héraldique & Apparence
+    TargetCharacterComp->Heraldry = CreationData.Heraldry;
+    TargetCharacterComp->Appearance = CreationData.Appearance;
+    TargetCharacterComp->ParentHistory = CreationData.ParentHistory;
+    TargetCharacterComp->Glory = CreationData.Glory;
 
     // 2. Transfert des attributs & traits
     TargetCharacterComp->Attributes = CreationData.BaseAttributes;
