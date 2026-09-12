@@ -39,22 +39,6 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment")
     TMap<EEquipmentSlot, FEquippedItemSlot> EquippedSlots;
 
-    // Armures spécifiques actuellement équipées
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Equipment")
-    TMap<EEquipmentSlot, FArmor> EquippedArmors;
-
-    // Arme principale équipée
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Equipment")
-    FWeapon EquippedWeapon;
-
-    // Bouclier équipé
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Equipment")
-    FShield EquippedShield;
-
-    // Monture de combat principale
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Equipment")
-    FHorse EquippedWarMount;
-
     // Monnaie (en deniers - 240 deniers = 1 livre/pound)
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Economy")
     int32 Denarii = 240;
@@ -92,6 +76,9 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Equipment")
     bool EquipMount(const FHorse& Mount, EEquipmentSlot Slot = EEquipmentSlot::WarMount);
+
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Equipment")
+    bool EquipClothing(const FPendragonItem& Item, EEquipmentSlot Slot = EEquipmentSlot::Clothing);
 
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Equipment")
     bool UnequipSlot(EEquipmentSlot Slot);

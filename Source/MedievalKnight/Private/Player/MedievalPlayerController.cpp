@@ -151,11 +151,11 @@ void AMedievalPlayerController::BeginPlay()
     	FineClothing.ValueInDenarii = 240;
 
     	FPendragonItem NobleClothing;
-    	FineClothing.ItemID = TEXT("NobleClothing_01");
-    	FineClothing.ItemName = FText::FromString(TEXT("Atours de noble"));
-    	FineClothing.Description = FText::FromString(TEXT("Un set de vêtements noble d'une valeur de £3."));
-    	FineClothing.ItemType = EItemType::Clothing;
-    	FineClothing.ValueInDenarii = 720;
+    	NobleClothing.ItemID = TEXT("NobleClothing_01");
+    	NobleClothing.ItemName = FText::FromString(TEXT("Atours de noble"));
+    	NobleClothing.Description = FText::FromString(TEXT("Un set de vêtements noble d'une valeur de £3."));
+    	NobleClothing.ItemType = EItemType::Clothing;
+    	NobleClothing.ValueInDenarii = 720;
 
     	FPendragonItem Cloak;
     	Cloak.ItemID = TEXT("Cloak_01");
@@ -166,7 +166,7 @@ void AMedievalPlayerController::BeginPlay()
 
     	FPendragonItem WoolCloak;
     	WoolCloak.ItemID = TEXT("WoolCloak_01");
-    	WoolCloak.ItemName = FText::FromString(TEXT("Cape"));
+    	WoolCloak.ItemName = FText::FromString(TEXT("Cape en laine"));
     	WoolCloak.Description = FText::FromString(TEXT("Une cape en laine pour se protéger du froid."));
     	WoolCloak.ItemType = EItemType::Clothing;
     	WoolCloak.ValueInDenarii = 10;
@@ -217,12 +217,6 @@ void AMedievalPlayerController::BeginPlay()
     	InventoryComponent->EquipWeapon(CrossbowLight, EEquipmentSlot::RangedWeapon);
     	InventoryComponent->EquipWeapon(Dagger, EEquipmentSlot::BeltSecondary);
     	InventoryComponent->EquipWeapon(Lance, EEquipmentSlot::JoustingWeapon);
-
-    	FEquippedItemSlot NewSlot;
-    	NewSlot.Slot = EEquipmentSlot::Clothing;
-    	NewSlot.bIsOccupied = true;
-    	NewSlot.EquippedItemType = OrdinaryClothing.ItemType;
-    	NewSlot.BaseItem = OrdinaryClothing;
-    	InventoryComponent->EquippedSlots.Add(EEquipmentSlot::Clothing, NewSlot);
+		InventoryComponent->EquipClothing(OrdinaryClothing);
     }
 }

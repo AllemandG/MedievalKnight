@@ -73,7 +73,16 @@ void UPendragonCombatSubsystem::ExecutePlayerAttack(EPendragonCombatTactic Tacti
         }
         else
         {
-            int32 DiceToRoll = PlayerCharacterComp->GetDamageBonus();
+            int32 DiceToRoll;
+
+            if (SkillUsed == "Brawling")
+            {
+                DiceToRoll = PlayerCharacterComp->GetBrawlingDamage() + PlayerInventoryComp->EquippedSlots.Find(EEquipmentSlot::MainHand)->EquippedWeapon.BonusDamage;
+            }
+            else
+            {
+                DiceToRoll = PlayerCharacterComp->GetDamageBonus() + PlayerInventoryComp->EquippedSlots.Find(EEquipmentSlot::MainHand)->EquippedWeapon.BonusDamage;
+            }
             
             // Dégâts doublés en Critique
             if (Log.CheckResult.Attacker.Quality == EPendragonCheckResult::CriticalSuccess)
@@ -81,7 +90,7 @@ void UPendragonCombatSubsystem::ExecutePlayerAttack(EPendragonCombatTactic Tacti
                 DiceToRoll *= 2;
             }
 
-            Log.RawDamageDealt = RollDice(DiceToRoll) + PlayerDamageBonus;
+            Log.RawDamageDealt = RollDice(DiceToRoll) + PlayerDamageBonus + PlayerInventoryComp->EquippedSlots.Find(EEquipmentSlot::MainHand)->EquippedWeapon.FlatDamage;
             Log.ArmorAbsorbed = CurrentEnemy.ArmorProtection + CurrentEnemy.ShieldProtection;
             Log.FinalDamageTaken = FMath::Max(0, Log.RawDamageDealt - Log.ArmorAbsorbed);
 

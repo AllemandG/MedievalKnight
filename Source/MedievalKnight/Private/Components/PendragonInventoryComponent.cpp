@@ -219,6 +219,22 @@ bool UPendragonInventoryComponent::EquipMount(const FHorse& Mount, EEquipmentSlo
     return true;
 }
 
+bool UPendragonInventoryComponent::EquipClothing(const FPendragonItem& Item, EEquipmentSlot Slot)
+{
+    UnequipSlot(Slot);
+
+    FEquippedItemSlot NewSlot;
+    NewSlot.Slot = Slot;
+    NewSlot.bIsOccupied = true;
+    NewSlot.EquippedItemType = Item.ItemType;
+    NewSlot.BaseItem = Item;
+
+    EquippedSlots.Add(Slot, NewSlot);
+    RemoveItemByID(Item.ItemID, 1);
+    OnInventoryUpdated.Broadcast();
+    return true;
+}
+
 bool UPendragonInventoryComponent::UnequipSlot(EEquipmentSlot Slot)
 {
     if (!EquippedSlots.Contains(Slot))
