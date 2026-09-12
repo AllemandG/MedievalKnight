@@ -40,14 +40,14 @@ UPendragonCharacterComponent::UPendragonCharacterComponent()
     // ==========================================
     // 1. DONNÉES DE TEST : PASSIONS DE DÉPART
     // ==========================================
-    AddOrUpdatePassion(EPendragonPassionType::Loyalty,      TEXT("Lord Roderick"),  15);
-    AddOrUpdatePassion(EPendragonPassionType::Duty,         TEXT("Vassalage"),      12);
-    AddOrUpdatePassion(EPendragonPassionType::Love,         TEXT("Family"),         13);
-    AddOrUpdatePassion(EPendragonPassionType::Hate,         TEXT("English"),        14);
-    AddOrUpdatePassion(EPendragonPassionType::Hospitality,  TEXT("Realm"),          10);
-    AddOrUpdatePassion(EPendragonPassionType::Devotion,     TEXT("Deity"),          5);
-    AddOrUpdatePassion(EPendragonPassionType::Station,      TEXT("Personal"),       5);
-    AddOrUpdatePassion(EPendragonPassionType::Honor,        TEXT("Personal"),       15);
+    AddOrUpdatePassion(EPendragonPassionType::Loyalty,      TEXT("Lord"),       15);
+    AddOrUpdatePassion(EPendragonPassionType::Duty,         TEXT("Vassalage"),  12);
+    AddOrUpdatePassion(EPendragonPassionType::Love,         TEXT("Family"),     13);
+    AddOrUpdatePassion(EPendragonPassionType::Hate,         TEXT("English"),    14);
+    AddOrUpdatePassion(EPendragonPassionType::Hospitality,  TEXT("Realm"),      10);
+    AddOrUpdatePassion(EPendragonPassionType::Devotion,     TEXT("Deity"),      5);
+    AddOrUpdatePassion(EPendragonPassionType::Station,      TEXT("Personal"),   5);
+    AddOrUpdatePassion(EPendragonPassionType::Honor,        TEXT("Personal"),   15);
 
     // ==========================================
     // 2. DONNÉES DE TEST : COMPÉTENCES DE DÉPART

@@ -96,6 +96,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Equipment")
     bool UnequipSlot(EEquipmentSlot Slot);
 
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Equipment")
+    bool SwitchWeaponSlot(EEquipmentSlot FirstSlot, EEquipmentSlot SecondSlot);
+
     // --- Calculs de Statistiques ---
 
     // Calcule la protection d'armure totale cumulée (Armure textile + Maille/Plaque + Casque + Surcot + Bouclier)

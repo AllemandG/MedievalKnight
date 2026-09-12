@@ -135,6 +135,55 @@ void AMedievalPlayerController::BeginPlay()
     	JoustingLance.BonusDamage = 0;
     	JoustingLance.ValueInDenarii = 3;
 
+    	// General Items
+		FPendragonItem OrdinaryClothing;
+    	OrdinaryClothing.ItemID = TEXT("OrdinaryClothing_01");
+    	OrdinaryClothing.ItemName = FText::FromString(TEXT("Vêtements ordinaires"));
+    	OrdinaryClothing.Description = FText::FromString(TEXT("Un set de vêtements ordinaires."));
+    	OrdinaryClothing.ItemType = EItemType::Clothing;
+    	OrdinaryClothing.ValueInDenarii = 30;
+
+    	FPendragonItem FineClothing;
+    	FineClothing.ItemID = TEXT("FineClothing_01");
+    	FineClothing.ItemName = FText::FromString(TEXT("Vêtements de qualité"));
+    	FineClothing.Description = FText::FromString(TEXT("Un set de vêtements d'une valeur de £1."));
+    	FineClothing.ItemType = EItemType::Clothing;
+    	FineClothing.ValueInDenarii = 240;
+
+    	FPendragonItem NobleClothing;
+    	FineClothing.ItemID = TEXT("NobleClothing_01");
+    	FineClothing.ItemName = FText::FromString(TEXT("Atours de noble"));
+    	FineClothing.Description = FText::FromString(TEXT("Un set de vêtements noble d'une valeur de £3."));
+    	FineClothing.ItemType = EItemType::Clothing;
+    	FineClothing.ValueInDenarii = 720;
+
+    	FPendragonItem Cloak;
+    	Cloak.ItemID = TEXT("Cloak_01");
+    	Cloak.ItemName = FText::FromString(TEXT("Cape"));
+    	Cloak.Description = FText::FromString(TEXT("Une cape pour se protéger des intempéries."));
+    	Cloak.ItemType = EItemType::Clothing;
+    	Cloak.ValueInDenarii = 5;
+
+    	FPendragonItem WoolCloak;
+    	WoolCloak.ItemID = TEXT("WoolCloak_01");
+    	WoolCloak.ItemName = FText::FromString(TEXT("Cape"));
+    	WoolCloak.Description = FText::FromString(TEXT("Une cape en laine pour se protéger du froid."));
+    	WoolCloak.ItemType = EItemType::Clothing;
+    	WoolCloak.ValueInDenarii = 10;
+
+    	FPendragonItem TravelGear;
+    	TravelGear.ItemID = TEXT("TravelGear_01");
+    	TravelGear.ItemName = FText::FromString(TEXT("Équipement de voyage"));
+    	TravelGear.Description = FText::FromString(TEXT("Deux couvertures et des serviettes ; ustensiles de cuisine et de repas ; nécessaire pour faire du feu ; pansements ; une paire de sacoches ; plusieurs sacs à cordon pour tout ranger ; une grande bâche en toile ; un bât pour le transport de charge et des sacoches."));
+    	TravelGear.ItemType = EItemType::General;
+    	TravelGear.ValueInDenarii = 120;
+
+    	FPendragonItem HorseGear;
+    	HorseGear.ItemID = TEXT("HorseGear_01");
+    	HorseGear.ItemName = FText::FromString(TEXT("Équipement pour chevaux"));
+    	HorseGear.Description = FText::FromString(TEXT("Deux selles de monte et leur harnachement ; une selle de guerre et son harnachement ; quatre couvertures pour chevaux ; un sac à fourrage ; des étrilles et brosses ; des entraves ; un cure-pied ; des serviettes pour chevaux ; corde."));
+    	HorseGear.ItemType = EItemType::General;
+    	HorseGear.ValueInDenarii = 120;
     	
 
         // Ajout à l'inventaire puis équipement direct
@@ -151,6 +200,13 @@ void AMedievalPlayerController::BeginPlay()
     	InventoryComponent->AddWeapon(JoustingLance);
     	InventoryComponent->AddWeapon(JoustingLance);
     	InventoryComponent->AddWeapon(JoustingLance);
+    	InventoryComponent->AddItem(OrdinaryClothing);
+    	InventoryComponent->AddItem(FineClothing);
+    	InventoryComponent->AddItem(NobleClothing);
+    	InventoryComponent->AddItem(Cloak);
+    	InventoryComponent->AddItem(WoolCloak);
+    	InventoryComponent->AddItem(TravelGear);
+    	InventoryComponent->AddItem(HorseGear);
 
         InventoryComponent->EquipWeapon(ArmingSword, EEquipmentSlot::MainHand);
         InventoryComponent->EquipMount(Charger, EEquipmentSlot::WarMount);
@@ -160,5 +216,13 @@ void AMedievalPlayerController::BeginPlay()
     	InventoryComponent->EquipShield(KiteShield);
     	InventoryComponent->EquipWeapon(CrossbowLight, EEquipmentSlot::RangedWeapon);
     	InventoryComponent->EquipWeapon(Dagger, EEquipmentSlot::BeltSecondary);
+    	InventoryComponent->EquipWeapon(Lance, EEquipmentSlot::JoustingWeapon);
+
+    	FEquippedItemSlot NewSlot;
+    	NewSlot.Slot = EEquipmentSlot::Clothing;
+    	NewSlot.bIsOccupied = true;
+    	NewSlot.EquippedItemType = OrdinaryClothing.ItemType;
+    	NewSlot.BaseItem = OrdinaryClothing;
+    	InventoryComponent->EquippedSlots.Add(EEquipmentSlot::Clothing, NewSlot);
     }
 }

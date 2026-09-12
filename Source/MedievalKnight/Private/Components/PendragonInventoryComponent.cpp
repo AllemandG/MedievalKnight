@@ -251,6 +251,48 @@ bool UPendragonInventoryComponent::UnequipSlot(EEquipmentSlot Slot)
     return true;
 }
 
+bool UPendragonInventoryComponent::SwitchWeaponSlot(EEquipmentSlot FirstSlot, EEquipmentSlot SecondSlot)
+{
+    // Can only switch between melee weapons
+    if ((FirstSlot != EEquipmentSlot::MainHand || FirstSlot != EEquipmentSlot::BeltMain || FirstSlot != EEquipmentSlot::BeltSecondary)
+        && (SecondSlot != EEquipmentSlot::MainHand || SecondSlot != EEquipmentSlot::BeltMain || SecondSlot != EEquipmentSlot::BeltSecondary))
+    {
+        return false;
+    }
+    
+    if (!EquippedSlots.Contains(FirstSlot) || !EquippedSlots.Contains(SecondSlot))
+    {
+        return false;
+    }
+    
+    FEquippedItemSlot FirstOccupiedSlot = EquippedSlots[FirstSlot];
+    FEquippedItemSlot SecondOccupiedSlot = EquippedSlots[SecondSlot];
+    
+    FWeapon FirstWeapon = FirstOccupiedSlot.EquippedWeapon;
+    FWeapon SecondWeapon = SecondOccupiedSlot.EquippedWeapon;
+
+    if (FirstOccupiedSlot.EquippedWeapon.ItemID != NAME_None && SecondOccupiedSlot.EquippedWeapon.ItemID != NAME_None)
+    {
+        UnequipSlot(FirstSlot);
+        UnequipSlot(SecondSlot);
+        EquipWeapon(FirstWeapon, SecondSlot);
+        EquipWeapon(SecondWeapon, FirstSlot);
+    }
+    else if (FirstOccupiedSlot.EquippedWeapon.ItemID != NAME_None)
+    {
+        UnequipSlot(FirstSlot);
+        EquipWeapon(FirstWeapon, SecondSlot);
+    }
+    else
+    {
+        UnequipSlot(SecondSlot);
+        EquipWeapon(SecondWeapon, FirstSlot);
+    }
+
+    OnInventoryUpdated.Broadcast();
+    return true;
+}
+
 int32 UPendragonInventoryComponent::GetTotalKnightArmorProtection() const
 {
     int32 TotalProtection = 0;

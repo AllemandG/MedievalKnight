@@ -116,20 +116,21 @@ UENUM(BlueprintType)
 enum class EEquipmentSlot : uint8
 {
 	None			UMETA(DisplayName = "None"),
-	MainHand		UMETA(DisplayName = "Main Hand"),
-	OffHand			UMETA(DisplayName = "Off Hand"),
-	BeltMain		UMETA(DisplayName = "Belt Main"),
-	BeltSecondary	UMETA(DisplayName = "Belt Secondary"),
-	RangedWeapon	UMETA(DisplayName = "Ranged Weapon"),
-	Clothing		UMETA(DisplayName = "Clothing"),
-	ArmorMailPlate	UMETA(DisplayName = "Armor Mail/Plate"),
-	ArmorTextile	UMETA(DisplayName = "Armor Textile"),
-	ArmorHelm		UMETA(DisplayName = "Armor Helm"),
-	ArmorSurcoat	UMETA(DisplayName = "Armor Surcoat"),
-	ArmorTabard 	UMETA(DisplayName = "Armor Tabard"),
-	WarMount		UMETA(DisplayName = "War Mount"),
-	RidingMount		UMETA(DisplayName = "Riding Mount"),
-	TransportMount	UMETA(DisplayName = "Transport Mount")
+	MainHand		UMETA(DisplayName = "Main dominante"),
+	OffHand			UMETA(DisplayName = "Main non dominante"),
+	BeltMain		UMETA(DisplayName = "Ceinture 1"),
+	BeltSecondary	UMETA(DisplayName = "Ceinture 2"),
+	JoustingWeapon	UMETA(DisplayName = "Arme de Joute"),
+	RangedWeapon	UMETA(DisplayName = "Arme à distance"),
+	Clothing		UMETA(DisplayName = "Vêtements"),
+	ArmorMailPlate	UMETA(DisplayName = "Armure métallique"),
+	ArmorTextile	UMETA(DisplayName = "Armure textile"),
+	ArmorHelm		UMETA(DisplayName = "Casque"),
+	ArmorSurcoat	UMETA(DisplayName = "Surcot"),
+	ArmorTabard 	UMETA(DisplayName = "Tabard"),
+	WarMount		UMETA(DisplayName = "Monture de guerre"),
+	RidingMount		UMETA(DisplayName = "Monture de voyage"),
+	TransportMount	UMETA(DisplayName = "Animal de transport")
 };
 
 UENUM(BlueprintType)
