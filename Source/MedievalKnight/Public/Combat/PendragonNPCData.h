@@ -12,6 +12,12 @@ struct FPendragonNPC
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
 	FText Name = FText::FromString(TEXT("Chevalier Ennemi"));
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	FText Culture = FText::FromString(TEXT("Française"));
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	int32 BirthYear = 1315;
 
 	// Attributs principaux
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")

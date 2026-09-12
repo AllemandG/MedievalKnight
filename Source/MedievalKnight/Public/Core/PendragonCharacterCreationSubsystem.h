@@ -35,6 +35,26 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
 	bool ModifySkill(FName SkillName, int32 Delta);
 
+	/** Modifier un Trait spécifique par son nom (ex: "Valorous") */
+	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
+	bool ModifyTrait(EPendragonTrait PrimaryTrait, int32 Delta);
+
+	/** Modifier une Passion par son nom (ex: "Loyalty (Lord)") */
+	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
+	bool ModifyPassion(FName PassionName, int32 Delta);
+
+	/** Calcule la somme actuelle des traits chevaleresques */
+	UFUNCTION(BlueprintPure, Category = "Pendragon|Creation")
+	int32 GetChivalryTraitsSum() const;
+
+	/** Vérifie si le personnage remplit les conditions du Bonus Chevaleresque (Somme >= 80) */
+	UFUNCTION(BlueprintPure, Category = "Pendragon|Creation")
+	bool IsEligibleForChivalryBonus() const { return GetChivalryTraitsSum() >= 80; }
+
+	/** Vérifie si le personnage remplit les conditions du Bonus Religieux (5 traits à 16+) */
+	UFUNCTION(BlueprintPure, Category = "Pendragon|Creation")
+	bool IsEligibleForReligiousBonus() const;
+
 	/** Ajouter un lien familial / féodal */
 	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
 	void AddFamilyLink(const FPendragonFamilyLink& NewLink);
@@ -46,4 +66,8 @@ public:
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Pendragon|Creation")
 	FPendragonCreationData CreationData;
+
+	// Copie de travail des traits durant la création
+	UPROPERTY(BlueprintReadOnly, Category = "Pendragon|Creation")
+	TArray<FPendragonTraitPair> CreationTraits;
 };

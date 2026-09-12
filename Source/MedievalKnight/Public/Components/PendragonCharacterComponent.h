@@ -17,7 +17,26 @@ public:
 protected:
     virtual void BeginPlay() override;
 
-public:    
+public:
+    // Identity & Lignage
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+    FText CharacterName = FText::FromString(TEXT("Sire Geoffroy"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+    FText HomeCulture = FText::FromString(TEXT("Française"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+    FText Religion = FText::FromString(TEXT("Chrétienne"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+    int32 BirthYear = 1312; // Guerre de Cent Ans (ex: 1337+)
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+    int32 Glory = 1000; // Gloire initiale d'un chevalier bachelier
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+    TArray<FPendragonFamilyLink> FamilyLinks;
+    
     // Primary Attributes
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Attributes")
     FPendragonAttributes Attributes;

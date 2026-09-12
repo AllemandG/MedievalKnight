@@ -36,7 +36,7 @@ UPendragonCharacterComponent::UPendragonCharacterComponent()
     AddTraitPair(EPendragonTrait::Temperate,  EPendragonTrait::Indulgent,   10);
     AddTraitPair(EPendragonTrait::Trusting,   EPendragonTrait::Suspicious,  10);
     AddTraitPair(EPendragonTrait::Valorous,   EPendragonTrait::Cowardly,    15);
-
+    
     // ==========================================
     // 1. DONNÉES DE TEST : PASSIONS DE DÉPART
     // ==========================================
@@ -48,7 +48,7 @@ UPendragonCharacterComponent::UPendragonCharacterComponent()
     AddOrUpdatePassion(EPendragonPassionType::Devotion,     TEXT("Deity"),      5);
     AddOrUpdatePassion(EPendragonPassionType::Station,      TEXT("Personal"),   5);
     AddOrUpdatePassion(EPendragonPassionType::Honor,        TEXT("Personal"),   15);
-
+    
     // ==========================================
     // 2. DONNÉES DE TEST : COMPÉTENCES DE DÉPART
     // ==========================================
@@ -99,6 +99,7 @@ UPendragonCharacterComponent::UPendragonCharacterComponent()
     RegisterSkill(TEXT("Religion"),         TEXT("Religion"),           5, EPendragonSkillCategory::Civilian, false);
     RegisterSkill(TEXT("Singing"),          TEXT("Singing"),            5, EPendragonSkillCategory::Civilian, false);
     RegisterSkill(TEXT("Stewardship"),      TEXT("Stewardship"),        8, EPendragonSkillCategory::Civilian, false);
+    
 }
 
 void UPendragonCharacterComponent::BeginPlay()
