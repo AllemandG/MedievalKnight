@@ -176,3 +176,64 @@ struct FPendragonTraitPair
 	bool bOppositeCheckedForImprovement = false;
 };
 
+/** Représente un lien familial ou féodal initial */
+USTRUCT(BlueprintType)
+struct FPendragonFamilyLink
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
+    FText RelationName = FText::FromString(TEXT("Père"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
+    FText NPCName = FText::FromString(TEXT("Sir Elad"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
+    FText RoleOrTitle = FText::FromString(TEXT("Seigneur de Vagon"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
+    bool bIsAlive = true;
+};
+
+/** Données temporaires durant la création de personnage */
+USTRUCT(BlueprintType)
+struct FPendragonCreationData
+{
+    GENERATED_BODY()
+
+    // Identity
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
+    FText CharacterName = FText::FromString(TEXT("Sir Gawain"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
+    FText HomeCulture = FText::FromString(TEXT("Cymric"));
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
+    FText Religion = FText::FromString(TEXT("Chrétien Britannique"));
+
+    // Liens PNJ initiaux
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
+    TArray<FPendragonFamilyLink> FamilyLinks;
+
+    // Pools de points disponibles à attribuer
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points")
+    int32 AttributePointsPool = 10;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points")
+    int32 SkillPointsPool = 20;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points")
+    int32 PassionPointsPool = 15;
+
+    // Attributs modifiés
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
+    FPendragonAttributes BaseAttributes;
+
+    // Adjustements de Compétences (Nom -> Valeur attribuée)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skills")
+    TMap<FName, int32> SkillModifiers;
+
+    // Adjustements de Passions (Nom -> Valeur attribuée)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Passions")
+    TMap<FName, int32> PassionModifiers;
+};

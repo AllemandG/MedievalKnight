@@ -39,7 +39,7 @@ public:
     int32 GetKnockdown () const { return Attributes.GetKnockdown(); }
 
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Traits")
-    int32 GetDamageBonus() const { return Attributes.GetDamageBonus(); }
+    int32 GetDamageDice() const { return Attributes.GetDamageBonus(); }
 
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Traits")
     int32 GetBrawlingDamage() const { return Attributes.GetBrawlingDamage(); }

@@ -86,7 +86,7 @@ void UPendragonCombatSubsystem::ExecutePlayerAttack(EPendragonCombatTactic Tacti
             }
             else
             {
-                DiceToRoll = PlayerCharacterComp->GetDamageBonus() + PlayerInventoryComp->EquippedSlots.Find(EEquipmentSlot::MainHand)->EquippedWeapon.BonusDamage;
+                DiceToRoll = PlayerCharacterComp->GetDamageDice() + PlayerInventoryComp->EquippedSlots.Find(EEquipmentSlot::MainHand)->EquippedWeapon.BonusDamage;
             }
             
             // Dégâts doublés en Critique
