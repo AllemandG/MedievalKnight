@@ -398,6 +398,7 @@ enum class ESkills : uint8
 UENUM(BlueprintType)
 enum class EBlazonColor : uint8
 {
+	None		UMETA(DisplayName = "None"),
 	Argent		UMETA(DisplayName = "Argent"),
 	Or			UMETA(DisplayName = "Or"),
 	Gules		UMETA(DisplayName = "Gules"),
@@ -431,6 +432,7 @@ enum class EBlazonPattern : uint8
 UENUM(BlueprintType)
 enum class EBlazonChargeType : uint8
 {
+	None		UMETA(DisplayName = "None"),
 	Animate		UMETA(DisplayName = "Animate"),
 	Inanimate	UMETA(DisplayName = "Inanimate"),
 	Ordinary	UMETA(DisplayName = "Ordinary")
@@ -439,6 +441,7 @@ enum class EBlazonChargeType : uint8
 UENUM(BlueprintType)
 enum class EBlazonAnimateCharge : uint8
 {
+	None		UMETA(DisplayName = "None"),
 	Lion 		UMETA(DisplayName = "Lion"),
 	Dragon		UMETA(DisplayName = "Dragon"),
 	Eagle		UMETA(DisplayName = "Eagle"),
@@ -464,6 +467,7 @@ enum class EBlazonAnimateCharge : uint8
 UENUM(BlueprintType)
 enum class EBlazonInanimateCharge : uint8
 {
+	None			UMETA(DisplayName = "None"),
 	Sword 			UMETA(DisplayName = "Sword"),
 	ChurchBell		UMETA(DisplayName = "Church Bell"),
 	Ship			UMETA(DisplayName = "Ship"),
@@ -489,6 +493,7 @@ enum class EBlazonInanimateCharge : uint8
 UENUM(BlueprintType)
 enum class EBlazonOrdinaryCharge : uint8
 {
+	None			UMETA(DisplayName = "None"),
 	Chief 			UMETA(DisplayName = "Chief"),
 	Fess 			UMETA(DisplayName = "Fess"),
 	Pale 			UMETA(DisplayName = "Pale"),

@@ -188,22 +188,22 @@ struct FBlazon
 	EBlazonColor FirstColor = EBlazonColor::Azure;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon", meta = (EditCondition = "Pattern != EBlazonPatterns::Plain", EditConditionHides))
-	EBlazonColor SecondColor = EBlazonColor::Argent;
+	EBlazonColor SecondColor = EBlazonColor::None;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge")
-	EBlazonChargeType ChargeType = EBlazonChargeType::Ordinary;
+	EBlazonChargeType ChargeType = EBlazonChargeType::None;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge")
-	EBlazonColor ChargeTincture = EBlazonColor::Argent;
+	EBlazonColor ChargeTincture = EBlazonColor::None;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType == EBlazonChargeType::Ordinary", EditConditionHides))
-	EBlazonOrdinaryCharge OrdinaryCharge = EBlazonOrdinaryCharge::Chief;
+	EBlazonOrdinaryCharge OrdinaryCharge = EBlazonOrdinaryCharge::None;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType == EBlazonChargeType::Animate", EditConditionHides))
-	EBlazonAnimateCharge AnimateCharge = EBlazonAnimateCharge::Lion;
+	EBlazonAnimateCharge AnimateCharge = EBlazonAnimateCharge::None;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType == EBlazonChargeType::Inanimate", EditConditionHides))
-	EBlazonInanimateCharge InanimateCharge = EBlazonInanimateCharge::Tower;
+	EBlazonInanimateCharge InanimateCharge = EBlazonInanimateCharge::None;
 };
 
 /** Représente un lien familial ou féodal initial */
