@@ -176,6 +176,36 @@ struct FPendragonTraitPair
 	bool bOppositeCheckedForImprovement = false;
 };
 
+USTRUCT(BlueprintType)
+struct FBlazon
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon")
+	EBlazonPattern Pattern = EBlazonPattern::Plain;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon")
+	EBlazonColor FirstColor = EBlazonColor::Azure;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon", meta = (EditCondition = "Pattern != EBlazonPatterns::Plain", EditConditionHides))
+	EBlazonColor SecondColor = EBlazonColor::Argent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge")
+	EBlazonChargeType ChargeType = EBlazonChargeType::Ordinary;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge")
+	EBlazonColor ChargeTincture = EBlazonColor::Argent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType == EBlazonChargeType::Ordinary", EditConditionHides))
+	EBlazonOrdinaryCharge OrdinaryCharge = EBlazonOrdinaryCharge::Chief;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType == EBlazonChargeType::Animate", EditConditionHides))
+	EBlazonAnimateCharge AnimateCharge = EBlazonAnimateCharge::Lion;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType == EBlazonChargeType::Inanimate", EditConditionHides))
+	EBlazonInanimateCharge InanimateCharge = EBlazonInanimateCharge::Tower;
+};
+
 /** Représente un lien familial ou féodal initial */
 USTRUCT(BlueprintType)
 struct FPendragonFamilyLink
@@ -201,7 +231,7 @@ struct FPendragonHeraldry
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Heraldry")
-	FText ShieldDescription = FText::FromString(TEXT("The shield has an Azur and Silver chequey pattern. A Cross serves as the emblem")); // Description textuelle ou blasonnement
+	FText ShieldDescription = FText::FromString(TEXT("The shield has an Azure and Argent chequey pattern with an Sable Argent charge.")); // Description textuelle ou blasonnement
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Heraldry")
 	FText PrimaryColor = FText::FromString(TEXT("Silver"));
