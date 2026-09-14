@@ -11,10 +11,10 @@ struct FPendragonNPC
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
-	FText Name = FText::FromString(TEXT("Chevalier Ennemi"));
+	FText Name = FText::FromString(TEXT("Enemy Knight"));
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
-	FText Culture = FText::FromString(TEXT("Française"));
+	FText Culture = FText::FromString(TEXT("English"));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
 	int32 BirthYear = 1315;

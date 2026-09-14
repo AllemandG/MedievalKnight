@@ -40,10 +40,10 @@ public:
     FPendragonParentHistory ParentHistory;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-    FText HomeCulture = FText::FromString(TEXT("Française"));
+    FText HomeCulture = FText::FromString(TEXT("French"));
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-    FText Religion = FText::FromString(TEXT("Chrétienne"));
+    FText Religion = FText::FromString(TEXT("Christian"));
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
     int32 BirthYear = 1312; // Guerre de Cent Ans (ex: 1337+)

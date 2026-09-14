@@ -10,8 +10,8 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     // 1. Une épée d'armement
     FWeapon ArmingSword;
     ArmingSword.ItemID = TEXT("ArmingSword_01");
-    ArmingSword.ItemName = FText::FromString(TEXT("Épée courte"));
-    ArmingSword.Description = FText::FromString(TEXT("Une épée à une main équilibrée en acier trempé."));
+    ArmingSword.ItemName = FText::FromString(TEXT("Arming Sword"));
+    ArmingSword.Description = FText::FromString(TEXT("A balanced, tempered steel one-handed sword."));
     ArmingSword.ItemType = EItemType::Weapon;
     ArmingSword.WeaponType = EWeaponType::Sword;
     ArmingSword.WeaponSubType = EWeaponSubType::ArmingSword;
@@ -23,8 +23,8 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     // 2. Un haubert de maille
     FArmor Chainmail;
     Chainmail.ItemID = TEXT("Chainmail_01");
-    Chainmail.ItemName = FText::FromString(TEXT("Haubert de mailles"));
-    Chainmail.Description = FText::FromString(TEXT("Protection solide en mailles d'acier rivetées."));
+    Chainmail.ItemName = FText::FromString(TEXT("Hauberk"));
+    Chainmail.Description = FText::FromString(TEXT("Robust protection made of riveted steel mesh."));
     Chainmail.ItemType = EItemType::Armor;
     Chainmail.ArmorType = EArmorType::Mail;
     Chainmail.Slot = EEquipmentSlot::ArmorMailPlate;
@@ -35,7 +35,7 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     FHorse Charger;
     Charger.ItemID = TEXT("Charger_01");
     Charger.ItemName = FText::FromString(TEXT("Bucephale"));
-    Charger.Description = FText::FromString(TEXT("Un puissant destrier de guerre dressé pour la charge."));
+    Charger.Description = FText::FromString(TEXT("A powerful warhorse trained for the charge."));
     Charger.ItemType = EItemType::Mount;
     Charger.HorseType = EHorseType::Combat;
     Charger.HorseSubType = EHorseSubType::Charger;
@@ -45,7 +45,7 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     FArmor Aketon;
     Aketon.ItemID = TEXT("Aketon_01");
     Aketon.ItemName = FText::FromString(TEXT("Aketon"));
-    Aketon.Description = FText::FromString(TEXT("Protection textile rembourée portée sous une armure en mailles ou en plaques."));
+    Aketon.Description = FText::FromString(TEXT("Padded textile protection worn under mail or plate armor."));
     Aketon.ItemType = EItemType::Armor;
     Aketon.ArmorType = EArmorType::Textile;
     Aketon.Slot = EEquipmentSlot::ArmorTextile;
@@ -55,8 +55,8 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     // 5. Un Nasal Helm
     FArmor NasalHelm;
     NasalHelm.ItemID = TEXT("NasalHelm_01");
-    NasalHelm.ItemName = FText::FromString(TEXT("Casque nasal"));
-    NasalHelm.Description = FText::FromString(TEXT("Un casque en acier avec protection nasale."));
+    NasalHelm.ItemName = FText::FromString(TEXT("Nasal Helm"));
+    NasalHelm.Description = FText::FromString(TEXT("A steel helmet with a nasal guard."));
     NasalHelm.ItemType = EItemType::Armor;
     NasalHelm.ArmorType = EArmorType::Helm;
     NasalHelm.Slot = EEquipmentSlot::ArmorHelm;
@@ -66,8 +66,8 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     // 6. Un Bouclier
     FShield KiteShield;
     KiteShield.ItemID = TEXT("KiteShield_01");
-    KiteShield.ItemName = FText::FromString(TEXT("Bouclier Normand"));
-    KiteShield.Description = FText::FromString(TEXT("Un bouclier en amande."));
+    KiteShield.ItemName = FText::FromString(TEXT("Kite Shield"));
+    KiteShield.Description = FText::FromString(TEXT("A large, tapered wooden shield covered in leather or metal rims. It offers high passive defense but imposes a -2 Weapon Skill penalty to horseback attacks unless performing a couched lance charge."));
     KiteShield.ItemType = EItemType::Shield;
     KiteShield.ShieldType = EShieldType::Large;
     KiteShield.Slot = EEquipmentSlot::OffHand;
@@ -77,13 +77,13 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     // Autres
     FWeapon Dagger;
     Dagger.ItemID = TEXT("Dagger_01");
-    Dagger.ItemName = FText::FromString(TEXT("Dague"));
-    Dagger.Description = FText::FromString(TEXT("Une dague en acier trempé."));
+    Dagger.ItemName = FText::FromString(TEXT("Dagger"));
+    Dagger.Description = FText::FromString(TEXT("A tempered steel dagger."));
     Dagger.ItemType = EItemType::Weapon;
     Dagger.WeaponType = EWeaponType::Brawling;
     Dagger.WeaponAltType = EWeaponType::Thrown;
     Dagger.WeaponSubType = EWeaponSubType::Dagger;
-    Dagger.Slot = EEquipmentSlot::BeltSecondary;
+    Dagger.Slot = EEquipmentSlot::Belt;
     Dagger.FootMountedType = EFootMountedType::Both;
     Dagger.BonusDamage = 2;
     Dagger.ValueInDenarii = 20;
@@ -91,7 +91,7 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     FWeapon Lance;
     Lance.ItemID = TEXT("Lance_01");
     Lance.ItemName = FText::FromString(TEXT("Lance"));
-    Lance.Description = FText::FromString(TEXT("Une Lance."));
+    Lance.Description = FText::FromString(TEXT("A long wooden spear weapon designed specifically for high-impact mounted charges."));
     Lance.ItemType = EItemType::Weapon;
     Lance.WeaponType = EWeaponType::Charge;
     Lance.WeaponSubType = EWeaponSubType::Lance;
@@ -103,43 +103,43 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     // General Items
 	FPendragonItem OrdinaryClothing;
     OrdinaryClothing.ItemID = TEXT("OrdinaryClothing_01");
-    OrdinaryClothing.ItemName = FText::FromString(TEXT("Vêtements ordinaires"));
-    OrdinaryClothing.Description = FText::FromString(TEXT("Un set de vêtements ordinaires."));
+    OrdinaryClothing.ItemName = FText::FromString(TEXT("Ordinary Clothes"));
+    OrdinaryClothing.Description = FText::FromString(TEXT("A set of ordinary clothes."));
     OrdinaryClothing.ItemType = EItemType::Clothing;
     OrdinaryClothing.ValueInDenarii = 30;
 
     FPendragonItem FineClothing;
     FineClothing.ItemID = TEXT("FineClothing_01");
-    FineClothing.ItemName = FText::FromString(TEXT("Vêtements de qualité"));
-    FineClothing.Description = FText::FromString(TEXT("Un set de vêtements d'une valeur de £1."));
+    FineClothing.ItemName = FText::FromString(TEXT("Fine Clothes"));
+    FineClothing.Description = FText::FromString(TEXT("A set of clothes worth £1."));
     FineClothing.ItemType = EItemType::Clothing;
     FineClothing.ValueInDenarii = 240;
 
     FPendragonItem Cloak;
     Cloak.ItemID = TEXT("Cloak_01");
-    Cloak.ItemName = FText::FromString(TEXT("Cape"));
-    Cloak.Description = FText::FromString(TEXT("Une cape pour se protéger des intempéries."));
+    Cloak.ItemName = FText::FromString(TEXT("Cloak"));
+    Cloak.Description = FText::FromString(TEXT("A cape to protect against the elements."));
     Cloak.ItemType = EItemType::Clothing;
     Cloak.ValueInDenarii = 5;
 
     FPendragonItem WoolCloak;
     WoolCloak.ItemID = TEXT("WoolCloak_01");
-    WoolCloak.ItemName = FText::FromString(TEXT("Cape en laine"));
-    WoolCloak.Description = FText::FromString(TEXT("Une cape en laine pour se protéger du froid."));
+    WoolCloak.ItemName = FText::FromString(TEXT("Wool Cloak"));
+    WoolCloak.Description = FText::FromString(TEXT("A wool cape to protect against the cold."));
     WoolCloak.ItemType = EItemType::Clothing;
     WoolCloak.ValueInDenarii = 10;
 
     FPendragonItem TravelGear;
     TravelGear.ItemID = TEXT("TravelGear_01");
-    TravelGear.ItemName = FText::FromString(TEXT("Équipement de voyage"));
-    TravelGear.Description = FText::FromString(TEXT("Deux couvertures et des serviettes ; ustensiles de cuisine et de repas ; nécessaire pour faire du feu ; pansements ; une paire de sacoches ; plusieurs sacs à cordon pour tout ranger ; une grande bâche en toile ; un bât pour le transport de charge et des sacoches."));
+    TravelGear.ItemName = FText::FromString(TEXT("Travel Gear"));
+    TravelGear.Description = FText::FromString(TEXT("Two sleeping blankets and towels; eating and cooking utensils; fire-making kit; bandages; pair of panniers; several sacks with drawstrings to store everything; large canvas tarpaulin; pack frame for sumpter and saddlebags"));
     TravelGear.ItemType = EItemType::General;
     TravelGear.ValueInDenarii = 120;
 
     FPendragonItem HorseGear;
     HorseGear.ItemID = TEXT("HorseGear_01");
-    HorseGear.ItemName = FText::FromString(TEXT("Équipement pour chevaux"));
-    HorseGear.Description = FText::FromString(TEXT("Deux selles de monte et leur harnachement ; une selle de guerre et son harnachement ; quatre couvertures pour chevaux ; un sac à fourrage ; des étrilles et brosses ; des entraves ; un cure-pied ; des serviettes pour chevaux ; corde."));
+    HorseGear.ItemName = FText::FromString(TEXT("Horse Gear"));
+    HorseGear.Description = FText::FromString(TEXT("Two ridding saddles and tack; One War saddle and tack; Four horse blankets; Feed bag; Currying brushes; Hobbles; Hoof pick; Horse towels; Rope"));
     HorseGear.ItemType = EItemType::General;
     HorseGear.ValueInDenarii = 120;
 
@@ -168,9 +168,11 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     EquipArmor(Chainmail);
     EquipArmor(NasalHelm);
     EquipShield(KiteShield);
-    EquipWeapon(Dagger, EEquipmentSlot::BeltSecondary);
+    EquipWeapon(Dagger, EEquipmentSlot::Belt);
     EquipWeapon(Lance, EEquipmentSlot::JoustingWeapon);
     EquipClothing(OrdinaryClothing);
+    EquipClothing(Cloak);
+    
 }
 
 void UPendragonInventoryComponent::AddItem(const FPendragonItem& Item)
@@ -438,8 +440,8 @@ bool UPendragonInventoryComponent::UnequipSlot(EEquipmentSlot Slot)
 bool UPendragonInventoryComponent::SwitchWeaponSlot(EEquipmentSlot FirstSlot, EEquipmentSlot SecondSlot)
 {
     // Can only switch between melee weapons
-    if ((FirstSlot != EEquipmentSlot::MainHand || FirstSlot != EEquipmentSlot::BeltMain || FirstSlot != EEquipmentSlot::BeltSecondary)
-        && (SecondSlot != EEquipmentSlot::MainHand || SecondSlot != EEquipmentSlot::BeltMain || SecondSlot != EEquipmentSlot::BeltSecondary))
+    if ((FirstSlot != EEquipmentSlot::MainHand || FirstSlot != EEquipmentSlot::Belt)
+        && (SecondSlot != EEquipmentSlot::MainHand || SecondSlot != EEquipmentSlot::Belt))
     {
         return false;
     }

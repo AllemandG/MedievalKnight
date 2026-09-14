@@ -41,7 +41,7 @@ public:
 
     // Monnaie (en deniers - 240 deniers = 1 livre/pound)
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Economy")
-    int32 Denarii = 240;
+    int32 Denarii = 270;
 
     /** Équipe le personnage avec le trousseau de départ standard d'un chevalier */
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Inventory")

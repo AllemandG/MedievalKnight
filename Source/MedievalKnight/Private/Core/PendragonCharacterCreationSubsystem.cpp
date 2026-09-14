@@ -11,17 +11,17 @@ void UPendragonCharacterCreationSubsystem::StartNewCreation()
     CreationData = FPendragonCreationData();
 
     // Valeurs par défaut adaptées à la Guerre de Cent Ans
-    CreationData.FirstName = FText::FromString(TEXT("Geoffroy"));
-    CreationData.LastName = FText::FromString(TEXT("de Charny"));
-    CreationData.HomeCulture = FText::FromString(TEXT("Française"));
-    CreationData.Religion = FText::FromString(TEXT("Chrétienne"));
+    CreationData.FirstName = FText::FromString(TEXT("Guislain"));
+    CreationData.LastName = FText::FromString(TEXT("de Latour"));
+    CreationData.HomeCulture = FText::FromString(TEXT("French"));
+    CreationData.Religion = FText::FromString(TEXT("Christian"));
     
     // Valeurs de base standard (6e édition)
     CreationData.BaseAttributes.Size = 10;
     CreationData.BaseAttributes.Dexterity = 10;
     CreationData.BaseAttributes.Strength = 10;
     CreationData.BaseAttributes.Constitution = 10;
-    CreationData.BaseAttributes.Appearance = 10;
+    CreationData.BaseAttributes.Appeal = 10;
     
     CreationData.AttributePointsPool = 10;
     CreationData.SkillPointsPool = 20;
@@ -54,9 +54,9 @@ void UPendragonCharacterCreationSubsystem::StartNewCreation()
 
     // Liens par défaut
     FPendragonFamilyLink Father;
-    Father.RelationName = FText::FromString(TEXT("Père"));
-    Father.NPCName = FText::FromString(TEXT("Sire Roderick"));
-    Father.RoleOrTitle = FText::FromString(TEXT("Chevalier d'Elad"));
+    Father.RelationName = FText::FromString(TEXT("Father"));
+    Father.NPCName = FText::FromString(TEXT("Henri de Latour"));
+    Father.RoleOrTitle = FText::FromString(TEXT("Knight"));
     Father.bIsAlive = true;
     CreationData.FamilyLinks.Add(Father);
 
@@ -75,7 +75,7 @@ bool UPendragonCharacterCreationSubsystem::ModifyAttribute(FName AttributeName, 
     else if (AttributeName == TEXT("Dexterity") || AttributeName == TEXT("DEX")) TargetAttr = &CreationData.BaseAttributes.Dexterity;
     else if (AttributeName == TEXT("Strength") || AttributeName == TEXT("STR")) TargetAttr = &CreationData.BaseAttributes.Strength;
     else if (AttributeName == TEXT("Constitution") || AttributeName == TEXT("CON")) TargetAttr = &CreationData.BaseAttributes.Constitution;
-    else if (AttributeName == TEXT("Appearence") || AttributeName == TEXT("APP")) TargetAttr = &CreationData.BaseAttributes.Appearance;
+    else if (AttributeName == TEXT("Appeal") || AttributeName == TEXT("APP")) TargetAttr = &CreationData.BaseAttributes.Appeal;
 
     if (!TargetAttr) return false;
 
@@ -188,12 +188,12 @@ void UPendragonCharacterCreationSubsystem::ApplyFamilyBonus(FName SkillName, int
 void UPendragonCharacterCreationSubsystem::GenerateParentHistory()
 {
     // Exemple de génération rapide d'historique (Guerre de Cent Ans)
-    CreationData.ParentHistory.FatherName = FText::FromString(TEXT("Sire Jean de Charny"));
-    CreationData.ParentHistory.FatherBirthYear = 1292;
+    CreationData.ParentHistory.FatherName = FText::FromString(TEXT("Henri de Latour"));
+    CreationData.ParentHistory.FatherBirthYear = 1287;
     
     // Tirage / Calcul de la Gloire héritée (1/10 de la gloire du père, ex: 100 à 300)
-    int32 FatherGloryAt14 = FMath::RandRange(1000, 2500);
-    CreationData.ParentHistory.InheritedGlory = FatherGloryAt14 / 10;
+    int32 FatherGloryAt14 = 2000 + 100 * FMath::RandRange(6, 36);
+    CreationData.ParentHistory.InheritedGlory = FatherGloryAt14 / 4;
     
     // Intégration de la gloire héritée au personnage
     CreationData.Glory = 1000 + CreationData.ParentHistory.InheritedGlory;

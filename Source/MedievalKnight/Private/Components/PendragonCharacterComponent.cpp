@@ -11,7 +11,7 @@ UPendragonCharacterComponent::UPendragonCharacterComponent()
     Attributes.Dexterity = 13;
     Attributes.Strength = 15;
     Attributes.Constitution = 13;
-    Attributes.Appearance = 13;
+    Attributes.Appeal = 13;
     
     auto AddTraitPair = [this](EPendragonTrait Primary, EPendragonTrait Opposite, int32 DefaultVal = 10)
     {
@@ -275,6 +275,6 @@ void UPendragonCharacterComponent::CheckAttributeForImprovement(EPendragonAttrib
     case EPendragonAttribute::Dexterity:    Attributes.bDexterityChecked = true; break;
     case EPendragonAttribute::Strength:     Attributes.bStrengthChecked = true; break;
     case EPendragonAttribute::Constitution: Attributes.bConstitutionChecked = true; break;
-    case EPendragonAttribute::Appearance:   Attributes.bAppearanceChecked = true; break;
+    case EPendragonAttribute::Appeal:       Attributes.bAppearanceChecked = true; break;
     }
 }

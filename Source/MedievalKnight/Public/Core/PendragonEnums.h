@@ -7,31 +7,31 @@ UENUM(BlueprintType)
 enum class EPendragonTrait : uint8
 {
 	Chaste			UMETA(DisplayName = "Chaste"),
-	Lustful			UMETA(DisplayName = "Lubrique"),
-	Energetic		UMETA(DisplayName = "Dynamique"),
-	Lazy			UMETA(DisplayName = "Fainéant"),
-	Forgiving		UMETA(DisplayName = "Indulgent"),
-	Vengeful		UMETA(DisplayName = "Vengeur"),
-	Generous 		UMETA(DisplayName = "Généreux"),
-	Selfish			UMETA(DisplayName = "Égoïste"),
-	Honest 			UMETA(DisplayName = "Honnête"),
-	Deceitful		UMETA(DisplayName = "Fourbe"),
-	Just 			UMETA(DisplayName = "Juste"),
-	Arbitrary		UMETA(DisplayName = "Arbitraire"),
-	Merciful		UMETA(DisplayName = "Clément"),
+	Lustful			UMETA(DisplayName = "Lustful"),
+	Energetic		UMETA(DisplayName = "Energetic"),
+	Lazy			UMETA(DisplayName = "Lazy"),
+	Forgiving		UMETA(DisplayName = "Forgiving"),
+	Vengeful		UMETA(DisplayName = "Vengeful"),
+	Generous 		UMETA(DisplayName = "Generous"),
+	Selfish			UMETA(DisplayName = "Selfish"),
+	Honest 			UMETA(DisplayName = "Honest"),
+	Deceitful		UMETA(DisplayName = "Deceitful"),
+	Just 			UMETA(DisplayName = "Just"),
+	Arbitrary		UMETA(DisplayName = "Arbitrary"),
+	Merciful		UMETA(DisplayName = "Merciful"),
 	Cruel			UMETA(DisplayName = "Cruel"),
-	Modest 			UMETA(DisplayName = "Modeste"),
-	Proud			UMETA(DisplayName = "Fier"),
+	Modest 			UMETA(DisplayName = "Modest"),
+	Proud			UMETA(DisplayName = "Proud"),
 	Prudent 		UMETA(DisplayName = "Prudent"),
-	Reckless		UMETA(DisplayName = "Téméraire"),
-	Spiritual		UMETA(DisplayName = "Spirituel"),
-	Worldly			UMETA(DisplayName = "Mondain"),
-	Temperate		UMETA(DisplayName = "Tempéré"),
-	Indulgent		UMETA(DisplayName = "Laxiste"),
-	Trusting		UMETA(DisplayName = "Confiant"),
-	Suspicious		UMETA(DisplayName = "Méfiant"),
-	Valorous		UMETA(DisplayName = "Valeureux"),
-	Cowardly		UMETA(DisplayName = "Lâche")
+	Reckless		UMETA(DisplayName = "Reckless"),
+	Spiritual		UMETA(DisplayName = "Spiritual"),
+	Worldly			UMETA(DisplayName = "Worldly"),
+	Temperate		UMETA(DisplayName = "Temperate"),
+	Indulgent		UMETA(DisplayName = "Indulgent"),
+	Trusting		UMETA(DisplayName = "Trusting"),
+	Suspicious		UMETA(DisplayName = "Suspicious"),
+	Valorous		UMETA(DisplayName = "Valorous"),
+	Cowardly		UMETA(DisplayName = "Cowardly")
 };
 
 UENUM(BlueprintType)
@@ -50,7 +50,7 @@ enum class EPendragonAttribute : uint8
 	Dexterity,
 	Strength,
 	Constitution,
-	Appearance
+	Appeal
 };
 
 // Types de Passions dans Pendragon
@@ -88,16 +88,23 @@ enum class EPendragonPassionType : uint8
 
 	// Indépendant
 	Honor       UMETA(DisplayName = "Honor"),
+
+	// Obsessions
 	Avarice     UMETA(DisplayName = "Avarice"),
 	Fear        UMETA(DisplayName = "Fear"),
-	Jealousy	UMETA(DisplayName = "Jealousy")
+	Jealousy	UMETA(DisplayName = "Jealousy"),
+
+	// Afflictions
+	Madness		UMETA(DisplayName = "Madness"),
+	Melancholy	UMETA(DisplayName = "Melancholy"),
+	Misery		UMETA(DisplayName = "Misery")
 };
 
 UENUM(BlueprintType)
 enum class EPendragonSkillCategory : uint8
 {
 	Combat      UMETA(DisplayName = "Combat"),
-	Civilian    UMETA(DisplayName = "Civilian / Non-Combat")
+	Civilian    UMETA(DisplayName = "Civilian"),
 };
 
 UENUM(BlueprintType)
@@ -116,21 +123,21 @@ UENUM(BlueprintType)
 enum class EEquipmentSlot : uint8
 {
 	None			UMETA(DisplayName = "None"),
-	MainHand		UMETA(DisplayName = "Main dominante"),
-	OffHand			UMETA(DisplayName = "Main non dominante"),
-	BeltMain		UMETA(DisplayName = "Ceinture 1"),
-	BeltSecondary	UMETA(DisplayName = "Ceinture 2"),
-	JoustingWeapon	UMETA(DisplayName = "Arme de Joute"),
-	RangedWeapon	UMETA(DisplayName = "Arme à distance"),
-	Clothing		UMETA(DisplayName = "Vêtements"),
-	ArmorMailPlate	UMETA(DisplayName = "Armure métallique"),
-	ArmorTextile	UMETA(DisplayName = "Armure textile"),
-	ArmorHelm		UMETA(DisplayName = "Casque"),
-	ArmorSurcoat	UMETA(DisplayName = "Surcot"),
+	MainHand		UMETA(DisplayName = "Main Hand"),
+	OffHand			UMETA(DisplayName = "Off Hand"),
+	Belt			UMETA(DisplayName = "Belt"),
+	JoustingWeapon	UMETA(DisplayName = "Jousting Weapon"),
+	RangedWeapon	UMETA(DisplayName = "Ranged Weapon"),
+	Clothing		UMETA(DisplayName = "Clothing"),
+	Cape			UMETA(DisplayName = "Cape"),
+	ArmorMailPlate	UMETA(DisplayName = "Mail/Plate"),
+	ArmorTextile	UMETA(DisplayName = "Textile"),
+	ArmorHelm		UMETA(DisplayName = "Helmet"),
+	ArmorSurcoat	UMETA(DisplayName = "Surcoat"),
 	ArmorTabard 	UMETA(DisplayName = "Tabard"),
-	WarMount		UMETA(DisplayName = "Monture de guerre"),
-	RidingMount		UMETA(DisplayName = "Monture de voyage"),
-	TransportMount	UMETA(DisplayName = "Animal de transport")
+	WarMount		UMETA(DisplayName = "War Mount"),
+	RidingMount		UMETA(DisplayName = "Riding Mount"),
+	TransportMount	UMETA(DisplayName = "Transport Animal")
 };
 
 UENUM(BlueprintType)
@@ -286,8 +293,104 @@ enum class EPendragonGender : uint8
 UENUM(BlueprintType)
 enum class EPendragonBonusType : uint8
 {
-	Attribute   UMETA(DisplayName = "+1 Attribut (Taille, Dextérité, Force, Constitution, Apparence)"),
-	Trait       UMETA(DisplayName = "+1 Trait ou Passion"),
-	Skills      UMETA(DisplayName = "+6 Points de Compétences")
+	Attribute   UMETA(DisplayName = "+1 Attribut"),
+	Trait       UMETA(DisplayName = "+1 Trait or Passion"),
+	Skills      UMETA(DisplayName = "+6 Skill Points")
 };
 
+UENUM(BlueprintType)
+enum class ECulture : uint8
+{
+	French		UMETA(DisplayName = "French"),
+	English		UMETA(DisplayName = "English")
+};
+
+UENUM(BlueprintType)
+enum class ELocalFrenchCulture : uint8
+{
+	Aquitaine	UMETA(DisplayName = "Aquitaine"),
+	Auvergne	UMETA(DisplayName = "Auvergne"),
+	Bourgogne	UMETA(DisplayName = "Bourgogne"),
+	Bretagne	UMETA(DisplayName = "Bretagne"),
+	Champagne	UMETA(DisplayName = "Champagne"),
+	Flandres	UMETA(DisplayName = "Flandres"),
+	Gascogne	UMETA(DisplayName = "Gascogne"),
+	Normandie	UMETA(DisplayName = "Normandie"),
+	Occitanie	UMETA(DisplayName = "Occitanie"),
+	Poitou 		UMETA(DisplayName = "Poitou"),
+	Valois		UMETA(DisplayName = "Valois")
+};
+
+UENUM(BlueprintType)
+enum class ELocalEnglishCulture : uint8
+{
+	Cornwall	UMETA(DisplayName = "Cornwall"),
+	Irish		UMETA(DisplayName = "Irish"),
+	Londres		UMETA(DisplayName = "London"),
+	Mercia		UMETA(DisplayName = "Mercia"),
+	Northern 	UMETA(DisplayName = "Northern"),
+	Welsh		UMETA(DisplayName = "Welsh"),
+	Wessex		UMETA(DisplayName = "Wessex"),
+};
+
+UENUM(BlueprintType)
+enum class EFamilyCharacteristic : uint8
+{
+	Perceptive		UMETA(DisplayName = "Perceptive"),
+	Martial			UMETA(DisplayName = "Martial"),
+	Poetic			UMETA(DisplayName = "Poetic"),
+	WellBred		UMETA(DisplayName = "Well-Bred"),
+	Sprightly		UMETA(DisplayName = "Sprightly"),
+	Seductive		UMETA(DisplayName = "Seductive"),
+	BirdLover		UMETA(DisplayName = "Bird Lover"),
+	Healer			UMETA(DisplayName = "Healer"),
+	Astute			UMETA(DisplayName = "Astute"),
+	Clever			UMETA(DisplayName = "Clever"),
+	Equestrian		UMETA(DisplayName = "Equestrian"),
+	Scheming 		UMETA(DisplayName = "Scheming"),
+	SilverTongued	UMETA(DisplayName = "SilverTongued"),
+	Literate 		UMETA(DisplayName = "Literate"),
+	Everyman 		UMETA(DisplayName = "Everyman"),
+	Musical			UMETA(DisplayName = "Musical"),
+	Devout 			UMETA(DisplayName = "Devout"),
+	Melodic			UMETA(DisplayName = "Melodic"),
+	Clodhopper		UMETA(DisplayName = "Clodhopper"),
+	Gifted			UMETA(DisplayName = "Gifted"),
+};
+
+UENUM(BlueprintType)
+enum class ESkills : uint8
+{
+	Awareness		UMETA(DisplayName = "Awareness"),
+	Battle			UMETA(DisplayName = "Battle"),
+	Brawling 		UMETA(DisplayName = "Brawling"),
+	Bow 			UMETA(DisplayName = "Bow"),
+	Charge			UMETA(DisplayName = "Charge"),
+	Chirurgery		UMETA(DisplayName = "Chirurgery"),
+	Compose			UMETA(DisplayName = "Compose"),
+	Courtesy		UMETA(DisplayName = "Courtesy"),
+	Crossbow		UMETA(DisplayName = "Crossbow"),
+	Dancing			UMETA(DisplayName = "Dancing"),
+	Falconry		UMETA(DisplayName = "Falconry"),
+	Fashion			UMETA(DisplayName = "Fashion"),
+	FirstAid		UMETA(DisplayName = "First Aid"),
+	Flirting		UMETA(DisplayName = "Flirting"),
+	Folklore		UMETA(DisplayName = "Folklore"),
+	Gaming			UMETA(DisplayName = "Gaming"),
+	Hafted			UMETA(DisplayName = "Hafted"),
+	Horsemanship	UMETA(DisplayName = "Horsemanship"),
+	Hunting			UMETA(DisplayName = "Hunting"),
+	Industry		UMETA(DisplayName = "Industry"),
+	Intrigue		UMETA(DisplayName = "Intrigue"),
+	Literacy		UMETA(DisplayName = "Literacy"),
+	Orate			UMETA(DisplayName = "Orate"),
+	PlayInstrument	UMETA(DisplayName = "Play Instrument"),
+	Recognize		UMETA(DisplayName = "Recognize"),
+	Religion		UMETA(DisplayName = "Religion"),
+	Singing			UMETA(DisplayName = "Singing"),
+	Spear 			UMETA(DisplayName = "Spear"),
+	Stewardship		UMETA(DisplayName = "Stewardship"),
+	Sword			UMETA(DisplayName = "Sword"),
+	ThrownWeapon	UMETA(DisplayName = "Thrown Weapon"),
+	TwoHafted		UMETA(DisplayName = "Two-Handed Hafted")
+};

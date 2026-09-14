@@ -27,7 +27,7 @@ bool UStorySubsystem::EvaluateRequirement(const FPendragonRequirement& Req) cons
         if (Req.Name == "Strength") return CharacterComponent->Attributes.Strength >= Req.MinimumValue;
         if (Req.Name == "Dexterity") return CharacterComponent->Attributes.Dexterity >= Req.MinimumValue;
         if (Req.Name == "Constitution") return CharacterComponent->Attributes.Constitution >= Req.MinimumValue;
-        if (Req.Name == "Appearance") return CharacterComponent->Attributes.Appearance >= Req.MinimumValue;
+        if (Req.Name == "Appeal") return CharacterComponent->Attributes.Appeal >= Req.MinimumValue;
         break;
 
     case ERequirementType::Skill:
@@ -158,7 +158,7 @@ void UStorySubsystem::SelectChoice(int32 ChoiceIndex)
                 else if (Choice.CheckName == "Strength") TargetValue = CharacterComponent->Attributes.Strength;
                 else if (Choice.CheckName == "Dexterity") TargetValue = CharacterComponent->Attributes.Dexterity;
                 else if (Choice.CheckName == "Constitution") TargetValue = CharacterComponent->Attributes.Constitution;
-                else if (Choice.CheckName == "Appearance") TargetValue = CharacterComponent->Attributes.Appearance;
+                else if (Choice.CheckName == "Appeal") TargetValue = CharacterComponent->Attributes.Appeal;
             }
             break;
         }
@@ -198,7 +198,7 @@ void UStorySubsystem::SelectChoice(int32 ChoiceIndex)
                 else if (Choice.CheckName == "Strength") CharacterComponent->CheckAttributeForImprovement(EPendragonAttribute::Strength);
                 else if (Choice.CheckName == "Dexterity") CharacterComponent->CheckAttributeForImprovement(EPendragonAttribute::Dexterity);
                 else if (Choice.CheckName == "Constitution") CharacterComponent->CheckAttributeForImprovement(EPendragonAttribute::Constitution);
-                else if (Choice.CheckName == "Appearance") CharacterComponent->CheckAttributeForImprovement(EPendragonAttribute::Appearance);
+                else if (Choice.CheckName == "Appeal") CharacterComponent->CheckAttributeForImprovement(EPendragonAttribute::Appeal);
                 break;
             }
         }

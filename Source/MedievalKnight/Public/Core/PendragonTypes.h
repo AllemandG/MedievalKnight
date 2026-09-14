@@ -22,7 +22,7 @@ struct FPendragonAttributes
 	int32 Constitution = 10;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
-	int32 Appearance = 10;
+	int32 Appeal = 10;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes|State")
 	int32 CurrentHealth = 20;
@@ -183,13 +183,13 @@ struct FPendragonFamilyLink
     GENERATED_BODY()
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
-    FText RelationName = FText::FromString(TEXT("Père"));
+    FText RelationName = FText::FromString(TEXT("Father"));
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
-    FText NPCName = FText::FromString(TEXT("Sir Elad"));
+    FText NPCName = FText::FromString(TEXT("Henri de Latour"));
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
-    FText RoleOrTitle = FText::FromString(TEXT("Seigneur de Vagon"));
+    FText RoleOrTitle = FText::FromString(TEXT("Knight"));
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
     bool bIsAlive = true;
@@ -201,16 +201,16 @@ struct FPendragonHeraldry
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Heraldry")
-	FText ShieldDescription = FText::FromString(TEXT("D'argent à la croix de gueules")); // Description textuelle ou blasonnement
+	FText ShieldDescription = FText::FromString(TEXT("The shield has an Azur and Silver chequey pattern. A Cross serves as the emblem")); // Description textuelle ou blasonnement
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Heraldry")
-	FText PrimaryColor = FText::FromString(TEXT("Argent"));
+	FText PrimaryColor = FText::FromString(TEXT("Silver"));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Heraldry")
-	FText SecondaryColor = FText::FromString(TEXT("Gueules"));
+	FText SecondaryColor = FText::FromString(TEXT("Azur"));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Heraldry")
-	FText ChargeEmblem = FText::FromString(TEXT("Croix"));
+	FText ChargeEmblem = FText::FromString(TEXT("Cross"));
 };
 
 USTRUCT(BlueprintType)
@@ -219,16 +219,16 @@ struct FPendragonParentHistory
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "History")
-	FText FatherName = FText::FromString(TEXT("Sire Jehan"));
+	FText FatherName = FText::FromString(TEXT("Henri de Latour"));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "History")
-	int32 FatherBirthYear = 1295;
+	int32 FatherBirthYear = 1287;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "History")
 	int32 InheritedGlory = 100; // Gloire transmise par le père
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "History")
-	FText FamilyCharacteristic = FText::FromString(TEXT("Bonus de Taille (+3) ou Compétence de Lignage"));
+	FText FamilyCharacteristic = FText::FromString(TEXT("Size Bonus (+3) or Bloodline Proficiency"));
 };
 
 USTRUCT(BlueprintType)
@@ -237,10 +237,10 @@ struct FPendragonAppearanceDetails
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Appearance")
-	FText DistinctiveFeatures = FText::FromString(TEXT("Cicatrice au menton, regard acéré"));
+	FText DistinctiveFeatures = FText::FromString(TEXT("Chin scar, piercing gaze"));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Appearance")
-	FText HairAndEyes = FText::FromString(TEXT("Cheveux bruns, yeux noisette"));
+	FText HairAndEyes = FText::FromString(TEXT("Brown hair, hazel eyes"));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Appearance")
 	FText HeightAndWeight = FText::FromString(TEXT("1m80, 82 kg"));
@@ -254,16 +254,16 @@ struct FPendragonCreationData
 
 	// Identity
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-	FText FirstName = FText::FromString(TEXT("Geoffroy"));
+	FText FirstName = FText::FromString(TEXT("Guislain"));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-	FText LastName = FText::FromString(TEXT("de Charny"));
+	FText LastName = FText::FromString(TEXT("de Latour"));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
-	FText HomeCulture = FText::FromString(TEXT("Cymric"));
+	FText HomeCulture = FText::FromString(TEXT("French"));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
-	FText Religion = FText::FromString(TEXT("Chrétien Britannique"));
+	FText Religion = FText::FromString(TEXT("Christian"));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
 	FPendragonHeraldry Heraldry;
