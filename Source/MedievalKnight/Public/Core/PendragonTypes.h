@@ -231,7 +231,7 @@ struct FPendragonHeraldry
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Heraldry")
-	FText ShieldDescription = FText::FromString(TEXT("The shield has an Azure and Argent chequey pattern with an Sable Argent charge.")); // Description textuelle ou blasonnement
+	FText ShieldDescription = FText::FromString(TEXT("The shield has an Azure and Argent chequey pattern with an Argent Tower charge.")); // Description textuelle ou blasonnement
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Heraldry")
 	FText PrimaryColor = FText::FromString(TEXT("Silver"));

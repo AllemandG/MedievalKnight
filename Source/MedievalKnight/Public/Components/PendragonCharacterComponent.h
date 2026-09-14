@@ -52,6 +52,9 @@ public:
     int32 Glory = 1000; // Gloire initiale d'un chevalier bachelier
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+    FBlazon CoatOfArms;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
     TArray<FPendragonFamilyLink> FamilyLinks;
     
     // Primary Attributes
