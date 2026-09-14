@@ -482,6 +482,8 @@ enum class EBlazonInanimateCharge : uint8
 	Tree 			UMETA(DisplayName = "Tree"),
 	Cross 			UMETA(DisplayName = "Cross"),
 	CrossPatee		UMETA(DisplayName = "Cross Patee"),
+	CrossCrosslet	UMETA(DisplayName = "Cross Crosslet"),
+	CrossFlory		UMETA(DisplayName = "Cross Flory"),
 	Crescent 		UMETA(DisplayName = "Crescent"),
 	Mullet 			UMETA(DisplayName = "Mullet"),
 	MulletPierced 	UMETA(DisplayName = "Mullet Pierced"),
