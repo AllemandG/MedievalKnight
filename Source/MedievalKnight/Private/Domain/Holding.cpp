@@ -40,7 +40,6 @@ int32 UHolding::GetTotalAssizedRent()
 int32 UHolding::GetManorInvestmentPrivyFunds(FManor Manor)
 {
 	int32 total = 0;
-
 	for (EManorInvestmentType Investment : Manor.Investments)
 	{
 		switch (Investment)
@@ -61,16 +60,14 @@ int32 UHolding::GetManorInvestmentPrivyFunds(FManor Manor)
 			total +=1;
 		}
 	}
-
 	return total;
 }
 
 int32 UHolding::GetManorPrivyFunds(FManor Manor)
 {
 	int32 total = 0;
-
-	total += Manor.BasePrivyFundsIncome;
-
+	total += Manor.BasePrivyFundsIncome + GetManorInvestmentPrivyFunds(Manor);
+	
 	for (FBuilding mBuilding : Manor.Buildings)
 	{
 		total += mBuilding.MoneyIncome - mBuilding.MaintenanceCost;
@@ -87,12 +84,12 @@ int32 UHolding::GetManorPrivyFunds(FManor Manor)
 int32 UHolding::GetDemesnePrivyFunds()
 {
 	int32 total = 0;
+	
+	total += GetManorPrivyFunds(CaputMajor);
 
-	total += CaputMajor.BasePrivyFundsIncome;
-
-	for (FBuilding building : CaputMajor.Buildings)
+	for (UHolding* holding : DemesneHoldings)
 	{
-		total += building.MoneyIncome - building.MaintenanceCost;
+		total += holding->GetDemesnePrivyFunds();
 	}
 
 	return total;

@@ -176,36 +176,6 @@ struct FPendragonTraitPair
 	bool bOppositeCheckedForImprovement = false;
 };
 
-USTRUCT(BlueprintType)
-struct FBlazon
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon")
-	EBlazonPattern Pattern = EBlazonPattern::Plain;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon")
-	EBlazonColor FirstColor = EBlazonColor::Azure;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon", meta = (EditCondition = "Pattern != EBlazonPatterns::Plain", EditConditionHides))
-	EBlazonColor SecondColor = EBlazonColor::None;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge")
-	EBlazonChargeType ChargeType = EBlazonChargeType::None;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge")
-	EBlazonColor ChargeTincture = EBlazonColor::None;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType == EBlazonChargeType::Ordinary", EditConditionHides))
-	EBlazonOrdinaryCharge OrdinaryCharge = EBlazonOrdinaryCharge::None;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType == EBlazonChargeType::Animate", EditConditionHides))
-	EBlazonAnimateCharge AnimateCharge = EBlazonAnimateCharge::None;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType == EBlazonChargeType::Inanimate", EditConditionHides))
-	EBlazonInanimateCharge InanimateCharge = EBlazonInanimateCharge::None;
-};
-
 /** Représente un lien familial ou féodal initial */
 USTRUCT(BlueprintType)
 struct FPendragonFamilyLink
