@@ -4,8 +4,6 @@
 #include "Core/PendragonTypes.h"
 #include "InventoryTypes.generated.h"
 
-
-
 USTRUCT(BlueprintType)
 struct FPendragonItem
 {
@@ -25,6 +23,10 @@ struct FPendragonItem
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	EEquipmentSlot Slot = EEquipmentSlot::None;
+
+	// Texture2D'/Game/Assets/Textures/items/FOLDER/TEXTURE.TEXTURE'
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FName IconTexturePath;
 
 	// Valeur financière en Deniers / Sous
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Economy")

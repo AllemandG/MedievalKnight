@@ -26,6 +26,7 @@ void AMedievalPlayerController::BeginPlay()
 	    ArmingSword.WeaponSubType = EWeaponSubType::ArmingSword;
 	    ArmingSword.Slot = EEquipmentSlot::MainHand;
 	    ArmingSword.FootMountedType = EFootMountedType::Both;
+    	ArmingSword.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/01_weapons/arming_sword_01.arming_sword_01'");
 	    ArmingSword.BonusDamage = 0;
 	    ArmingSword.ValueInDenarii = 120;
 
@@ -37,6 +38,7 @@ void AMedievalPlayerController::BeginPlay()
 	    Chainmail.ItemType = EItemType::Armor;
 	    Chainmail.ArmorType = EArmorType::Mail;
 	    Chainmail.Slot = EEquipmentSlot::ArmorMailPlate;
+    	Chainmail.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/02_armors/hauberk_01.hauberk_01'");
 	    Chainmail.ArmorProtection = 6;
 	    Chainmail.ValueInDenarii = 390;
 
@@ -48,6 +50,7 @@ void AMedievalPlayerController::BeginPlay()
 	    Charger.ItemType = EItemType::Mount;
 	    Charger.HorseType = EHorseType::Combat;
 	    Charger.HorseSubType = EHorseSubType::Charger;
+    	Charger.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/04_mounts/horse_01.horse_01'");
 	    Charger.ValueInDenarii = 1920;
 
 	    // 4. Un Aketon
@@ -58,6 +61,7 @@ void AMedievalPlayerController::BeginPlay()
 	    Aketon.ItemType = EItemType::Armor;
 	    Aketon.ArmorType = EArmorType::Textile;
 	    Aketon.Slot = EEquipmentSlot::ArmorTextile;
+    	Aketon.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/02_armors/aketon_01.aketon_01'");
 	    Aketon.ArmorProtection = 2;
 	    Aketon.ValueInDenarii = 15;
 
@@ -69,6 +73,7 @@ void AMedievalPlayerController::BeginPlay()
 	    NasalHelm.ItemType = EItemType::Armor;
 	    NasalHelm.ArmorType = EArmorType::Helm;
 	    NasalHelm.Slot = EEquipmentSlot::ArmorHelm;
+    	NasalHelm.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/02_armors/nasal_helm_01.nasal_helm_01'");
 	    NasalHelm.ArmorProtection = 2;
 	    NasalHelm.ValueInDenarii = 90;
 
@@ -80,6 +85,7 @@ void AMedievalPlayerController::BeginPlay()
 	    KiteShield.ItemType = EItemType::Shield;
 	    KiteShield.ShieldType = EShieldType::Large;
 	    KiteShield.Slot = EEquipmentSlot::OffHand;
+    	KiteShield.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/03_shields/kite_shield_01.kite_shield_01'");
 	    KiteShield.ArmorProtection = 6;
 	    KiteShield.ValueInDenarii = 30;
 
@@ -93,6 +99,7 @@ void AMedievalPlayerController::BeginPlay()
     	CrossbowLight.WeaponSubType = EWeaponSubType::CrossbowLight;
     	CrossbowLight.Slot = EEquipmentSlot::RangedWeapon;
     	CrossbowLight.FootMountedType = EFootMountedType::Both;
+    	CrossbowLight.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/01_weapons/crossbow_light_01.crossbow_light_01'");
     	CrossbowLight.BonusDamage = 1;
     	CrossbowLight.FlatDamage = 10;
     	CrossbowLight.ValueInDenarii = 60;
@@ -108,6 +115,7 @@ void AMedievalPlayerController::BeginPlay()
     	Dagger.WeaponSubType = EWeaponSubType::Dagger;
     	Dagger.Slot = EEquipmentSlot::Belt;
     	Dagger.FootMountedType = EFootMountedType::Both;
+    	Dagger.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/01_weapons/dagger_01.dagger_01'");
     	Dagger.BonusDamage = 2;
     	Dagger.ValueInDenarii = 20;
 
@@ -120,6 +128,7 @@ void AMedievalPlayerController::BeginPlay()
     	Lance.WeaponSubType = EWeaponSubType::Lance;
     	Lance.Slot = EEquipmentSlot::MainHand;
     	Lance.FootMountedType = EFootMountedType::Mounted;
+    	Lance.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/01_weapons/lance_01.lance_01'");
     	Lance.BonusDamage = 0;
     	Lance.ValueInDenarii = 30;
 
@@ -132,6 +141,7 @@ void AMedievalPlayerController::BeginPlay()
     	JoustingLance.WeaponSubType = EWeaponSubType::JoustingLance;
     	JoustingLance.Slot = EEquipmentSlot::MainHand;
     	JoustingLance.FootMountedType = EFootMountedType::Mounted;
+    	JoustingLance.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/01_weapons/jousting_lance_01.jousting_lance_01'");
     	JoustingLance.BonusDamage = 0;
     	JoustingLance.ValueInDenarii = 3;
 
@@ -141,6 +151,7 @@ void AMedievalPlayerController::BeginPlay()
 	    OrdinaryClothing.ItemName = FText::FromString(TEXT("Ordinary Clothes"));
 	    OrdinaryClothing.Description = FText::FromString(TEXT("A set of ordinary clothes."));
 	    OrdinaryClothing.ItemType = EItemType::Clothing;
+    	OrdinaryClothing.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/05_general/clothes_ordinary_01.clothes_ordinary_01'");
 	    OrdinaryClothing.ValueInDenarii = 30;
 
 	    FPendragonItem FineClothing;
@@ -148,6 +159,7 @@ void AMedievalPlayerController::BeginPlay()
 	    FineClothing.ItemName = FText::FromString(TEXT("Fine Clothes"));
 	    FineClothing.Description = FText::FromString(TEXT("A set of clothes worth £1."));
 	    FineClothing.ItemType = EItemType::Clothing;
+    	FineClothing.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/05_general/clothes_knight_01.clothes_knight_01'");
     	FineClothing.ValueInDenarii = 240;
     	
     	FPendragonItem NobleClothing;
@@ -155,6 +167,7 @@ void AMedievalPlayerController::BeginPlay()
     	NobleClothing.ItemName = FText::FromString(TEXT("Noble attire"));
     	NobleClothing.Description = FText::FromString(TEXT("A set of fine clothing worth £3."));
     	NobleClothing.ItemType = EItemType::Clothing;
+    	NobleClothing.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/05_general/clothes_noble_01.clothes_noble_01'");
     	NobleClothing.ValueInDenarii = 720;
 
 	    FPendragonItem Cloak;
@@ -162,6 +175,7 @@ void AMedievalPlayerController::BeginPlay()
 	    Cloak.ItemName = FText::FromString(TEXT("Cloak"));
 	    Cloak.Description = FText::FromString(TEXT("A cape to protect against the elements."));
 	    Cloak.ItemType = EItemType::Clothing;
+    	Cloak.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/05_general/cloak_01.cloak_01'");
 	    Cloak.ValueInDenarii = 5;
 
 	    FPendragonItem WoolCloak;
@@ -169,6 +183,7 @@ void AMedievalPlayerController::BeginPlay()
 	    WoolCloak.ItemName = FText::FromString(TEXT("Wool Cloak"));
 	    WoolCloak.Description = FText::FromString(TEXT("A wool cape to protect against the cold."));
 	    WoolCloak.ItemType = EItemType::Clothing;
+    	WoolCloak.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/05_general/wool_cloak_01.wool_cloak_01'");
 	    WoolCloak.ValueInDenarii = 10;
 
 	    FPendragonItem TravelGear;
@@ -176,6 +191,7 @@ void AMedievalPlayerController::BeginPlay()
 	    TravelGear.ItemName = FText::FromString(TEXT("Travel Gear"));
 	    TravelGear.Description = FText::FromString(TEXT("Two sleeping blankets and towels; eating and cooking utensils; fire-making kit; bandages; pair of panniers; several sacks with drawstrings to store everything; large canvas tarpaulin; pack frame for sumpter and saddlebags"));
 	    TravelGear.ItemType = EItemType::General;
+    	TravelGear.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/05_general/travel_gear_01.travel_gear_01'");
 	    TravelGear.ValueInDenarii = 120;
 
 	    FPendragonItem HorseGear;
@@ -183,6 +199,7 @@ void AMedievalPlayerController::BeginPlay()
 	    HorseGear.ItemName = FText::FromString(TEXT("Horse Gear"));
 	    HorseGear.Description = FText::FromString(TEXT("Two ridding saddles and tack; One War saddle and tack; Four horse blankets; Feed bag; Currying brushes; Hobbles; Hoof pick; Horse towels; Rope"));
 	    HorseGear.ItemType = EItemType::General;
+    	HorseGear.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/05_general/horseshoe_01.horseshoe_01'");
 	    HorseGear.ValueInDenarii = 120;
     	
 
@@ -217,6 +234,7 @@ void AMedievalPlayerController::BeginPlay()
     	InventoryComponent->EquipWeapon(CrossbowLight, EEquipmentSlot::RangedWeapon);
     	InventoryComponent->EquipWeapon(Dagger, EEquipmentSlot::Belt);
     	InventoryComponent->EquipWeapon(Lance, EEquipmentSlot::JoustingWeapon);
-		InventoryComponent->EquipClothing(OrdinaryClothing);
+    	InventoryComponent->EquipClothing(OrdinaryClothing, EEquipmentSlot::Clothing);
+    	InventoryComponent->EquipClothing(Cloak, EEquipmentSlot::Cape);
     }
 }
