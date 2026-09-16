@@ -99,6 +99,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Equipment")
     bool EquipHorseArmor(const FHorseArmor& HorseArmor, EEquipmentSlot HorseSlot);
 
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Equipment")
+    bool UnequipHorseArmor(FName ItemID, EEquipmentSlot HorseSlot);
+
     // --- Calculs de Statistiques ---
 
     // Calcule la protection d'armure totale cumulée (Armure textile + Maille/Plaque + Casque + Surcot + Bouclier)

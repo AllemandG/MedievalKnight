@@ -83,7 +83,7 @@ struct FArmor : public FPendragonItem
 	EArmorType ArmorType = EArmorType::Textile;
 
 	// Statistiques d'équipement
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "ItemType == EItemType::Armor || ItemType == EItemType::Shield", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "ItemType == EItemType::Armor", EditConditionHides))
 	int32 ArmorProtection = 0;
 };
 
@@ -96,7 +96,7 @@ struct FShield : public FPendragonItem
 	EShieldType ShieldType = EShieldType::Medium;
 
 	// Statistiques d'équipement
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "ItemType == EItemType::Armor || ItemType == EItemType::Shield", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "ItemType == EItemType::Shield", EditConditionHides))
 	int32 ArmorProtection = 0;
 };
 

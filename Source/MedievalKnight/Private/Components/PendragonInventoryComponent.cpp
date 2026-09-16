@@ -90,7 +90,7 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     Dagger.WeaponType = EWeaponType::Brawling;
     Dagger.WeaponAltType = EWeaponType::Thrown;
     Dagger.WeaponSubType = EWeaponSubType::Dagger;
-    Dagger.Slot = EEquipmentSlot::Belt;
+    Dagger.Slot = EEquipmentSlot::Dagger;
     Dagger.FootMountedType = EFootMountedType::Both;
     Dagger.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/01_weapons/dagger_01.dagger_01'");
     Dagger.BonusDamage = 2;
@@ -187,7 +187,7 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     EquipArmor(Chainmail);
     EquipArmor(NasalHelm);
     EquipShield(KiteShield);
-    EquipWeapon(Dagger, EEquipmentSlot::Belt);
+    EquipWeapon(Dagger, EEquipmentSlot::Dagger);
     EquipWeapon(Lance, EEquipmentSlot::JoustingWeapon);
     EquipClothing(OrdinaryClothing, EEquipmentSlot::Clothing);
     EquipClothing(Cloak, EEquipmentSlot::Cape);
@@ -353,6 +353,11 @@ bool UPendragonInventoryComponent::RemoveItemByID(FName ItemID, int32 Quantity)
 
 bool UPendragonInventoryComponent::EquipWeapon(const FWeapon& Weapon, EEquipmentSlot TargetSlot)
 {
+    if (Weapon.TwoHanded)
+    {
+        UnequipSlot(EEquipmentSlot::OffHand);
+    }
+    
     UnequipSlot(TargetSlot);
 
     FEquippedItemSlot NewSlot;
@@ -402,6 +407,12 @@ bool UPendragonInventoryComponent::EquipArmor(const FArmor& Armor)
 
 bool UPendragonInventoryComponent::EquipShield(const FShield& Shield)
 {
+    FEquippedItemSlot OccupiedSlot = EquippedSlots[EEquipmentSlot::MainHand];
+    if (OccupiedSlot.EquippedWeapon.TwoHanded)
+    {
+        UnequipSlot(EEquipmentSlot::MainHand);
+    }
+    
     UnequipSlot(EEquipmentSlot::OffHand);
 
     FEquippedItemSlot NewSlot;
@@ -485,8 +496,8 @@ bool UPendragonInventoryComponent::UnequipSlot(EEquipmentSlot Slot)
 bool UPendragonInventoryComponent::SwitchWeaponSlot(EEquipmentSlot FirstSlot, EEquipmentSlot SecondSlot)
 {
     // Can only switch between melee weapons
-    if ((FirstSlot != EEquipmentSlot::MainHand || FirstSlot != EEquipmentSlot::Belt)
-        && (SecondSlot != EEquipmentSlot::MainHand || SecondSlot != EEquipmentSlot::Belt))
+    if ((FirstSlot != EEquipmentSlot::MainHand || FirstSlot != EEquipmentSlot::Dagger || FirstSlot != EEquipmentSlot::Belt1 || FirstSlot != EEquipmentSlot::Belt2)
+        && (SecondSlot != EEquipmentSlot::MainHand || SecondSlot != EEquipmentSlot::Dagger || SecondSlot != EEquipmentSlot::Belt1 || SecondSlot != EEquipmentSlot::Belt2))
     {
         return false;
     }
@@ -554,6 +565,26 @@ bool UPendragonInventoryComponent::EquipHorseArmor(const FHorseArmor& HorseArmor
     
     RemoveItemByID(HorseArmor.ItemID, 1);
     OnInventoryUpdated.Broadcast();
+    return true;
+}
+
+bool UPendragonInventoryComponent::UnequipHorseArmor(FName ItemID, EEquipmentSlot HorseSlot)
+{
+    if (!EquippedSlots.Contains(HorseSlot))
+    {
+        return false;
+    }
+
+    if (EquippedSlots.Find(HorseSlot)->EquippedHorse.Caparison.ItemID == ItemID)
+    {
+        AddHorseArmor(EquippedSlots.Find(HorseSlot)->EquippedHorse.Caparison);
+        EquippedSlots.Find(HorseSlot)->EquippedHorse.Caparison.ItemID = NAME_None;
+    }
+    else if (EquippedSlots.Find(HorseSlot)->EquippedHorse.HorseArmor.ItemID == ItemID)
+    {
+        AddHorseArmor(EquippedSlots.Find(HorseSlot)->EquippedHorse.HorseArmor);
+        EquippedSlots.Find(HorseSlot)->EquippedHorse.HorseArmor.ItemID = NAME_None;
+    }
     return true;
 }
 

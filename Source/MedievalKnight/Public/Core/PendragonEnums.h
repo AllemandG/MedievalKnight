@@ -125,7 +125,9 @@ enum class EEquipmentSlot : uint8
 	None			UMETA(DisplayName = "None"),
 	MainHand		UMETA(DisplayName = "Main Hand"),
 	OffHand			UMETA(DisplayName = "Off Hand"),
-	Belt			UMETA(DisplayName = "Belt"),
+	Dagger			UMETA(DisplayName = "Dagger"),
+	Belt1			UMETA(DisplayName = "Belt1"),
+	Belt2			UMETA(DisplayName = "Belt2"),
 	JoustingWeapon	UMETA(DisplayName = "Jousting Weapon"),
 	RangedWeapon	UMETA(DisplayName = "Ranged Weapon"),
 	Clothing		UMETA(DisplayName = "Clothing"),
@@ -216,7 +218,6 @@ enum class EArmorType : uint8
 	Mail		UMETA(DisplayName = "Mail"),
 	Plate       UMETA(DisplayName = "Plate"),
 	Helm		UMETA(DisplayName = "Helm"),
-	Surcoat     UMETA(DisplayName = "Surcoat"),
 	Tabard      UMETA(DisplayName = "Tabard")
 };
 
