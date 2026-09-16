@@ -35,6 +35,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Inventory|Mounts")
     TArray<FHorse> Mounts;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Inventory|HorseArmors")
+    TArray<FHorseArmor> HorseArmors;
+
     // Remplacement de TMap<EEquipmentSlot, FPendragonItem>
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Equipment")
     TMap<EEquipmentSlot, FEquippedItemSlot> EquippedSlots;
@@ -65,6 +68,9 @@ public:
     void AddMount(const FHorse& Mount);
 
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Inventory")
+    void AddHorseArmor(const FHorseArmor& Mount);
+
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Inventory")
     bool RemoveItemByID(FName ItemID, int32 Quantity = 1);
 
     // --- Équipement & Déséquipement ---
@@ -89,6 +95,9 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Equipment")
     bool SwitchWeaponSlot(EEquipmentSlot FirstSlot, EEquipmentSlot SecondSlot);
+
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Equipment")
+    bool EquipHorseArmor(const FHorseArmor& HorseArmor, EEquipmentSlot HorseSlot);
 
     // --- Calculs de Statistiques ---
 

@@ -133,7 +133,6 @@ enum class EEquipmentSlot : uint8
 	ArmorMailPlate	UMETA(DisplayName = "Mail/Plate"),
 	ArmorTextile	UMETA(DisplayName = "Textile"),
 	ArmorHelm		UMETA(DisplayName = "Helmet"),
-	ArmorSurcoat	UMETA(DisplayName = "Surcoat"),
 	ArmorTabard 	UMETA(DisplayName = "Tabard"),
 	WarMount		UMETA(DisplayName = "War Mount"),
 	RidingMount		UMETA(DisplayName = "Riding Mount"),

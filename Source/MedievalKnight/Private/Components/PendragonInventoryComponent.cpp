@@ -39,6 +39,7 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     Charger.ItemType = EItemType::Mount;
     Charger.HorseType = EHorseType::Combat;
     Charger.HorseSubType = EHorseSubType::Charger;
+    Charger.Slot = EEquipmentSlot::WarMount;
     Charger.ValueInDenarii = 1920;
 
     // 4. Un Aketon
@@ -95,7 +96,7 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     Lance.ItemType = EItemType::Weapon;
     Lance.WeaponType = EWeaponType::Charge;
     Lance.WeaponSubType = EWeaponSubType::Lance;
-    Lance.Slot = EEquipmentSlot::MainHand;
+    Lance.Slot = EEquipmentSlot::JoustingWeapon;
     Lance.FootMountedType = EFootMountedType::Mounted;
     Lance.BonusDamage = 0;
     Lance.ValueInDenarii = 30;
@@ -106,6 +107,7 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     OrdinaryClothing.ItemName = FText::FromString(TEXT("Ordinary Clothes"));
     OrdinaryClothing.Description = FText::FromString(TEXT("A set of ordinary clothes."));
     OrdinaryClothing.ItemType = EItemType::Clothing;
+    OrdinaryClothing.Slot = EEquipmentSlot::Clothing;
     OrdinaryClothing.ValueInDenarii = 30;
 
     FPendragonItem FineClothing;
@@ -113,6 +115,7 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     FineClothing.ItemName = FText::FromString(TEXT("Fine Clothes"));
     FineClothing.Description = FText::FromString(TEXT("A set of clothes worth £1."));
     FineClothing.ItemType = EItemType::Clothing;
+    FineClothing.Slot = EEquipmentSlot::Clothing;
     FineClothing.ValueInDenarii = 240;
 
     FPendragonItem Cloak;
@@ -120,6 +123,7 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     Cloak.ItemName = FText::FromString(TEXT("Cloak"));
     Cloak.Description = FText::FromString(TEXT("A cape to protect against the elements."));
     Cloak.ItemType = EItemType::Clothing;
+    Cloak.Slot = EEquipmentSlot::Cape;
     Cloak.ValueInDenarii = 5;
 
     FPendragonItem WoolCloak;
@@ -127,6 +131,7 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     WoolCloak.ItemName = FText::FromString(TEXT("Wool Cloak"));
     WoolCloak.Description = FText::FromString(TEXT("A wool cape to protect against the cold."));
     WoolCloak.ItemType = EItemType::Clothing;
+    WoolCloak.Slot = EEquipmentSlot::Cape;
     WoolCloak.ValueInDenarii = 10;
 
     FPendragonItem TravelGear;
@@ -170,8 +175,8 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     EquipShield(KiteShield);
     EquipWeapon(Dagger, EEquipmentSlot::Belt);
     EquipWeapon(Lance, EEquipmentSlot::JoustingWeapon);
-    EquipClothing(OrdinaryClothing);
-    EquipClothing(Cloak);
+    EquipClothing(OrdinaryClothing, EEquipmentSlot::Clothing);
+    EquipClothing(Cloak, EEquipmentSlot::Cape);
     
 }
 
@@ -241,6 +246,21 @@ void UPendragonInventoryComponent::AddMount(const FHorse& Mount)
     OnInventoryUpdated.Broadcast();
 }
 
+void UPendragonInventoryComponent::AddHorseArmor(const FHorseArmor& Mount)
+{
+    for (FHorseArmor& Existing : HorseArmors)
+    {
+        if (Existing.ItemID == Mount.ItemID)
+        {
+            Existing.Quantity += Mount.Quantity;
+            OnInventoryUpdated.Broadcast();
+            return;
+        }
+    }
+    HorseArmors.Add(Mount);
+    OnInventoryUpdated.Broadcast();
+}
+
 bool UPendragonInventoryComponent::RemoveItemByID(FName ItemID, int32 Quantity)
 {
     // Recherche dans les objets généraux
@@ -302,6 +322,18 @@ bool UPendragonInventoryComponent::RemoveItemByID(FName ItemID, int32 Quantity)
         }
     }
 
+    // Recherche dans les armures pour montures
+    for (int32 Index = 0; Index < HorseArmors.Num(); ++Index)
+    {
+        if (HorseArmors[Index].ItemID == ItemID)
+        {
+            HorseArmors[Index].Quantity -= Quantity;
+            HorseArmors.RemoveAt(Index);
+            OnInventoryUpdated.Broadcast();
+            return true;
+        }
+    }
+
     return false;
 }
 
@@ -335,7 +367,6 @@ bool UPendragonInventoryComponent::EquipArmor(const FArmor& Armor)
         case EArmorType::Mail:
         case EArmorType::Plate:   SlotToUse = EEquipmentSlot::ArmorMailPlate; break;
         case EArmorType::Helm:    SlotToUse = EEquipmentSlot::ArmorHelm; break;
-        case EArmorType::Surcoat: SlotToUse = EEquipmentSlot::ArmorSurcoat; break;
         case EArmorType::Tabard:  SlotToUse = EEquipmentSlot::ArmorTabard; break;
         }
     }
@@ -475,6 +506,39 @@ bool UPendragonInventoryComponent::SwitchWeaponSlot(EEquipmentSlot FirstSlot, EE
         EquipWeapon(SecondWeapon, FirstSlot);
     }
 
+    OnInventoryUpdated.Broadcast();
+    return true;
+}
+
+bool UPendragonInventoryComponent::EquipHorseArmor(const FHorseArmor& HorseArmor, EEquipmentSlot HorseSlot)
+{
+    if (!EquippedSlots.Contains(HorseSlot))
+    {
+        return false;
+    }
+
+    if (HorseArmor.HorseArmorType == EHorseArmorType::CaparisonFull || HorseArmor.HorseArmorType == EHorseArmorType::CaparisonHalf || HorseArmor.HorseArmorType == EHorseArmorType::CaparisonOpen)
+    {
+        if (EquippedSlots.Find(HorseSlot)->EquippedHorse.Caparison.ItemID != NAME_None)
+        {
+            AddHorseArmor(EquippedSlots.Find(HorseSlot)->EquippedHorse.Caparison);
+        }
+        EquippedSlots.Find(HorseSlot)->EquippedHorse.Caparison = HorseArmor;
+    }
+    else if (HorseArmor.HorseArmorType == EHorseArmorType::GambesonFull || HorseArmor.HorseArmorType == EHorseArmorType::GambesonHalf || HorseArmor.HorseArmorType == EHorseArmorType::PaddingFull)
+    {
+        if (EquippedSlots.Find(HorseSlot)->EquippedHorse.HorseArmor.ItemID != NAME_None)
+        {
+            AddHorseArmor(EquippedSlots.Find(HorseSlot)->EquippedHorse.HorseArmor);
+        }
+        EquippedSlots.Find(HorseSlot)->EquippedHorse.HorseArmor = HorseArmor;
+    }
+    else
+    {
+        return false;
+    }
+    
+    RemoveItemByID(HorseArmor.ItemID, 1);
     OnInventoryUpdated.Broadcast();
     return true;
 }
