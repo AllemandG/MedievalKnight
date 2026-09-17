@@ -366,6 +366,7 @@ bool UPendragonInventoryComponent::EquipWeapon(const FWeapon& Weapon, EEquipment
     NewSlot.EquippedItemType = Weapon.ItemType;
     NewSlot.BaseItem = Weapon;
     NewSlot.EquippedWeapon = Weapon;
+    NewSlot.EquippedWeapon.Quantity = 1;
 
     EquippedSlots.Add(TargetSlot, NewSlot);
     RemoveItemByID(Weapon.ItemID, 1);
@@ -398,6 +399,7 @@ bool UPendragonInventoryComponent::EquipArmor(const FArmor& Armor)
     NewSlot.EquippedItemType = Armor.ItemType;
     NewSlot.BaseItem = Armor;
     NewSlot.EquippedArmor = Armor;
+    NewSlot.EquippedArmor.Quantity = 1;
 
     EquippedSlots.Add(SlotToUse, NewSlot);
     RemoveItemByID(Armor.ItemID, 1);
@@ -421,7 +423,8 @@ bool UPendragonInventoryComponent::EquipShield(const FShield& Shield)
     NewSlot.EquippedItemType = Shield.ItemType;
     NewSlot.BaseItem = Shield;
     NewSlot.EquippedShield = Shield; // Un bouclier fournit de la protection comme une armure
-
+    NewSlot.EquippedShield.Quantity = 1;
+    
     EquippedSlots.Add(EEquipmentSlot::OffHand, NewSlot);
     RemoveItemByID(Shield.ItemID, 1);
     OnInventoryUpdated.Broadcast();
@@ -454,6 +457,7 @@ bool UPendragonInventoryComponent::EquipClothing(const FPendragonItem& Item, EEq
     NewSlot.bIsOccupied = true;
     NewSlot.EquippedItemType = Item.ItemType;
     NewSlot.BaseItem = Item;
+    NewSlot.BaseItem.Quantity = 1;
 
     EquippedSlots.Add(Slot, NewSlot);
     RemoveItemByID(Item.ItemID, 1);
@@ -553,6 +557,7 @@ bool UPendragonInventoryComponent::EquipHorseArmor(const FHorseArmor& HorseArmor
             AddHorseArmor(EquippedSlots.Find(HorseSlot)->EquippedHorse.Caparison);
         }
         EquippedSlots.Find(HorseSlot)->EquippedHorse.Caparison = HorseArmor;
+        EquippedSlots.Find(HorseSlot)->EquippedHorse.Caparison.Quantity = 1;
     }
     else if (HorseArmor.HorseArmorType == EHorseArmorType::GambesonFull || HorseArmor.HorseArmorType == EHorseArmorType::GambesonHalf || HorseArmor.HorseArmorType == EHorseArmorType::PaddingFull)
     {
@@ -561,6 +566,7 @@ bool UPendragonInventoryComponent::EquipHorseArmor(const FHorseArmor& HorseArmor
             AddHorseArmor(EquippedSlots.Find(HorseSlot)->EquippedHorse.HorseArmor);
         }
         EquippedSlots.Find(HorseSlot)->EquippedHorse.HorseArmor = HorseArmor;
+        EquippedSlots.Find(HorseSlot)->EquippedHorse.HorseArmor.Quantity = 1;
     }
     else
     {
@@ -588,6 +594,7 @@ bool UPendragonInventoryComponent::UnequipHorseArmor(FName ItemID, EEquipmentSlo
     {
         AddHorseArmor(EquippedSlots.Find(HorseSlot)->EquippedHorse.HorseArmor);
         EquippedSlots.Find(HorseSlot)->EquippedHorse.HorseArmor.ItemID = NAME_None;
+        EquippedSlots.Find(HorseSlot)->EquippedHorse.HorseArmor.ArmorProtection = 0;
     }
     return true;
 }

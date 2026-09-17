@@ -5,7 +5,7 @@
 #include "InventoryTypes.generated.h"
 
 USTRUCT(BlueprintType)
-struct FPendragonItem
+struct FPendragonItem : public FTableRowBase
 {
 	GENERATED_BODY()
 
