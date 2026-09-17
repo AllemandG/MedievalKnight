@@ -240,6 +240,20 @@ enum class EHorseType : uint8
 };
 
 UENUM(BlueprintType)
+enum class EHorseColor : uint8
+{
+	None		UMETA(DisplayName = "None"),
+	White		UMETA(DisplayName = "White"),
+	Gray		UMETA(DisplayName = "Gray"),
+	Bay			UMETA(DisplayName = "Bay"),
+	Yellow		UMETA(DisplayName = "Yellow"),
+	Pale		UMETA(DisplayName = "Pale"),
+	Chestnut	UMETA(DisplayName = "Chestnut"),
+	Dun			UMETA(DisplayName = "Bay"),
+	Black		UMETA(DisplayName = "Black")
+};
+
+UENUM(BlueprintType)
 enum class EHorseSubType : uint8
 {
 	Hobby			UMETA(DisplayName = "Hobby"),
@@ -273,6 +287,31 @@ enum class EHorseArmorType : uint8
 	PaddingFull		UMETA(DisplayName = "Padding, full"),
 	GambesonHalf	UMETA(DisplayName = "Gambeson, half"),
 	GambesonFull	UMETA(DisplayName = "Gambeson, full")
+};
+
+UENUM(BlueprintType)
+enum class EAdvantageType : uint8
+{
+	None				UMETA(DisplayName = "None"),
+	LongWeapon			UMETA(DisplayName = "Long Weapon"),
+	Parry				UMETA(DisplayName = "Parry"),
+	AgainstMail 		UMETA(DisplayName = "Against Mail"),
+	AgainstPlate		UMETA(DisplayName = "Against Plate"),
+	AgainstUnarmored	UMETA(DisplayName = "Against Unarmored"),
+	AgainstShields		UMETA(DisplayName = "Against Shields"),
+	WhenTwoHanded		UMETA(DisplayName = "When Two Handed")
+};
+
+UENUM(BlueprintType)
+enum class EDisadvantageType : uint8
+{
+	None					UMETA(DisplayName = "None"),
+	NoShield				UMETA(DisplayName = "No Shield"),
+	BreaksOnFumble			UMETA(DisplayName = "Breaks on Fumble"),
+	BreaksOnTie 			UMETA(DisplayName = "Breaks on Tie"),
+	BreaksOnTieVsSword		UMETA(DisplayName = "Breaks on Tie vs Sword"),
+	BreaksOnOddSuccess		UMETA(DisplayName = "Breaks on odd Success"),
+	BreaksOnSuccess 		UMETA(DisplayName = "Breaks on Success")
 };
 
 UENUM(BlueprintType)

@@ -179,6 +179,9 @@ struct FShield : public FTableRowBase
 	// Statistiques d'équipement
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats")
 	int32 ArmorProtection = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats")
+	int32 MissileAttackPenalty = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -237,6 +240,9 @@ struct FHorse : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	EItemType ItemType = EItemType::Mount;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	EHorseColor HorseColor = EHorseColor::Dun;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	EEquipmentSlot Slot = EEquipmentSlot::WarMount;
