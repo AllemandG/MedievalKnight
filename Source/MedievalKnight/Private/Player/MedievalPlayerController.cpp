@@ -161,7 +161,7 @@ void AMedievalPlayerController::BeginPlay()
 	    FineClothing.ItemName = FText::FromString(TEXT("Fine Clothes"));
 	    FineClothing.Description = FText::FromString(TEXT("A set of clothes worth £1."));
 	    FineClothing.ItemType = EItemType::Clothing;
-    	OrdinaryClothing.Slot = EEquipmentSlot::Clothing;
+    	FineClothing.Slot = EEquipmentSlot::Clothing;
     	FineClothing.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/05_general/clothes_knight_01.clothes_knight_01'");
     	FineClothing.ValueInDenarii = 240;
     	
@@ -170,7 +170,7 @@ void AMedievalPlayerController::BeginPlay()
     	NobleClothing.ItemName = FText::FromString(TEXT("Noble attire"));
     	NobleClothing.Description = FText::FromString(TEXT("A set of fine clothing worth £3."));
     	NobleClothing.ItemType = EItemType::Clothing;
-    	OrdinaryClothing.Slot = EEquipmentSlot::Clothing;
+    	NobleClothing.Slot = EEquipmentSlot::Clothing;
     	NobleClothing.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/05_general/clothes_noble_01.clothes_noble_01'");
     	NobleClothing.ValueInDenarii = 720;
 
@@ -179,7 +179,7 @@ void AMedievalPlayerController::BeginPlay()
 	    Cloak.ItemName = FText::FromString(TEXT("Cloak"));
 	    Cloak.Description = FText::FromString(TEXT("A cape to protect against the elements."));
 	    Cloak.ItemType = EItemType::Clothing;
-    	OrdinaryClothing.Slot = EEquipmentSlot::Cape;
+    	Cloak.Slot = EEquipmentSlot::Cape;
     	Cloak.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/05_general/cloak_01.cloak_01'");
 	    Cloak.ValueInDenarii = 5;
 
@@ -188,7 +188,7 @@ void AMedievalPlayerController::BeginPlay()
 	    WoolCloak.ItemName = FText::FromString(TEXT("Wool Cloak"));
 	    WoolCloak.Description = FText::FromString(TEXT("A wool cape to protect against the cold."));
 	    WoolCloak.ItemType = EItemType::Clothing;
-    	OrdinaryClothing.Slot = EEquipmentSlot::Cape;
+    	WoolCloak.Slot = EEquipmentSlot::Cape;
     	WoolCloak.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/05_general/wool_cloak_01.wool_cloak_01'");
 	    WoolCloak.ValueInDenarii = 10;
 

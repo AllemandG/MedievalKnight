@@ -487,6 +487,10 @@ bool UPendragonInventoryComponent::UnequipSlot(EEquipmentSlot Slot)
     {
         AddArmor(OccupiedSlot.EquippedArmor);
     }
+    else if (OccupiedSlot.BaseItem.ItemID != NAME_None)
+    {
+        AddItem(OccupiedSlot.BaseItem);
+    }
 
     EquippedSlots.Remove(Slot);
     OnInventoryUpdated.Broadcast();
