@@ -249,7 +249,7 @@ enum class EHorseColor : uint8
 	Yellow		UMETA(DisplayName = "Yellow"),
 	Pale		UMETA(DisplayName = "Pale"),
 	Chestnut	UMETA(DisplayName = "Chestnut"),
-	Dun			UMETA(DisplayName = "Bay"),
+	Dun			UMETA(DisplayName = "Dun"),
 	Black		UMETA(DisplayName = "Black")
 };
 
