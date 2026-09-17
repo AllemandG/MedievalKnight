@@ -49,6 +49,9 @@ public:
     /** Équipe le personnage avec le trousseau de départ standard d'un chevalier */
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Inventory")
     void InitializeDefaultKnightEquipment();
+
+    UFUNCTION(BlueprintCallable, Category = "Pendragon|Inventory")
+    void InitializeEquipmentFromDataTable(UDataTable* ItemDataTable, const TArray<FName>& ItemsToGiveAndEquip);
     
     // --- Fonctions d'ajout/retrait de base ---
 

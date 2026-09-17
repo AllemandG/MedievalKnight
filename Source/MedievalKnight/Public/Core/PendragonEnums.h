@@ -144,6 +144,7 @@ enum class EEquipmentSlot : uint8
 UENUM(BlueprintType)
 enum class EWeaponType : uint8
 {
+	None		UMETA(DisplayName = "None"),
 	Charge      UMETA(DisplayName = "Charge"),
 	Sword		UMETA(DisplayName = "Sword"),
 	Spear       UMETA(DisplayName = "Spear"),
@@ -206,6 +207,7 @@ enum class EFootMountedType : uint8
 UENUM(BlueprintType)
 enum class ERange : uint8
 {
+	None	UMETA(DisplayName = "None"),
 	Short	UMETA(DisplayName = "Short"),
 	Medium	UMETA(DisplayName = "Medium"),
 	Long	UMETA(DisplayName = "Long")

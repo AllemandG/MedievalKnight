@@ -98,6 +98,7 @@ void AMedievalPlayerController::BeginPlay()
     	CrossbowLight.ItemType = EItemType::Weapon;
     	CrossbowLight.WeaponType = EWeaponType::Crossbow;
     	CrossbowLight.WeaponSubType = EWeaponSubType::CrossbowLight;
+    	CrossbowLight.Range = ERange::Medium;
     	CrossbowLight.Slot = EEquipmentSlot::RangedWeapon;
     	CrossbowLight.FootMountedType = EFootMountedType::Both;
     	CrossbowLight.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/01_weapons/crossbow_light_01.crossbow_light_01'");
@@ -114,6 +115,7 @@ void AMedievalPlayerController::BeginPlay()
     	Dagger.WeaponType = EWeaponType::Brawling;
     	Dagger.WeaponAltType = EWeaponType::Thrown;
     	Dagger.WeaponSubType = EWeaponSubType::Dagger;
+    	CrossbowLight.Range = ERange::Short;
     	Dagger.Slot = EEquipmentSlot::Dagger;
     	Dagger.FootMountedType = EFootMountedType::Both;
     	Dagger.IconTexturePath = TEXT("Texture2D'/Game/Assets/Textures/items/01_weapons/dagger_01.dagger_01'");

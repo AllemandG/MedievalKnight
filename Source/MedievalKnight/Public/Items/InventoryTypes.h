@@ -38,90 +38,225 @@ struct FPendragonItem : public FTableRowBase
 };
 
 USTRUCT(BlueprintType)
-struct FWeapon : public FPendragonItem
+struct FWeapon : public FTableRowBase
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon", meta = (EditCondition = "ItemType == EItemType::Weapon", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FName ItemID = NAME_None;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FText ItemName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item", meta = (MultiLine = true))
+	FText Description;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	EItemType ItemType = EItemType::Weapon;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	EEquipmentSlot Slot = EEquipmentSlot::MainHand;
+
+	// Texture2D'/Game/Assets/Textures/items/FOLDER/TEXTURE.TEXTURE'
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FName IconTexturePath;
+
+	// Valeur financière en Deniers / Sous
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Economy")
+	int32 ValueInDenarii = 0;
+
+	// Quantité
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	int32 Quantity = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon")
 	EWeaponType WeaponType = EWeaponType::Sword;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon", meta = (EditCondition = "WeaponSubType == EWeaponSubType::Dagger || WeaponSubType == EWeaponSubType::Francisca || WeaponSubType == EWeaponSubType::Javelin || WeaponSubType == EWeaponSubType::Spear", EditConditionHides))
-	EWeaponType WeaponAltType = EWeaponType::Spear;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon")
+	EWeaponType WeaponAltType = EWeaponType::None;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon", meta = (EditCondition = "ItemType == EItemType::Weapon", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon")
 	EWeaponSubType WeaponSubType = EWeaponSubType::ArmingSword;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon)", meta = (EditCondition = "ItemType == EItemType::Weapon", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon)")
 	EFootMountedType FootMountedType = EFootMountedType::Foot;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon)", meta = (EditCondition = "WeaponType == EWeaponType::Bow || WeaponType == EWeaponType::Crossbow || WeaponType == EWeaponType::Thrown || WeaponAltType == EWeaponType::Thrown", EditConditionHides))
-	ERange Range = ERange::Medium;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon)")
+	ERange Range = ERange::None;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon", meta = (EditCondition = "ItemType == EItemType::Weapon", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon")
 	bool TwoHanded = false;
 
 	// Statistiques d'équipement
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "ItemType == EItemType::Weapon", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon")
 	int32 BonusDamage = 0;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "ItemType == EItemType::Weapon", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon")
 	int32 FlatDamage = 0;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "WeaponType == EWeaponType::Thrown || WeaponAltType == EWeaponType::Thrown", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon")
 	int32 BonusThrown = 0;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "WeaponType == EWeaponType::Thrown || WeaponAltType == EWeaponType::Thrown", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon")
 	int32 FlatThrown = 0;
 };
 
 USTRUCT(BlueprintType)
-struct FArmor : public FPendragonItem
+struct FArmor : public FTableRowBase
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Armor", meta = (EditCondition = "ItemType == EItemType::Armor", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FName ItemID = NAME_None;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FText ItemName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item", meta = (MultiLine = true))
+	FText Description;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	EItemType ItemType = EItemType::Armor;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	EEquipmentSlot Slot = EEquipmentSlot::ArmorMailPlate;
+
+	// Texture2D'/Game/Assets/Textures/items/FOLDER/TEXTURE.TEXTURE'
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FName IconTexturePath;
+
+	// Valeur financière en Deniers / Sous
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Economy")
+	int32 ValueInDenarii = 0;
+
+	// Quantité
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	int32 Quantity = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Armor")
 	EArmorType ArmorType = EArmorType::Textile;
 
 	// Statistiques d'équipement
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "ItemType == EItemType::Armor", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats")
 	int32 ArmorProtection = 0;
 };
 
 USTRUCT(BlueprintType)
-struct FShield : public FPendragonItem
+struct FShield : public FTableRowBase
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Shield", meta = (EditCondition = "ItemType == EItemType::Shield", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FName ItemID = NAME_None;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FText ItemName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item", meta = (MultiLine = true))
+	FText Description;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	EItemType ItemType = EItemType::Shield;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	EEquipmentSlot Slot = EEquipmentSlot::OffHand;
+
+	// Texture2D'/Game/Assets/Textures/items/FOLDER/TEXTURE.TEXTURE'
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FName IconTexturePath;
+
+	// Valeur financière en Deniers / Sous
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Economy")
+	int32 ValueInDenarii = 0;
+
+	// Quantité
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	int32 Quantity = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Shield")
 	EShieldType ShieldType = EShieldType::Medium;
 
 	// Statistiques d'équipement
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "ItemType == EItemType::Shield", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats")
 	int32 ArmorProtection = 0;
 };
 
 USTRUCT(BlueprintType)
-struct FHorseArmor : public FPendragonItem
+struct FHorseArmor : public FTableRowBase
 {
 	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FName ItemID = NAME_None;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FText ItemName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item", meta = (MultiLine = true))
+	FText Description;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	EItemType ItemType = EItemType::HorseArmor;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	EEquipmentSlot Slot = EEquipmentSlot::WarMount;
+
+	// Texture2D'/Game/Assets/Textures/items/FOLDER/TEXTURE.TEXTURE'
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FName IconTexturePath;
+
+	// Valeur financière en Deniers / Sous
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Economy")
+	int32 ValueInDenarii = 0;
+
+	// Quantité
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	int32 Quantity = 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|HorseArmor")
 	EHorseArmorType HorseArmorType = EHorseArmorType::CaparisonOpen;
 
 	// Statistiques d'équipement
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "ItemType == EItemType::HorseArmor", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats")
 	int32 ArmorProtection = 0;
 };
 
 USTRUCT(BlueprintType)
-struct FHorse : public FPendragonItem
+struct FHorse : public FTableRowBase
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse", meta = (EditCondition = "ItemType == EItemType::Mount", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FName ItemID = NAME_None;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FText ItemName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item", meta = (MultiLine = true))
+	FText Description;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	EItemType ItemType = EItemType::Mount;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	EEquipmentSlot Slot = EEquipmentSlot::WarMount;
+
+	// Texture2D'/Game/Assets/Textures/items/FOLDER/TEXTURE.TEXTURE'
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FName IconTexturePath;
+
+	// Valeur financière en Deniers / Sous
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Economy")
+	int32 ValueInDenarii = 0;
+
+	// Quantité
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	int32 Quantity = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
 	EHorseType HorseType = EHorseType::Combat;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse", meta = (EditCondition = "ItemType == EItemType::Mount", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
 	EHorseSubType HorseSubType = EHorseSubType::Charger;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
@@ -155,7 +290,7 @@ struct FHorse : public FPendragonItem
 	FHorseArmor HorseArmor;
 
 	// Statistiques d'équipement
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats", meta = (EditCondition = "ItemType == EItemType::Mount", EditConditionHides))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats")
 	int32 NaturalArmorProtection = 5;
 
 	// Derived Statistics (Getters)

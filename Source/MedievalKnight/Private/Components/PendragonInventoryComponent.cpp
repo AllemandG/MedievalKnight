@@ -194,6 +194,66 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     
 }
 
+void UPendragonInventoryComponent::InitializeEquipmentFromDataTable(UDataTable* ItemDataTable,
+    const TArray<FName>& ItemsToGiveAndEquip)
+{
+    if (!ItemDataTable) return;
+
+    for (const FName& ItemID : ItemsToGiveAndEquip)
+    {
+        // 1. On cherche d'abord en tant qu'arme
+        if (FWeapon* WeaponRow = ItemDataTable->FindRow<FWeapon>(ItemID, TEXT("")))
+        {
+            AddWeapon(*WeaponRow);
+            EquipWeapon(*WeaponRow, WeaponRow->Slot);
+            continue;
+        }
+
+        // 2. On cherche en tant qu'armure
+        if (FArmor* ArmorRow = ItemDataTable->FindRow<FArmor>(ItemID, TEXT("")))
+        {
+            AddArmor(*ArmorRow);
+            EquipArmor(*ArmorRow);
+            continue;
+        }
+
+        // 3. On cherche en tant que bouclier
+        if (FShield* ShieldRow = ItemDataTable->FindRow<FShield>(ItemID, TEXT("")))
+        {
+            AddShield(*ShieldRow);
+            EquipShield(*ShieldRow);
+            continue;
+        }
+
+        // 4. On cherche en tant que monture
+        if (FHorse* MountRow = ItemDataTable->FindRow<FHorse>(ItemID, TEXT("")))
+        {
+            AddMount(*MountRow);
+            EquipMount(*MountRow, MountRow->Slot);
+            continue;
+        }
+
+        // 5. On cherche en tant qu'armure pour monture
+        if (FHorseArmor* HorseArmorRow = ItemDataTable->FindRow<FHorseArmor>(ItemID, TEXT("")))
+        {
+            AddHorseArmor(*HorseArmorRow);
+            continue;
+        }
+
+        // 6. Sinon, objet général / vêtement
+        if (FPendragonItem* ItemRow = ItemDataTable->FindRow<FPendragonItem>(ItemID, TEXT("")))
+        {
+            AddItem(*ItemRow);
+            
+            // Si c'est un vêtement ou une cape, on peut l'équiper selon son slot
+            if (ItemRow->ItemType == EItemType::Clothing)
+            {
+                EquipClothing(*ItemRow, ItemRow->Slot);
+            }
+        }
+    }
+}
+
 void UPendragonInventoryComponent::AddItem(const FPendragonItem& Item)
 {
     for (FPendragonItem& Existing : GeneralItems)
@@ -364,7 +424,6 @@ bool UPendragonInventoryComponent::EquipWeapon(const FWeapon& Weapon, EEquipment
     NewSlot.Slot = TargetSlot;
     NewSlot.bIsOccupied = true;
     NewSlot.EquippedItemType = Weapon.ItemType;
-    NewSlot.BaseItem = Weapon;
     NewSlot.EquippedWeapon = Weapon;
     NewSlot.EquippedWeapon.Quantity = 1;
 
@@ -397,7 +456,6 @@ bool UPendragonInventoryComponent::EquipArmor(const FArmor& Armor)
     NewSlot.Slot = SlotToUse;
     NewSlot.bIsOccupied = true;
     NewSlot.EquippedItemType = Armor.ItemType;
-    NewSlot.BaseItem = Armor;
     NewSlot.EquippedArmor = Armor;
     NewSlot.EquippedArmor.Quantity = 1;
 
@@ -421,7 +479,6 @@ bool UPendragonInventoryComponent::EquipShield(const FShield& Shield)
     NewSlot.Slot = EEquipmentSlot::OffHand;
     NewSlot.bIsOccupied = true;
     NewSlot.EquippedItemType = Shield.ItemType;
-    NewSlot.BaseItem = Shield;
     NewSlot.EquippedShield = Shield; // Un bouclier fournit de la protection comme une armure
     NewSlot.EquippedShield.Quantity = 1;
     
@@ -439,7 +496,6 @@ bool UPendragonInventoryComponent::EquipMount(const FHorse& Mount, EEquipmentSlo
     NewSlot.Slot = Slot;
     NewSlot.bIsOccupied = true;
     NewSlot.EquippedItemType = Mount.ItemType;
-    NewSlot.BaseItem = Mount;
     NewSlot.EquippedHorse = Mount;
 
     EquippedSlots.Add(Slot, NewSlot);
