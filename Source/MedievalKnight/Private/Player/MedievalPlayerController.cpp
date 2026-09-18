@@ -42,12 +42,13 @@ void AMedievalPlayerController::BeginPlay()
     		{
     			// Liste des IDs de départ du chevalier
     			TArray<FName> DefaultGeneralItems = {
-    				TEXT("Chest_01"), TEXT("Rope_01"), TEXT("HorseTowel_01"),	TEXT("HoofPick_01"), TEXT("Hobbles_01"), TEXT("CurryingBrushes_01"),
-					TEXT("FeedBag_01"), TEXT("HorseBlanket_01"), TEXT("HorseBlanket_01"), TEXT("HorseBlanket_01"), TEXT("HorseBlanket_01"),
-    				TEXT("WarSaddle_01"), TEXT("RiddingSaddle_01"), TEXT("RiddingSaddle_01"),
-					TEXT("PackSaddle_01"), TEXT("LargeCanvasTarpaulin_01"), TEXT("SacksDrawstrings_01"), TEXT("Panniers_01"),
-					TEXT("Bandage_01"), TEXT("FireKit_01"), TEXT("CookingUtensils_01"), TEXT("SleepingBlanket_01"), TEXT("SleepingBlanket_01"),
-    				TEXT("OrdinaryClothes_01"), TEXT("WoolCloak_01"),TEXT("Cloak_01"), TEXT("KnightClothes_01")
+    				TEXT("OrdinaryClothes_01"), TEXT("WoolCloak_01"),TEXT("Cloak_01"), TEXT("KnightClothes_01"),
+    				TEXT("SleepingBlanket_01"), TEXT("SleepingBlanket_01"), TEXT("CookingUtensils_01"), TEXT("FireKit_01"), TEXT("Bandage_01"),
+    				TEXT("Panniers_01"), TEXT("SacksDrawstrings_01"), TEXT("LargeCanvasTarpaulin_01"), TEXT("PackSaddle_01"),
+    				TEXT("RiddingSaddle_01"), TEXT("RiddingSaddle_01"), TEXT("WarSaddle_01"),
+    				TEXT("HorseBlanket_01"), TEXT("HorseBlanket_01"), TEXT("HorseBlanket_01"), TEXT("HorseBlanket_01"), TEXT("FeedBag_01"),
+    				TEXT("CurryingBrushes_01"), TEXT("Hobbles_01"), TEXT("HoofPick_01"), TEXT("HorseTowel_01"),	TEXT("Rope_01"),
+    				TEXT("Chest_01"),
 				};
 
     			// Initialisation en une seule ligne ! Fonctionne aussi pour un PNJ.
@@ -68,10 +69,10 @@ void AMedievalPlayerController::BeginPlay()
     			InventoryComponent->InitializeEquipmentFromDataTable(ShieldsTableObj, DefaultShields);
     		}
 
-    		UDataTable* HorsesTableObj = LoadObject<UDataTable>(nullptr,TEXT("/Game/Core/Items/DT_Shields.DT_Shields"));
+    		UDataTable* HorsesTableObj = LoadObject<UDataTable>(nullptr,TEXT("/Game/Core/Items/DT_Horses.DT_Horses"));
     		if (HorsesTableObj)
     		{
-    			TArray<FName> DefaultHorses = { TEXT("Roncy_01"), TEXT("Sumpter_01") };
+    			TArray<FName> DefaultHorses = { TEXT("Rouncy_01"), TEXT("Sumpter_01") };
     			InventoryComponent->InitializeEquipmentFromDataTable(HorsesTableObj, DefaultHorses);
     		}
 

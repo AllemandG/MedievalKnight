@@ -266,6 +266,18 @@ struct FHorse : public FTableRowBase
 	EHorseSubType HorseSubType = EHorseSubType::Charger;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
+	int32 NormalDamage = 3;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
+	int32 ChargeDamage = 6;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
+	int32 Move = 16;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats")
+	int32 NaturalArmorProtection = 5;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
 	int32 Size = 40;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
@@ -278,16 +290,7 @@ struct FHorse : public FTableRowBase
 	int32 Constitution = 15;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
-	int32 Move = 16;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
 	int32 HP = 55;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
-	int32 NormalDamage = 3;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
-	int32 ChargeDamage = 6;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Horse")
 	FHorseArmor Caparison;
@@ -296,8 +299,6 @@ struct FHorse : public FTableRowBase
 	FHorseArmor HorseArmor;
 
 	// Statistiques d'équipement
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Stats")
-	int32 NaturalArmorProtection = 5;
 
 	// Derived Statistics (Getters)
 	int32 GetArmorProtection() const
