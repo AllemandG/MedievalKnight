@@ -292,14 +292,18 @@ enum class EHorseArmorType : uint8
 UENUM(BlueprintType)
 enum class EAdvantageType : uint8
 {
-	None				UMETA(DisplayName = "None"),
-	LongWeapon			UMETA(DisplayName = "Long Weapon"),
-	Parry				UMETA(DisplayName = "Parry"),
-	AgainstMail 		UMETA(DisplayName = "Against Mail"),
-	AgainstPlate		UMETA(DisplayName = "Against Plate"),
-	AgainstUnarmored	UMETA(DisplayName = "Against Unarmored"),
-	AgainstShields		UMETA(DisplayName = "Against Shields"),
-	WhenTwoHanded		UMETA(DisplayName = "When Two Handed")
+	None					UMETA(DisplayName = "None"),
+	BreaksOtherTypesOnTie	UMETA(DisplayName = "Breaks other Types on Tie"),
+	BreaksHaftedOnTie		UMETA(DisplayName = "Breaks Hafted on Tie"),
+	DoesNotBreakOnFumble	UMETA(DisplayName = "Does not break on Fumble"),
+	LongWeapon				UMETA(DisplayName = "Long Weapon"),
+	Parry					UMETA(DisplayName = "Parry"),
+	AgainstMail 			UMETA(DisplayName = "Against Mail"),
+	AgainstPlate			UMETA(DisplayName = "Against Plate"),
+	AgainstUnarmored		UMETA(DisplayName = "Against Unarmored"),
+	IgnoresShieldParry		UMETA(DisplayName = "Ignores Shield and Parry AP"),
+	ReduceShield			UMETA(DisplayName = "Reduce Shield"),
+	WhenTwoHanded			UMETA(DisplayName = "When Two Handed")
 };
 
 UENUM(BlueprintType)

@@ -99,6 +99,21 @@ struct FWeapon : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon")
 	int32 FlatThrown = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon")
+	int32 DamageDiceMax = 100;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon")
+	int32 DiceBonusTwoHanded = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon")
+	int32 ReloadTime = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon")
+	TMap<EAdvantageType, int32> Advantages;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item|Weapon")
+	TArray<EDisadvantageType> Disadvantages;
 };
 
 USTRUCT(BlueprintType)
