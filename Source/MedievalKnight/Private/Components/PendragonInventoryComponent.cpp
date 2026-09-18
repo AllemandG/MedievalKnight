@@ -560,7 +560,8 @@ bool UPendragonInventoryComponent::SwitchWeaponSlot(EEquipmentSlot FirstSlot, EE
     {
         return false;
     }
-    
+
+    // No slot has an equipped weapon
     if (!EquippedSlots.Contains(FirstSlot) || !EquippedSlots.Contains(SecondSlot))
     {
         return false;
@@ -582,10 +583,12 @@ bool UPendragonInventoryComponent::SwitchWeaponSlot(EEquipmentSlot FirstSlot, EE
     else if (FirstOccupiedSlot.EquippedWeapon.ItemID != NAME_None)
     {
         UnequipSlot(FirstSlot);
+        UnequipSlot(SecondSlot);
         EquipWeapon(FirstWeapon, SecondSlot);
     }
     else
     {
+        UnequipSlot(FirstSlot);
         UnequipSlot(SecondSlot);
         EquipWeapon(SecondWeapon, FirstSlot);
     }
