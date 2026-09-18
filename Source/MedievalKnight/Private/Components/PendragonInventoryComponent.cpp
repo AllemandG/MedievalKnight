@@ -201,47 +201,39 @@ void UPendragonInventoryComponent::InitializeEquipmentFromDataTable(UDataTable* 
 
     for (const FName& ItemID : ItemsToGiveAndEquip)
     {
-        // 1. On cherche d'abord en tant qu'arme
-        if (FWeapon* WeaponRow = ItemDataTable->FindRow<FWeapon>(ItemID, TEXT("")))
+        // 1. Sécurité : ignorer les noms vides pour éviter les crashs
+        if (ItemID.IsNone())
+        {
+            continue;
+        }
+
+        FString ContextString = TEXT("InitializeEquipment");
+        
+        if (FWeapon* WeaponRow = ItemDataTable->FindRow<FWeapon>(ItemID, ContextString, false))
         {
             AddWeapon(*WeaponRow);
             EquipWeapon(*WeaponRow, WeaponRow->Slot);
-            continue;
         }
-
-        // 2. On cherche en tant qu'armure
-        if (FArmor* ArmorRow = ItemDataTable->FindRow<FArmor>(ItemID, TEXT("")))
+        else if (FArmor* ArmorRow = ItemDataTable->FindRow<FArmor>(ItemID, ContextString, false))
         {
             AddArmor(*ArmorRow);
             EquipArmor(*ArmorRow);
-            continue;
         }
-
-        // 3. On cherche en tant que bouclier
-        if (FShield* ShieldRow = ItemDataTable->FindRow<FShield>(ItemID, TEXT("")))
+        else if (FShield* ShieldRow = ItemDataTable->FindRow<FShield>(ItemID, ContextString, false))
         {
             AddShield(*ShieldRow);
             EquipShield(*ShieldRow);
-            continue;
         }
-
-        // 4. On cherche en tant que monture
-        if (FHorse* MountRow = ItemDataTable->FindRow<FHorse>(ItemID, TEXT("")))
+        else if (FHorse* MountRow = ItemDataTable->FindRow<FHorse>(ItemID, ContextString, false))
         {
             AddMount(*MountRow);
             EquipMount(*MountRow, MountRow->Slot);
-            continue;
         }
-
-        // 5. On cherche en tant qu'armure pour monture
-        if (FHorseArmor* HorseArmorRow = ItemDataTable->FindRow<FHorseArmor>(ItemID, TEXT("")))
+        else if (FHorseArmor* HorseArmorRow = ItemDataTable->FindRow<FHorseArmor>(ItemID, ContextString, false))
         {
             AddHorseArmor(*HorseArmorRow);
-            continue;
         }
-
-        // 6. Sinon, objet général / vêtement
-        if (FPendragonItem* ItemRow = ItemDataTable->FindRow<FPendragonItem>(ItemID, TEXT("")))
+        else if (FPendragonItem* ItemRow = ItemDataTable->FindRow<FPendragonItem>(ItemID, ContextString, false))
         {
             AddItem(*ItemRow);
             
@@ -467,10 +459,13 @@ bool UPendragonInventoryComponent::EquipArmor(const FArmor& Armor)
 
 bool UPendragonInventoryComponent::EquipShield(const FShield& Shield)
 {
-    FEquippedItemSlot OccupiedSlot = EquippedSlots[EEquipmentSlot::MainHand];
-    if (OccupiedSlot.EquippedWeapon.TwoHanded)
+    if (EquippedSlots.Contains(EEquipmentSlot::MainHand))
     {
-        UnequipSlot(EEquipmentSlot::MainHand);
+        FEquippedItemSlot OccupiedSlot = EquippedSlots[EEquipmentSlot::MainHand];
+        if (OccupiedSlot.EquippedWeapon.TwoHanded)
+        {
+            UnequipSlot(EEquipmentSlot::MainHand);
+        }
     }
     
     UnequipSlot(EEquipmentSlot::OffHand);
