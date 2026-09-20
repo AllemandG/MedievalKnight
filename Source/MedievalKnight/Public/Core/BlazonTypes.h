@@ -48,7 +48,7 @@ struct FBlazonField
 	EBlazonColor FirstColor = EBlazonColor::Azure;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Field", meta = (EditCondition = "Pattern != EBlazonPatterns::Plain", EditConditionHides))
-	int32 PatternMultiplier = 6;
+	int32 PatternMultiplier = 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Field", meta = (EditCondition = "Pattern != EBlazonPatterns::Plain", EditConditionHides))
 	EBlazonColor SecondColor = EBlazonColor::None;
@@ -63,7 +63,7 @@ struct FBlazonBorder
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Border")
-	bool bHasBorder = false;
+	bool bBorder = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Border")
 	EBlazonPattern Pattern = EBlazonPattern::Plain;
@@ -72,7 +72,7 @@ struct FBlazonBorder
 	EBlazonColor FirstColor = EBlazonColor::Azure;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Border", meta = (EditCondition = "Pattern != EBlazonPatterns::Plain", EditConditionHides))
-	int32 PatternMultiplier = 6;
+	int32 PatternMultiplier = 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Border", meta = (EditCondition = "Pattern != EBlazonPatterns::Plain", EditConditionHides))
 	EBlazonColor SecondColor = EBlazonColor::None;

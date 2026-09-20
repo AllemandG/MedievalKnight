@@ -13,7 +13,11 @@ enum class EBlazonColor : uint8
 	Azure			UMETA(DisplayName = "Azure"),
 	Vert 			UMETA(DisplayName = "Vert"),
 	Purpure			UMETA(DisplayName = "Purpure"),
-	Sable			UMETA(DisplayName = "Sable")
+	Sable			UMETA(DisplayName = "Sable"),
+	Brown			UMETA(DisplayName = "Brown"),
+	Carnation		UMETA(DisplayName = "Carnation"),
+	Gray			UMETA(DisplayName = "Gray"),
+	Orange			UMETA(DisplayName = "Orange")
 };
 
 UENUM(BlueprintType)
@@ -36,7 +40,8 @@ enum class EBlazonPattern : uint8
 	PerCross 			UMETA(DisplayName = "per Cross"),
 	PerSaltire			UMETA(DisplayName = "per Saltire"),
 	PerChevron			UMETA(DisplayName = "per Chevron"),
-	PerChevronInverted	UMETA(DisplayName = "per Chevron inverted")
+	PerChevronInverted	UMETA(DisplayName = "per Chevron inverted"),
+	SemyFleurDeLis 		UMETA(DisplayName = "per SemyFleurDeLis")
 };
 
 UENUM(BlueprintType)
@@ -129,7 +134,7 @@ enum class EBlazonAnimateCharge : uint8
 	Griffin			UMETA(DisplayName = "Griffin"),
 	Unicorn			UMETA(DisplayName = "Unicorn"),
 	Phoenix			UMETA(DisplayName = "Phoenix"),
-	Saint			UMETA(DisplayName = "Saint"),
+	Saint			UMETA(DisplayName = "Saint")
 };
 
 UENUM(BlueprintType)
@@ -157,7 +162,9 @@ enum class EBlazonInanimateCharge : uint8
 	MulletPierced 	UMETA(DisplayName = "Mullet Pierced"),
 	Lozenge 		UMETA(DisplayName = "Lozenge"),
 	Roundel 		UMETA(DisplayName = "Roundel"),
-	FleurDeLis		UMETA(DisplayName = "Fleur-de-lis")
+	FleurDeLis		UMETA(DisplayName = "Fleur-de-lis"),
+	Crown 			UMETA(DisplayName = "Crown"),
+	TowerFace 		UMETA(DisplayName = "Tower-face")
 };
 
 /*

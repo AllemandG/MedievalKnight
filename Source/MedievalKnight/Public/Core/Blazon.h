@@ -31,38 +31,6 @@ public:
 };
 
 UCLASS()
-class MEDIEVALKNIGHT_API UBasicBlazon : public UObject
-{
-	GENERATED_BODY()
-
-public:
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Field")
-	EBlazonPattern Pattern = EBlazonPattern::Plain;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Field")
-	EBlazonColor FirstColor = EBlazonColor::Azure;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Field", meta = (EditCondition = "Pattern != EBlazonPatterns::Plain", EditConditionHides))
-	int32 PatternMultiplier = 6;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Field", meta = (EditCondition = "Pattern != EBlazonPatterns::Plain", EditConditionHides))
-	EBlazonColor SecondColor = EBlazonColor::None;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge")
-	EBlazonChargeType ChargeType = EBlazonChargeType::None;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType != EBlazonChargeType::None", EditConditionHides))
-	EBlazonColor ChargeTincture = EBlazonColor::None;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType == EBlazonChargeType::Animate", EditConditionHides))
-	EBlazonAnimateCharge AnimateCharge = EBlazonAnimateCharge::None;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType == EBlazonChargeType::Inanimate", EditConditionHides))
-	EBlazonInanimateCharge InanimateCharge = EBlazonInanimateCharge::None;
-};
-
-UCLASS()
 class MEDIEVALKNIGHT_API UBlazon : public UObject
 {
 	GENERATED_BODY()
