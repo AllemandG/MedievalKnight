@@ -63,6 +63,9 @@ struct FBlazonBorder
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Border")
+	bool bHasBorder = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Border")
 	EBlazonPattern Pattern = EBlazonPattern::Plain;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Border")
