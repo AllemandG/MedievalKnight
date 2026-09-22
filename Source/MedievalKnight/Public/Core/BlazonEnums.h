@@ -4,7 +4,7 @@
 #include "BlazonEnums.generated.h"
 
 UENUM(BlueprintType)
-enum class EBlazonColor : uint8
+enum class EBlasonColor : uint8
 {
 	None			UMETA(DisplayName = "None"),
 	Argent			UMETA(DisplayName = "Argent"),
@@ -21,7 +21,7 @@ enum class EBlazonColor : uint8
 };
 
 UENUM(BlueprintType)
-enum class EBlazonPattern : uint8
+enum class EBlasonPattern : uint8
 {
 	Plain				UMETA(DisplayName = "Plain"),
 	Barry				UMETA(DisplayName = "Barry"),
@@ -45,7 +45,7 @@ enum class EBlazonPattern : uint8
 };
 
 UENUM(BlueprintType)
-enum class EBlazonDivision : uint8
+enum class EBlasonDivision : uint8
 {
 	None				UMETA(DisplayName = "None"),
 	PerFess				UMETA(DisplayName = "per Fess"),
@@ -54,7 +54,7 @@ enum class EBlazonDivision : uint8
 };
 
 UENUM(BlueprintType)
-enum class EBlazonArrangement : uint8
+enum class EBlasonArrangement : uint8
 {
 	None				UMETA(DisplayName = "None"),
 	InFess				UMETA(DisplayName = "in Fess"),
@@ -70,7 +70,7 @@ enum class EBlazonArrangement : uint8
 };
 
 UENUM(BlueprintType)
-enum class EBlazonLocation : uint8
+enum class EBlasonLocation : uint8
 {
 	None				UMETA(DisplayName = "None"),
 	InCenter 			UMETA(DisplayName = "in Center"),
@@ -83,7 +83,7 @@ enum class EBlazonLocation : uint8
 };
 
 UENUM(BlueprintType)
-enum class EBlazonOrientation : uint8
+enum class EBlasonOrientation : uint8
 {
 	None				UMETA(DisplayName = "None"),
 	Fesswise			UMETA(DisplayName = "Fesswise"),
@@ -103,7 +103,7 @@ enum class EBlazonOrientation : uint8
 };
 
 UENUM(BlueprintType)
-enum class EBlazonChargeType : uint8
+enum class EBlasonChargeType : uint8
 {
 	None			UMETA(DisplayName = "None"),
 	Animate			UMETA(DisplayName = "Animate"),
@@ -112,7 +112,7 @@ enum class EBlazonChargeType : uint8
 };
 
 UENUM(BlueprintType)
-enum class EBlazonAnimateCharge : uint8
+enum class EBlasonAnimateCharge : uint8
 {
 	None			UMETA(DisplayName = "None"),
 	Lion 			UMETA(DisplayName = "Lion"),
@@ -138,7 +138,7 @@ enum class EBlazonAnimateCharge : uint8
 };
 
 UENUM(BlueprintType)
-enum class EBlazonInanimateCharge : uint8
+enum class EBlasonInanimateCharge : uint8
 {
 	None			UMETA(DisplayName = "None"),
 	Sword 			UMETA(DisplayName = "Sword"),
@@ -186,7 +186,7 @@ enum class EBlazonOrdinaryCharge : uint8
 */
 
 UENUM(BlueprintType)
-enum class EBlazonOrdinaryCharge : uint8
+enum class EBlasonOrdinaryCharge : uint8
 {
 	None				UMETA(DisplayName = "None"),
 	AFess				UMETA(DisplayName = "Fess"),

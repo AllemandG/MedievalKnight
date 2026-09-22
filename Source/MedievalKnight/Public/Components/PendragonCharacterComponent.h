@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "Core/Blazon.h"
+#include "Core/Blason.h"
 #include "Core/BlazonTypes.h"
 #include "MedievalKnight/Public/Core/PendragonEnums.h"
 #include "MedievalKnight/Public/Core/PendragonTypes.h"
@@ -54,7 +54,7 @@ public:
     int32 Glory = 1000; // Gloire initiale d'un chevalier bachelier
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-    UBlazon* CoatOfArms;
+    UBlason* CoatOfArms;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
     TArray<FPendragonFamilyLink> FamilyLinks;

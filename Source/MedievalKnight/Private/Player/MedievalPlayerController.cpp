@@ -85,4 +85,29 @@ void AMedievalPlayerController::BeginPlay()
     		}
     	}
     }
+
+	FBlasonBorder Border;
+	Border.bBorder = false;
+	Border.Pattern = EBlasonPattern::Plain;
+	Border.FirstColor = EBlasonColor::Brown;
+	Border.PatternMultiplier = 1.08f;
+	
+	FBlasonSimpleDivision Content;
+	Content.Division = EBlasonDivision::None;
+	Content.FirstPart.Pattern = EBlasonPattern::Chequey;
+	Content.FirstPart.FirstColor = EBlasonColor::Azure;
+	Content.FirstPart.PatternMultiplier = 8.0f;
+	Content.FirstPart.SecondColor = EBlasonColor::Or;
+
+	FCharge Charge;
+	Charge.ChargeType = EBlasonChargeType::Inanimate;
+	Charge.InanimateCharge = EBlasonInanimateCharge::Tower;
+	Charge.ChargeTincture = EBlasonColor::Gray;
+	
+	UBlason* Blason = NewObject<UBlason>();
+	Blason->Border = Border;
+	Blason->Content = Content;
+	Blason->Charge = Charge;
+
+	CharacterComponent->CoatOfArms = Blason;
 }

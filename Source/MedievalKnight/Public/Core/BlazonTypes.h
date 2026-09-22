@@ -11,99 +11,102 @@ struct FCharge
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge")
-	EBlazonChargeType ChargeType = EBlazonChargeType::None;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Charge")
+	EBlasonChargeType ChargeType = EBlasonChargeType::None;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType == EBlazonChargeType::Inanimate", EditConditionHides))
-	int32 ChargesNumber = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Charge", meta = (EditCondition = "ChargeType == EBlasonChargeType::Inanimate", EditConditionHides))
+	int32 ChargesNumber = 1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType != EBlazonChargeType::None", EditConditionHides))
-	EBlazonColor ChargeTincture = EBlazonColor::None;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Charge")
+	float ChargeSize = 1.1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargesNumber > 1", EditConditionHides))
-	EBlazonArrangement Arrangement = EBlazonArrangement::None;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Charge", meta = (EditCondition = "ChargeType != EBlasonChargeType::None", EditConditionHides))
+	EBlasonColor ChargeTincture = EBlasonColor::None;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargesNumber > 0", EditConditionHides))
-	EBlazonOrientation Orientation = EBlazonOrientation::None;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Charge", meta = (EditCondition = "ChargesNumber > 1", EditConditionHides))
+	EBlasonArrangement Arrangement = EBlasonArrangement::None;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType == EBlazonChargeType::Ordinary", EditConditionHides))
-	EBlazonOrdinaryCharge OrdinaryCharge = EBlazonOrdinaryCharge::None;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Charge", meta = (EditCondition = "ChargesNumber > 0", EditConditionHides))
+	EBlasonOrientation Orientation = EBlasonOrientation::None;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType == EBlazonChargeType::Animate", EditConditionHides))
-	EBlazonAnimateCharge AnimateCharge = EBlazonAnimateCharge::None;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Charge", meta = (EditCondition = "ChargeType == EBlasonChargeType::Ordinary", EditConditionHides))
+	EBlasonOrdinaryCharge OrdinaryCharge = EBlasonOrdinaryCharge::None;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge", meta = (EditCondition = "ChargeType == EBlazonChargeType::Inanimate", EditConditionHides))
-	EBlazonInanimateCharge InanimateCharge = EBlazonInanimateCharge::None;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Charge", meta = (EditCondition = "ChargeType == EBlasonChargeType::Animate", EditConditionHides))
+	EBlasonAnimateCharge AnimateCharge = EBlasonAnimateCharge::None;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Charge", meta = (EditCondition = "ChargeType == EBlasonChargeType::Inanimate", EditConditionHides))
+	EBlasonInanimateCharge InanimateCharge = EBlasonInanimateCharge::None;
 };
 
 USTRUCT(BlueprintType)
-struct FBlazonField
+struct FBlasonField
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Field")
-	EBlazonPattern Pattern = EBlazonPattern::Plain;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Field")
+	EBlasonPattern Pattern = EBlasonPattern::Plain;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Field")
-	EBlazonColor FirstColor = EBlazonColor::Azure;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Field")
+	EBlasonColor FirstColor = EBlasonColor::Azure;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Field", meta = (EditCondition = "Pattern != EBlazonPatterns::Plain", EditConditionHides))
-	int32 PatternMultiplier = 1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Field", meta = (EditCondition = "Pattern != EBlasonPatterns::Plain", EditConditionHides))
+	float PatternMultiplier = 6;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Field", meta = (EditCondition = "Pattern != EBlazonPatterns::Plain", EditConditionHides))
-	EBlazonColor SecondColor = EBlazonColor::None;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Field", meta = (EditCondition = "Pattern != EBlasonPatterns::Plain", EditConditionHides))
+	EBlasonColor SecondColor = EBlasonColor::None;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Charge")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Charge")
 	FCharge Charge;
 };
 
 USTRUCT(BlueprintType)
-struct FBlazonBorder
+struct FBlasonBorder
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Border")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Border")
 	bool bBorder = false;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Border")
-	EBlazonPattern Pattern = EBlazonPattern::Plain;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Border")
+	EBlasonPattern Pattern = EBlasonPattern::Plain;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Border")
-	EBlazonColor FirstColor = EBlazonColor::Azure;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Border")
+	EBlasonColor FirstColor = EBlasonColor::Azure;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Border", meta = (EditCondition = "Pattern != EBlazonPatterns::Plain", EditConditionHides))
-	int32 PatternMultiplier = 1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Border", meta = (EditCondition = "Pattern != EBlasonPatterns::Plain", EditConditionHides))
+	float PatternMultiplier = 1.08;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Border", meta = (EditCondition = "Pattern != EBlazonPatterns::Plain", EditConditionHides))
-	EBlazonColor SecondColor = EBlazonColor::None;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Border", meta = (EditCondition = "Pattern != EBlasonPatterns::Plain", EditConditionHides))
+	EBlasonColor SecondColor = EBlasonColor::None;
 };
 
 USTRUCT(BlueprintType)
-struct FBlazonSimpleDivision
+struct FBlasonSimpleDivision
 {
 	GENERATED_BODY()
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Division")
-	EBlazonDivision Division = EBlazonDivision::None;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Division")
+	EBlasonDivision Division = EBlasonDivision::None;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Division")
-	FBlazonField FirstPart;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Division")
+	FBlasonField FirstPart;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Division", meta = (EditCondition = "Division != EBlazonDivision::None", EditConditionHides))
-	FBlazonField SecondPart;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Division", meta = (EditCondition = "Division != EBlasonDivision::None", EditConditionHides))
+	FBlasonField SecondPart;
 };
 
 USTRUCT(BlueprintType)
-struct FBlazonComplexDivision
+struct FBlasonComplexDivision
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Division")
-	EBlazonDivision Division = EBlazonDivision::None;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Division")
+	EBlasonDivision Division = EBlasonDivision::None;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Division")
-	FBlazonSimpleDivision FirstPart;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Division")
+	FBlasonSimpleDivision FirstPart;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blazon|Division", meta = (EditCondition = "Division != EBlazonDivision::None", EditConditionHides))
-	FBlazonSimpleDivision SecondPart;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Division", meta = (EditCondition = "Division != EBlasonDivision::None", EditConditionHides))
+	FBlasonSimpleDivision SecondPart;
 };
