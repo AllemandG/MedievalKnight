@@ -1,17 +1,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PendragonTypes.h"
+#include "MedievalKnightTypes.h"
 #include "UObject/Object.h"
-#include "PendragonCharacterCreationSubsystem.generated.h"
+#include "MedievalCharacterCreationSubsystem.generated.h"
 
-class UPendragonCharacterComponent;
-class UPendragonInventoryComponent;
+class UCharacterComponent;
+class UInventoryComponent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCreationDataChanged);
 
 UCLASS()
-class MEDIEVALKNIGHT_API UPendragonCharacterCreationSubsystem : public UGameInstanceSubsystem
+class MEDIEVALKNIGHT_API UMedievalCharacterCreationSubsystem : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
 
@@ -29,7 +29,7 @@ public:
 
 	/** Obtenir les données actuelles en lecture/écriture */
 	UFUNCTION(BlueprintPure, Category = "Pendragon|Creation")
-	const FPendragonCreationData& GetCreationData() const { return CreationData; }
+	const FCreationData& GetCreationData() const { return CreationData; }
 
 	/** Modifier un attribut principal (ex: STR, DEX...) */
 	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
@@ -41,7 +41,7 @@ public:
 
 	/** Modifier un Trait spécifique par son nom (ex: "Valorous") */
 	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
-	bool ModifyTrait(EPendragonTrait PrimaryTrait, int32 Delta);
+	bool ModifyTrait(ETrait PrimaryTrait, int32 Delta);
 
 	/** Modifier une Passion par son nom (ex: "Loyalty (Lord)") */
 	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
@@ -49,7 +49,7 @@ public:
 
 	/** Applique une augmentation d'Attribut (ex: +1 Force) */
 	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
-	bool ApplyAttributeAugmentation(EPendragonAttribute Attribute);
+	bool ApplyAttributeAugmentation(EAttribute Attribute);
 
 	/** Applique une augmentation de Points de Compétences (+6 au pool de compétences) */
 	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
@@ -77,17 +77,17 @@ public:
 
 	/** Ajouter un lien familial / féodal */
 	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
-	void AddFamilyLink(const FPendragonFamilyLink& NewLink);
+	void AddFamilyLink(const FFamilyLink& NewLink);
 
 	/** Finaliser la création et injecter les données dans les composants du joueur */
 	UFUNCTION(BlueprintCallable, Category = "Pendragon|Creation")
-	bool FinalizeCharacterCreation(UPendragonCharacterComponent* TargetCharacterComp, UPendragonInventoryComponent* TargetInventoryComp);
+	bool FinalizeCharacterCreation(UCharacterComponent* TargetCharacterComp, UInventoryComponent* TargetInventoryComp);
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Pendragon|Creation")
-	FPendragonCreationData CreationData;
+	FCreationData CreationData;
 
 	// Copie de travail des traits durant la création
 	UPROPERTY(BlueprintReadOnly, Category = "Pendragon|Creation")
-	TArray<FPendragonTraitPair> CreationTraits;
+	TArray<FTraitPair> CreationTraits;
 };

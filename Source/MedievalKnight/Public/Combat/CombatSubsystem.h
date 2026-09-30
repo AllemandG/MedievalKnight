@@ -2,12 +2,12 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/WorldSubsystem.h"
-#include "Core/PendragonOpposedCheck.h"
-#include "PendragonNPCData.h"
-#include "PendragonCombatSubsystem.generated.h"
+#include "Core/DiceOpposedCheck.h"
+#include "NPCData.h"
+#include "CombatSubsystem.generated.h"
 
-class UPendragonCharacterComponent;
-class UPendragonInventoryComponent;
+class UCharacterComponent;
+class UInventoryComponent;
 
 UENUM(BlueprintType)
 enum class ECombatState : uint8
@@ -53,7 +53,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCombatStateChanged, ECombatState,
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCombatRoundResolved, const FCombatRoundLog&, RoundLog);
 
 UCLASS()
-class MEDIEVALKNIGHT_API UPendragonCombatSubsystem : public UWorldSubsystem
+class MEDIEVALKNIGHT_API UCombatSubsystem : public UWorldSubsystem
 {
     GENERATED_BODY()
 
@@ -66,7 +66,7 @@ public:
 
     /** Démarrer un combat 1v1 contre un PNJ */
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Combat")
-    void StartCombat(UPendragonCharacterComponent* PlayerChar, UPendragonInventoryComponent* PlayerInv, const FPendragonNPC& Enemy);
+    void StartCombat(UCharacterComponent* PlayerChar, UInventoryComponent* PlayerInv, const FPendragonNPC& Enemy);
 
     /** 
      * Exécute le round de combat avec une tactique spécifique
@@ -74,7 +74,7 @@ public:
      * @param SkillUsed Compétence utilisée (Épée, Lance, etc.)
      */
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Combat")
-    void ExecutePlayerAttack(EPendragonCombatTactic Tactic = EPendragonCombatTactic::Normal, FName SkillUsed = TEXT("Sword"));
+    void ExecutePlayerAttack(ECombatTactic Tactic = ECombatTactic::Normal, FName SkillUsed = TEXT("Sword"));
 
     /** Active/Désactive l'état monté pour la charge à la lance */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Combat")
@@ -85,10 +85,10 @@ public:
 
 protected:
     UPROPERTY()
-    UPendragonCharacterComponent* PlayerCharacterComp;
+    UCharacterComponent* PlayerCharacterComp;
 
     UPROPERTY()
-    UPendragonInventoryComponent* PlayerInventoryComp;
+    UInventoryComponent* PlayerInventoryComp;
 
     UPROPERTY(BlueprintReadOnly, Category = "Pendragon|Combat")
     FPendragonNPC CurrentEnemy;

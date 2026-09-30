@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Core/PendragonTypes.h"
+#include "Core/MedievalKnightTypes.h"
 #include "InventoryTypes.generated.h"
 
 USTRUCT(BlueprintType)

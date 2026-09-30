@@ -6,13 +6,13 @@
 #include "MedievalKnight/Public/Story/StoryNodeDataAsset.h"
 #include "StorySubsystem.generated.h"
 
-class UPendragonCharacterComponent;
+class UCharacterComponent;
 
 // Delegates pour l'UI
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStoryNodeChanged, const UStoryNodeDataAsset*, NewNode);
 
 // Delegate FourParams mis à jour
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnCheckResolved, EPendragonCheckResult, Result, int32, RollValue, int32, TargetValue, FName, CheckName);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnCheckResolved, EDiceCheckResult, Result, int32, RollValue, int32, TargetValue, FName, CheckName);
 
 UCLASS()
 class MEDIEVALKNIGHT_API UStorySubsystem : public UGameInstanceSubsystem
@@ -29,7 +29,7 @@ public:
 
     // Démarrer la narration à partir d'un nœud donné
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Story")
-    void StartStory(UStoryNodeDataAsset* StartingNode, UPendragonCharacterComponent* PlayerCharacter);
+    void StartStory(UStoryNodeDataAsset* StartingNode, UCharacterComponent* PlayerCharacter);
 
     // Sélectionner un choix par son index dans le nœud courant
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Story")
@@ -48,7 +48,7 @@ private:
     TObjectPtr<UStoryNodeDataAsset> CurrentNode;
 
     UPROPERTY()
-    TObjectPtr<UPendragonCharacterComponent> CharacterComponent;
+    TObjectPtr<UCharacterComponent> CharacterComponent;
 
     // Utilitaires internes
     void ApplyEffect(const FPendragonEffect& Effect);

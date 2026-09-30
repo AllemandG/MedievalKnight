@@ -1,11 +1,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PendragonEnums.h"
-#include "PendragonTypes.generated.h"
+#include "MedievalKnightEnums.h"
+#include "MedievalKnightTypes.generated.h"
 
 USTRUCT(BlueprintType)
-struct FPendragonAttributes
+struct FAttributes
 {
 	GENERATED_BODY()
 
@@ -67,14 +67,47 @@ struct FPendragonAttributes
 	}
 };
 
+USTRUCT(BlueprintType)
+struct FCharacterOrigin
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Origins")
+	ECulture Culture = ECulture::French;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Origins")
+	ELocalCulture LocalCulture = ELocalCulture::Aquitaine;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Origins")
+	EReligion Religion = EReligion::Christian;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Origins")
+	int32 BirthYear = 1312;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Origins")
+	bool NobleBlood = true;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Origins")
+	bool Heir = true;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Origins")
+	EHairColor HairColor = EHairColor::Brown;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Origins")
+	EEyeColor EyeColor = EEyeColor::LightBrown;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Origins")
+	TArray<EDistinctiveFeatures> DistinctiveFeatures;
+};
+
 // Structure d'une Passion (ex: Loyalty (Lord) 15, Hate (Saxons) 12)
 USTRUCT(BlueprintType)
-struct FPendragonPassion
+struct FPassion
 {
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Passion")
-	EPendragonPassionType PassionType = EPendragonPassionType::Loyalty;
+	EPassionType PassionType = EPassionType::Loyalty;
 
 	// Cible de la passion (ex: "Lord Roderick", "Saxons", "Lady Ellen")
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Passion")
@@ -89,37 +122,37 @@ struct FPendragonPassion
 	bool bCheckedForImprovement = false;
 
 	// Obtient automatiquement le groupe auquel appartient la passion
-	EPendragonPassionGroup GetGroup() const
+	EPassionGroup GetGroup() const
 	{
 		switch (PassionType)
 		{
-		case EPendragonPassionType::Duty:
-		case EPendragonPassionType::Fealty:
-		case EPendragonPassionType::Homage:
-		case EPendragonPassionType::Loyalty:
-			return EPendragonPassionGroup::Fidelitas;
+		case EPassionType::Duty:
+		case EPassionType::Fealty:
+		case EPassionType::Homage:
+		case EPassionType::Loyalty:
+			return EPassionGroup::Fidelitas;
 
-		case EPendragonPassionType::Hate:
-		case EPendragonPassionType::Love:
-			return EPendragonPassionGroup::Fervor;
+		case EPassionType::Hate:
+		case EPassionType::Love:
+			return EPassionGroup::Fervor;
 
-		case EPendragonPassionType::Adoration:
-		case EPendragonPassionType::Devotion:
-			return EPendragonPassionGroup::Adoratio;
+		case EPassionType::Adoration:
+		case EPassionType::Devotion:
+			return EPassionGroup::Adoratio;
 
-		case EPendragonPassionType::Chivalry:
-		case EPendragonPassionType::Hospitality:
-		case EPendragonPassionType::Station:
-			return EPendragonPassionGroup::Civilitas;
+		case EPassionType::Chivalry:
+		case EPassionType::Hospitality:
+		case EPassionType::Station:
+			return EPassionGroup::Civilitas;
 
 		default:
-			return EPendragonPassionGroup::None;
+			return EPassionGroup::None;
 		}
 	}
 	
 	FText GetDisplayName() const
 	{
-		UEnum* EnumPtr = StaticEnum<EPendragonPassionType>();
+		UEnum* EnumPtr = StaticEnum<EPassionType>();
 		FString EnumName = EnumPtr ? EnumPtr->GetDisplayNameTextByValue(static_cast<int64>(PassionType)).ToString() : TEXT("Passion");
 		return FText::FromString(FString::Printf(TEXT("%s (%s)"), *EnumName, *Target));
 	}
@@ -127,7 +160,7 @@ struct FPendragonPassion
 
 // Structure d'une Compétence (ex: Horsemanship 15, Sword 13, Courtesy 10)
 USTRUCT(BlueprintType)
-struct FPendragonSkillData
+struct FSkillData
 {
 	GENERATED_BODY()
 
@@ -142,7 +175,7 @@ struct FPendragonSkillData
 	
 	// Catégorie : Combat ou Civile
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skill")
-	EPendragonSkillCategory Category = EPendragonSkillCategory::Civilian;
+	ESkillCategory Category = ESkillCategory::Civilian;
 	
 	// Est-ce une compétence de chevalier (ex: Épée, Lance, Équitation) ou de courtisan ?
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skill")
@@ -154,15 +187,15 @@ struct FPendragonSkillData
 };
 
 USTRUCT(BlueprintType)
-struct FPendragonTraitPair
+struct FTraitPair
 {
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Trait")
-	EPendragonTrait PrimaryTrait = EPendragonTrait::Chaste;
+	ETrait PrimaryTrait = ETrait::Chaste;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Trait")
-	EPendragonTrait OppositeTrait = EPendragonTrait::Lustful;
+	ETrait OppositeTrait = ETrait::Lustful;
 
 	// Valeur du trait principal (0 à 20). Le trait opposé vaut toujours (20 - Value)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Trait")
@@ -178,7 +211,7 @@ struct FPendragonTraitPair
 
 /** Représente un lien familial ou féodal initial */
 USTRUCT(BlueprintType)
-struct FPendragonFamilyLink
+struct FFamilyLink
 {
     GENERATED_BODY()
 
@@ -196,7 +229,7 @@ struct FPendragonFamilyLink
 };
 
 USTRUCT(BlueprintType)
-struct FPendragonHeraldry
+struct FHeraldry
 {
 	GENERATED_BODY()
 
@@ -214,7 +247,7 @@ struct FPendragonHeraldry
 };
 
 USTRUCT(BlueprintType)
-struct FPendragonParentHistory
+struct FParentHistory
 {
 	GENERATED_BODY()
 
@@ -232,7 +265,7 @@ struct FPendragonParentHistory
 };
 
 USTRUCT(BlueprintType)
-struct FPendragonAppearanceDetails
+struct FAppearanceDetails
 {
 	GENERATED_BODY()
 
@@ -248,7 +281,7 @@ struct FPendragonAppearanceDetails
 
 /** Données temporaires durant la création de personnage */
 USTRUCT(BlueprintType)
-struct FPendragonCreationData
+struct FCreationData
 {
 	GENERATED_BODY()
 
@@ -266,20 +299,20 @@ struct FPendragonCreationData
 	FText Religion = FText::FromString(TEXT("Christian"));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-	FPendragonHeraldry Heraldry;
+	FHeraldry Heraldry;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-	FPendragonAppearanceDetails Appearance;
+	FAppearanceDetails Appearance;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-	FPendragonParentHistory ParentHistory;
+	FParentHistory ParentHistory;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
 	int32 Glory = 1000;
 
 	// Liens PNJ initiaux
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
-	TArray<FPendragonFamilyLink> FamilyLinks;
+	TArray<FFamilyLink> FamilyLinks;
 
 	// Pools de points disponibles à attribuer
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Points")
@@ -293,7 +326,7 @@ struct FPendragonCreationData
 
 	// Attributs modifiés
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
-	FPendragonAttributes BaseAttributes;
+	FAttributes BaseAttributes;
 
 	// Adjustements de Compétences (Nom -> Valeur attribuée)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Skills")

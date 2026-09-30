@@ -1,11 +1,11 @@
-#include "Components/PendragonInventoryComponent.h"
+#include "Components/InventoryComponent.h"
 
-UPendragonInventoryComponent::UPendragonInventoryComponent()
+UInventoryComponent::UInventoryComponent()
 {
     PrimaryComponentTick.bCanEverTick = false;
 }
 
-void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
+void UInventoryComponent::InitializeDefaultKnightEquipment()
 {
     // 1. Une épée d'armement
     FWeapon ArmingSword;
@@ -194,7 +194,7 @@ void UPendragonInventoryComponent::InitializeDefaultKnightEquipment()
     
 }
 
-void UPendragonInventoryComponent::InitializeEquipmentFromDataTable(UDataTable* ItemDataTable,
+void UInventoryComponent::InitializeEquipmentFromDataTable(UDataTable* ItemDataTable,
     const TArray<FName>& ItemsToGiveAndEquip)
 {
     if (!ItemDataTable) return;
@@ -246,7 +246,7 @@ void UPendragonInventoryComponent::InitializeEquipmentFromDataTable(UDataTable* 
     }
 }
 
-void UPendragonInventoryComponent::AddItem(const FPendragonItem& Item)
+void UInventoryComponent::AddItem(const FPendragonItem& Item)
 {
     for (FPendragonItem& Existing : GeneralItems)
     {
@@ -261,7 +261,7 @@ void UPendragonInventoryComponent::AddItem(const FPendragonItem& Item)
     OnInventoryUpdated.Broadcast();
 }
 
-void UPendragonInventoryComponent::AddWeapon(const FWeapon& Weapon)
+void UInventoryComponent::AddWeapon(const FWeapon& Weapon)
 {
     for (FWeapon& Existing : Weapons)
     {
@@ -276,7 +276,7 @@ void UPendragonInventoryComponent::AddWeapon(const FWeapon& Weapon)
     OnInventoryUpdated.Broadcast();
 }
 
-void UPendragonInventoryComponent::AddArmor(const FArmor& Armor)
+void UInventoryComponent::AddArmor(const FArmor& Armor)
 {
     for (FArmor& Existing : Armors)
     {
@@ -291,7 +291,7 @@ void UPendragonInventoryComponent::AddArmor(const FArmor& Armor)
     OnInventoryUpdated.Broadcast();
 }
 
-void UPendragonInventoryComponent::AddShield(const FShield& Shield)
+void UInventoryComponent::AddShield(const FShield& Shield)
 {
     for (FShield& Existing : Shields)
     {
@@ -306,13 +306,13 @@ void UPendragonInventoryComponent::AddShield(const FShield& Shield)
     OnInventoryUpdated.Broadcast();
 }
 
-void UPendragonInventoryComponent::AddMount(const FHorse& Mount)
+void UInventoryComponent::AddMount(const FHorse& Mount)
 {
     Mounts.Add(Mount);
     OnInventoryUpdated.Broadcast();
 }
 
-void UPendragonInventoryComponent::AddHorseArmor(const FHorseArmor& Mount)
+void UInventoryComponent::AddHorseArmor(const FHorseArmor& Mount)
 {
     for (FHorseArmor& Existing : HorseArmors)
     {
@@ -327,7 +327,7 @@ void UPendragonInventoryComponent::AddHorseArmor(const FHorseArmor& Mount)
     OnInventoryUpdated.Broadcast();
 }
 
-bool UPendragonInventoryComponent::RemoveItemByID(FName ItemID, int32 Quantity)
+bool UInventoryComponent::RemoveItemByID(FName ItemID, int32 Quantity)
 {
     // Recherche dans les objets généraux
     for (int32 Index = 0; Index < GeneralItems.Num(); ++Index)
@@ -403,7 +403,7 @@ bool UPendragonInventoryComponent::RemoveItemByID(FName ItemID, int32 Quantity)
     return false;
 }
 
-bool UPendragonInventoryComponent::EquipWeapon(const FWeapon& Weapon, EEquipmentSlot TargetSlot)
+bool UInventoryComponent::EquipWeapon(const FWeapon& Weapon, EEquipmentSlot TargetSlot)
 {
     if (Weapon.TwoHanded)
     {
@@ -425,7 +425,7 @@ bool UPendragonInventoryComponent::EquipWeapon(const FWeapon& Weapon, EEquipment
     return true;
 }
 
-bool UPendragonInventoryComponent::EquipArmor(const FArmor& Armor)
+bool UInventoryComponent::EquipArmor(const FArmor& Armor)
 {
     EEquipmentSlot SlotToUse = Armor.Slot;
 
@@ -457,7 +457,7 @@ bool UPendragonInventoryComponent::EquipArmor(const FArmor& Armor)
     return true;
 }
 
-bool UPendragonInventoryComponent::EquipShield(const FShield& Shield)
+bool UInventoryComponent::EquipShield(const FShield& Shield)
 {
     if (EquippedSlots.Contains(EEquipmentSlot::MainHand))
     {
@@ -483,7 +483,7 @@ bool UPendragonInventoryComponent::EquipShield(const FShield& Shield)
     return true;
 }
 
-bool UPendragonInventoryComponent::EquipMount(const FHorse& Mount, EEquipmentSlot Slot)
+bool UInventoryComponent::EquipMount(const FHorse& Mount, EEquipmentSlot Slot)
 {
     UnequipSlot(Slot);
 
@@ -499,7 +499,7 @@ bool UPendragonInventoryComponent::EquipMount(const FHorse& Mount, EEquipmentSlo
     return true;
 }
 
-bool UPendragonInventoryComponent::EquipClothing(const FPendragonItem& Item, EEquipmentSlot Slot)
+bool UInventoryComponent::EquipClothing(const FPendragonItem& Item, EEquipmentSlot Slot)
 {
     UnequipSlot(Slot);
 
@@ -516,7 +516,7 @@ bool UPendragonInventoryComponent::EquipClothing(const FPendragonItem& Item, EEq
     return true;
 }
 
-bool UPendragonInventoryComponent::UnequipSlot(EEquipmentSlot Slot)
+bool UInventoryComponent::UnequipSlot(EEquipmentSlot Slot)
 {
     if (!EquippedSlots.Contains(Slot))
     {
@@ -552,7 +552,7 @@ bool UPendragonInventoryComponent::UnequipSlot(EEquipmentSlot Slot)
     return true;
 }
 
-bool UPendragonInventoryComponent::SwitchWeaponSlot(EEquipmentSlot FirstSlot, EEquipmentSlot SecondSlot)
+bool UInventoryComponent::SwitchWeaponSlot(EEquipmentSlot FirstSlot, EEquipmentSlot SecondSlot)
 {
     // Can only switch between melee weapons
     if ((FirstSlot != EEquipmentSlot::MainHand || FirstSlot != EEquipmentSlot::Dagger || FirstSlot != EEquipmentSlot::Belt1 || FirstSlot != EEquipmentSlot::Belt2)
@@ -597,7 +597,7 @@ bool UPendragonInventoryComponent::SwitchWeaponSlot(EEquipmentSlot FirstSlot, EE
     return true;
 }
 
-bool UPendragonInventoryComponent::EquipHorseArmor(const FHorseArmor& HorseArmor, EEquipmentSlot HorseSlot)
+bool UInventoryComponent::EquipHorseArmor(const FHorseArmor& HorseArmor, EEquipmentSlot HorseSlot)
 {
     if (!EquippedSlots.Contains(HorseSlot))
     {
@@ -632,7 +632,7 @@ bool UPendragonInventoryComponent::EquipHorseArmor(const FHorseArmor& HorseArmor
     return true;
 }
 
-bool UPendragonInventoryComponent::UnequipHorseArmor(FName ItemID, EEquipmentSlot HorseSlot)
+bool UInventoryComponent::UnequipHorseArmor(FName ItemID, EEquipmentSlot HorseSlot)
 {
     if (!EquippedSlots.Contains(HorseSlot))
     {
@@ -653,7 +653,7 @@ bool UPendragonInventoryComponent::UnequipHorseArmor(FName ItemID, EEquipmentSlo
     return true;
 }
 
-int32 UPendragonInventoryComponent::GetTotalKnightArmorProtection() const
+int32 UInventoryComponent::GetTotalKnightArmorProtection() const
 {
     int32 TotalProtection = 0;
 
@@ -672,7 +672,7 @@ int32 UPendragonInventoryComponent::GetTotalKnightArmorProtection() const
     return TotalProtection;
 }
 
-int32 UPendragonInventoryComponent::GetActiveMountArmorProtection() const
+int32 UInventoryComponent::GetActiveMountArmorProtection() const
 {
     if (const FEquippedItemSlot* WarMountSlot = EquippedSlots.Find(EEquipmentSlot::WarMount))
     {

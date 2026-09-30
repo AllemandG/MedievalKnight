@@ -4,7 +4,7 @@
 #include "GameFramework/PlayerController.h"
 #include "MedievalPlayerController.generated.h"
 
-class UPendragonCharacterComponent;
+class UCharacterComponent;
 
 UCLASS()
 class MEDIEVALKNIGHT_API AMedievalPlayerController : public APlayerController
@@ -18,12 +18,12 @@ public:
 
 	// Composant principal gérant les attributs, traits, passions et compétences du chevalier
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pendragon|Character", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UPendragonCharacterComponent> CharacterComponent;
+	TObjectPtr<UCharacterComponent> CharacterComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pendragon|Character", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<class UPendragonInventoryComponent> InventoryComponent;
+	TObjectPtr<class UInventoryComponent> InventoryComponent;
 
 	// Helper pour récupérer rapidement le composant depuis les Blueprints ou l'UI
 	UFUNCTION(BlueprintPure, Category = "Pendragon|Character")
-	UPendragonCharacterComponent* GetCharacterComponent() const { return CharacterComponent; }
+	UCharacterComponent* GetCharacterComponent() const { return CharacterComponent; }
 };

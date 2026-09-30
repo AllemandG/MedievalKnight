@@ -4,17 +4,17 @@
 #include "Components/ActorComponent.h"
 #include "Core/Blason.h"
 #include "Core/BlazonTypes.h"
-#include "MedievalKnight/Public/Core/PendragonEnums.h"
-#include "MedievalKnight/Public/Core/PendragonTypes.h"
-#include "PendragonCharacterComponent.generated.h"
+#include "Core/MedievalKnightTypes.h"
+#include "MedievalKnight/Public/Core/MedievalKnightEnums.h"
+#include "CharacterComponent.generated.h"
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class MEDIEVALKNIGHT_API UPendragonCharacterComponent : public UActorComponent
+class MEDIEVALKNIGHT_API UCharacterComponent : public UActorComponent
 {
     GENERATED_BODY()
 
 public:    
-    UPendragonCharacterComponent();
+    UCharacterComponent();
 
 protected:
     virtual void BeginPlay() override;
@@ -28,18 +28,18 @@ public:
     FText LastName = FText::FromString(TEXT("de Charny"));
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-    EPendragonGender Gender = EPendragonGender::Male;
+    EGender Gender = EGender::Male;
 
     // Héraldique & Apparence
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-    FPendragonHeraldry Heraldry;
+    FHeraldry Heraldry;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-    FPendragonAppearanceDetails Appearance;
+    FAppearanceDetails Appearance;
 
     // Historique Familial
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-    FPendragonParentHistory ParentHistory;
+    FParentHistory ParentHistory;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
     FText HomeCulture = FText::FromString(TEXT("French"));
@@ -57,23 +57,23 @@ public:
     UBlason* CoatOfArms;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-    TArray<FPendragonFamilyLink> FamilyLinks;
+    TArray<FFamilyLink> FamilyLinks;
     
     // Primary Attributes
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Attributes")
-    FPendragonAttributes Attributes;
+    FAttributes Attributes;
 
     // Liste des 13 paires de traits (Chaste/Lustful, Energetic/Lazy, etc.)
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Traits")
-    TArray<FPendragonTraitPair> Traits;
+    TArray<FTraitPair> Traits;
 
     // Liste des Passions du chevalier
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Passions")
-    TArray<FPendragonPassion> Passions;
+    TArray<FPassion> Passions;
 
     // Dictionnaire enrichi des Compétences
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Skills")
-    TMap<FName, FPendragonSkillData> CharacterSkills;
+    TMap<FName, FSkillData> CharacterSkills;
 
     // --- Helpers & Logic ---
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Traits")
@@ -102,25 +102,25 @@ public:
 
     // Get the value of a trait (Primary or Opposed)
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Traits")
-    int32 GetTraitValue(EPendragonTrait TraitPair, bool bGetPrimary) const;
+    int32 GetTraitValue(ETrait TraitPair, bool bGetPrimary) const;
 
     // Set the value of a primary trait (automatically clamps between 0 and 20)
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Traits")
-    void SetTraitValue(EPendragonTrait TraitPair, int32 NewValue);
+    void SetTraitValue(ETrait TraitPair, int32 NewValue);
 
     // Perform a standard D20 Pendragon roll against a target skill/trait value
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Mechanics")
-    static EPendragonCheckResult PerformD20Check(int32 TargetValue, int32& OutRoll);
+    static EDiceCheckResult PerformD20Check(int32 TargetValue, int32& OutRoll);
 
     // Helper to perform a check against a specific trait
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Mechanics")
-    EPendragonCheckResult CheckTrait(EPendragonTrait TraitPair, bool bCheckPrimary, int32& OutRoll) const;
+    EDiceCheckResult CheckTrait(ETrait TraitPair, bool bCheckPrimary, int32& OutRoll) const;
 
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Passions")
-    void AddOrUpdatePassion(EPendragonPassionType Type, const FString& Target, int32 Value);
+    void AddOrUpdatePassion(EPassionType Type, const FString& Target, int32 Value);
 
     UFUNCTION(BlueprintPure, Category = "Pendragon|Passions")
-    int32 GetPassionValue(EPendragonPassionType Type, const FString& Target) const;
+    int32 GetPassionValue(EPassionType Type, const FString& Target) const;
 
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Skills")
     void SetSkillValue(FName SkillID, int32 Value);
@@ -134,15 +134,15 @@ public:
 
     // Coche la case d'expérience d'un trait (principal ou opposé)
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Progression")
-    void CheckTraitForImprovement(EPendragonTrait Trait, bool bIsPrimaryTrait);
+    void CheckTraitForImprovement(ETrait Trait, bool bIsPrimaryTrait);
 
     // Coche la case d'expérience d'une passion
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Progression")
-    void CheckPassionForImprovement(EPendragonPassionType Type, const FString& Target);
+    void CheckPassionForImprovement(EPassionType Type, const FString& Target);
 
     // Coche la case d'expérience d'un attribut
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Progression")
-    void CheckAttributeForImprovement(EPendragonAttribute Attribute);
+    void CheckAttributeForImprovement(EAttribute Attribute);
 
     /** Arrondit une division au plus proche (0,5 et plus -> supérieur). Ex: 27/6 = 4.5 -> 5 */
     UFUNCTION(BlueprintPure, Category = "Pendragon|Math")

@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "DomainEnums.h"
-#include "Combat/PendragonNPCData.h"
+#include "Combat/NPCData.h"
 #include "DomainTypes.generated.h"
 
 USTRUCT(BlueprintType)

@@ -1,14 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Core/PendragonCharacterCreationSubsystem.h"
+#include "Core/MedievalCharacterCreationSubsystem.h"
 
-#include "Components/PendragonCharacterComponent.h"
-#include "Components/PendragonInventoryComponent.h"
+#include "Components/CharacterComponent.h"
+#include "Components/InventoryComponent.h"
 
-void UPendragonCharacterCreationSubsystem::StartNewCreation()
+void UMedievalCharacterCreationSubsystem::StartNewCreation()
 {
-    CreationData = FPendragonCreationData();
+    CreationData = FCreationData();
 
     // Valeurs par défaut adaptées à la Guerre de Cent Ans
     CreationData.FirstName = FText::FromString(TEXT("Guislain"));
@@ -28,9 +28,9 @@ void UPendragonCharacterCreationSubsystem::StartNewCreation()
     CreationData.PassionPointsPool = 15;
 
     // Initialisation des 13 paires de traits par défaut (valeurs neutres à 10)
-    auto AddTraitPair = [this](EPendragonTrait Primary, EPendragonTrait Opposite, int32 DefaultVal = 10)
+    auto AddTraitPair = [this](ETrait Primary, ETrait Opposite, int32 DefaultVal = 10)
     {
-        FPendragonTraitPair Pair;
+        FTraitPair Pair;
         Pair.PrimaryTrait = Primary;
         Pair.OppositeTrait = Opposite;
         Pair.Value = DefaultVal;
@@ -38,22 +38,22 @@ void UPendragonCharacterCreationSubsystem::StartNewCreation()
     };
     
     CreationTraits.Empty();
-    AddTraitPair(EPendragonTrait::Chaste,     EPendragonTrait::Lustful,     10);
-    AddTraitPair(EPendragonTrait::Energetic,  EPendragonTrait::Lazy,        10);
-    AddTraitPair(EPendragonTrait::Forgiving,  EPendragonTrait::Vengeful,    10);
-    AddTraitPair(EPendragonTrait::Generous,   EPendragonTrait::Selfish,     10);
-    AddTraitPair(EPendragonTrait::Honest,     EPendragonTrait::Deceitful,   10);
-    AddTraitPair(EPendragonTrait::Just,       EPendragonTrait::Arbitrary,   10);
-    AddTraitPair(EPendragonTrait::Merciful,   EPendragonTrait::Cruel,       10);
-    AddTraitPair(EPendragonTrait::Modest,     EPendragonTrait::Proud,       10);
-    AddTraitPair(EPendragonTrait::Spiritual,  EPendragonTrait::Worldly,     10);
-    AddTraitPair(EPendragonTrait::Prudent,    EPendragonTrait::Reckless,    10);
-    AddTraitPair(EPendragonTrait::Temperate,  EPendragonTrait::Indulgent,   10);
-    AddTraitPair(EPendragonTrait::Trusting,   EPendragonTrait::Suspicious,  10);
-    AddTraitPair(EPendragonTrait::Valorous,   EPendragonTrait::Cowardly,    10);
+    AddTraitPair(ETrait::Chaste,     ETrait::Lustful,     10);
+    AddTraitPair(ETrait::Energetic,  ETrait::Lazy,        10);
+    AddTraitPair(ETrait::Forgiving,  ETrait::Vengeful,    10);
+    AddTraitPair(ETrait::Generous,   ETrait::Selfish,     10);
+    AddTraitPair(ETrait::Honest,     ETrait::Deceitful,   10);
+    AddTraitPair(ETrait::Just,       ETrait::Arbitrary,   10);
+    AddTraitPair(ETrait::Merciful,   ETrait::Cruel,       10);
+    AddTraitPair(ETrait::Modest,     ETrait::Proud,       10);
+    AddTraitPair(ETrait::Spiritual,  ETrait::Worldly,     10);
+    AddTraitPair(ETrait::Prudent,    ETrait::Reckless,    10);
+    AddTraitPair(ETrait::Temperate,  ETrait::Indulgent,   10);
+    AddTraitPair(ETrait::Trusting,   ETrait::Suspicious,  10);
+    AddTraitPair(ETrait::Valorous,   ETrait::Cowardly,    10);
 
     // Liens par défaut
-    FPendragonFamilyLink Father;
+    FFamilyLink Father;
     Father.RelationName = FText::FromString(TEXT("Father"));
     Father.NPCName = FText::FromString(TEXT("Henri de Latour"));
     Father.RoleOrTitle = FText::FromString(TEXT("Knight"));
@@ -63,7 +63,7 @@ void UPendragonCharacterCreationSubsystem::StartNewCreation()
     OnCreationDataChanged.Broadcast();
 }
 
-bool UPendragonCharacterCreationSubsystem::ModifyAttribute(FName AttributeName, int32 Delta)
+bool UMedievalCharacterCreationSubsystem::ModifyAttribute(FName AttributeName, int32 Delta)
 {
     if (Delta == 0) return false;
 
@@ -89,7 +89,7 @@ bool UPendragonCharacterCreationSubsystem::ModifyAttribute(FName AttributeName, 
     return true;
 }
 
-bool UPendragonCharacterCreationSubsystem::ModifySkill(FName SkillName, int32 Delta)
+bool UMedievalCharacterCreationSubsystem::ModifySkill(FName SkillName, int32 Delta)
 {
     if (Delta == 0) return false;
     if (Delta > 0 && CreationData.SkillPointsPool < Delta) return false;
@@ -104,11 +104,11 @@ bool UPendragonCharacterCreationSubsystem::ModifySkill(FName SkillName, int32 De
     return true;
 }
 
-bool UPendragonCharacterCreationSubsystem::ModifyTrait(EPendragonTrait PrimaryTrait, int32 Delta)
+bool UMedievalCharacterCreationSubsystem::ModifyTrait(ETrait PrimaryTrait, int32 Delta)
 {
     if (Delta == 0) return false;
 
-    for (FPendragonTraitPair& Pair : CreationTraits)
+    for (FTraitPair& Pair : CreationTraits)
     {
         if (Pair.PrimaryTrait == PrimaryTrait)
         {
@@ -123,7 +123,7 @@ bool UPendragonCharacterCreationSubsystem::ModifyTrait(EPendragonTrait PrimaryTr
     return false;
 }
 
-bool UPendragonCharacterCreationSubsystem::ModifyPassion(FName PassionName, int32 Delta)
+bool UMedievalCharacterCreationSubsystem::ModifyPassion(FName PassionName, int32 Delta)
 {
     if (Delta == 0) return false;
     if (Delta > 0 && CreationData.PassionPointsPool < Delta) return false;
@@ -138,22 +138,22 @@ bool UPendragonCharacterCreationSubsystem::ModifyPassion(FName PassionName, int3
     return true;
 }
 
-bool UPendragonCharacterCreationSubsystem::ApplyAttributeAugmentation(EPendragonAttribute Attribute)
+bool UMedievalCharacterCreationSubsystem::ApplyAttributeAugmentation(EAttribute Attribute)
 {
     if (RemainingAugmentationChoices <= 0) return false;
 
     switch (Attribute)
     {
-    case EPendragonAttribute::Size:
+    case EAttribute::Size:
         CreationData.BaseAttributes.Size += 1;
         break;
-    case EPendragonAttribute::Dexterity:
+    case EAttribute::Dexterity:
         CreationData.BaseAttributes.Dexterity += 1;
         break;
-    case EPendragonAttribute::Strength:
+    case EAttribute::Strength:
         CreationData.BaseAttributes.Strength += 1;
         break;
-    case EPendragonAttribute::Constitution:
+    case EAttribute::Constitution:
         CreationData.BaseAttributes.Constitution += 1;
         break;
     default:
@@ -165,7 +165,7 @@ bool UPendragonCharacterCreationSubsystem::ApplyAttributeAugmentation(EPendragon
     return true;
 }
 
-bool UPendragonCharacterCreationSubsystem::ApplySkillPointsAugmentation()
+bool UMedievalCharacterCreationSubsystem::ApplySkillPointsAugmentation()
 {
     if (RemainingAugmentationChoices <= 0) return false;
 
@@ -177,7 +177,7 @@ bool UPendragonCharacterCreationSubsystem::ApplySkillPointsAugmentation()
     return true;
 }
 
-void UPendragonCharacterCreationSubsystem::ApplyFamilyBonus(FName SkillName, int32 BonusAmount)
+void UMedievalCharacterCreationSubsystem::ApplyFamilyBonus(FName SkillName, int32 BonusAmount)
 {
     int32 CurrentVal = CreationData.SkillModifiers.FindRef(SkillName);
     CreationData.SkillModifiers.Add(SkillName, CurrentVal + BonusAmount);
@@ -185,7 +185,7 @@ void UPendragonCharacterCreationSubsystem::ApplyFamilyBonus(FName SkillName, int
     OnCreationDataChanged.Broadcast();
 }
 
-void UPendragonCharacterCreationSubsystem::GenerateParentHistory()
+void UMedievalCharacterCreationSubsystem::GenerateParentHistory()
 {
     // Exemple de génération rapide d'historique (Guerre de Cent Ans)
     CreationData.ParentHistory.FatherName = FText::FromString(TEXT("Henri de Latour"));
@@ -201,19 +201,19 @@ void UPendragonCharacterCreationSubsystem::GenerateParentHistory()
     OnCreationDataChanged.Broadcast();
 }
 
-int32 UPendragonCharacterCreationSubsystem::GetChivalryTraitsSum() const
+int32 UMedievalCharacterCreationSubsystem::GetChivalryTraitsSum() const
 {
     int32 Sum = 0;
-    const TArray<EPendragonTrait> ChivalryTraits = {
-        EPendragonTrait::Energetic,
-        EPendragonTrait::Generous,
-        EPendragonTrait::Just,
-        EPendragonTrait::Merciful,
-        EPendragonTrait::Modest,
-        EPendragonTrait::Valorous
+    const TArray<ETrait> ChivalryTraits = {
+        ETrait::Energetic,
+        ETrait::Generous,
+        ETrait::Just,
+        ETrait::Merciful,
+        ETrait::Modest,
+        ETrait::Valorous
     };
 
-    for (const FPendragonTraitPair& Pair : CreationTraits)
+    for (const FTraitPair& Pair : CreationTraits)
     {
         if (ChivalryTraits.Contains(Pair.PrimaryTrait))
         {
@@ -223,18 +223,18 @@ int32 UPendragonCharacterCreationSubsystem::GetChivalryTraitsSum() const
     return Sum;
 }
 
-bool UPendragonCharacterCreationSubsystem::IsEligibleForReligiousBonus() const
+bool UMedievalCharacterCreationSubsystem::IsEligibleForReligiousBonus() const
 {
     // Christianisme médiéval : Chaste, Generous, Merciful, Modest, Temperate à 16+
-    const TArray<EPendragonTrait> ChristianTraits = {
-        EPendragonTrait::Chaste,
-        EPendragonTrait::Generous,
-        EPendragonTrait::Merciful,
-        EPendragonTrait::Modest,
-        EPendragonTrait::Temperate
+    const TArray<ETrait> ChristianTraits = {
+        ETrait::Chaste,
+        ETrait::Generous,
+        ETrait::Merciful,
+        ETrait::Modest,
+        ETrait::Temperate
     };
 
-    for (const FPendragonTraitPair& Pair : CreationTraits)
+    for (const FTraitPair& Pair : CreationTraits)
     {
         if (ChristianTraits.Contains(Pair.PrimaryTrait))
         {
@@ -244,13 +244,13 @@ bool UPendragonCharacterCreationSubsystem::IsEligibleForReligiousBonus() const
     return true;
 }
 
-void UPendragonCharacterCreationSubsystem::AddFamilyLink(const FPendragonFamilyLink& NewLink)
+void UMedievalCharacterCreationSubsystem::AddFamilyLink(const FFamilyLink& NewLink)
 {
     CreationData.FamilyLinks.Add(NewLink);
     OnCreationDataChanged.Broadcast();
 }
 
-bool UPendragonCharacterCreationSubsystem::FinalizeCharacterCreation(UPendragonCharacterComponent* TargetCharacterComp, UPendragonInventoryComponent* TargetInventoryComp)
+bool UMedievalCharacterCreationSubsystem::FinalizeCharacterCreation(UCharacterComponent* TargetCharacterComp, UInventoryComponent* TargetInventoryComp)
 {
     if (!TargetCharacterComp) return false;
 

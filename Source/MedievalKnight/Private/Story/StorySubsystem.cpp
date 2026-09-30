@@ -1,8 +1,8 @@
 #include "MedievalKnight/Public/Story/StorySubsystem.h"
-#include "MedievalKnight/Public/Components/PendragonCharacterComponent.h"
+#include "MedievalKnight/Public/Components/CharacterComponent.h"
 #include "Engine/AssetManager.h"
 
-void UStorySubsystem::StartStory(UStoryNodeDataAsset* StartingNode, UPendragonCharacterComponent* PlayerCharacter)
+void UStorySubsystem::StartStory(UStoryNodeDataAsset* StartingNode, UCharacterComponent* PlayerCharacter)
 {
     CharacterComponent = PlayerCharacter;
     CurrentNode = StartingNode;
@@ -34,7 +34,7 @@ bool UStorySubsystem::EvaluateRequirement(const FPendragonRequirement& Req) cons
         return CharacterComponent->GetSkillValue(Req.Name) >= Req.MinimumValue;
 
     case ERequirementType::Passion:
-        for (const FPendragonPassion& Passion : CharacterComponent->Passions)
+        for (const FPassion& Passion : CharacterComponent->Passions)
         {
             if (Passion.Target.Equals(Req.Name.ToString(), ESearchCase::IgnoreCase) ||
                 Passion.GetDisplayName().ToString().Equals(Req.Name.ToString(), ESearchCase::IgnoreCase))
@@ -89,7 +89,7 @@ void UStorySubsystem::ApplyEffect(const FPendragonEffect& Effect)
     }
     case EEffectType::ModifyPassion:
     {
-        for (FPendragonPassion& Passion : CharacterComponent->Passions)
+        for (FPassion& Passion : CharacterComponent->Passions)
         {
             if (Passion.Target.Equals(Effect.Name.ToString(), ESearchCase::IgnoreCase) ||
                 Passion.GetDisplayName().ToString().Equals(Effect.Name.ToString(), ESearchCase::IgnoreCase))
@@ -122,7 +122,7 @@ void UStorySubsystem::SelectChoice(int32 ChoiceIndex)
         case ERequirementType::Trait:
         {
             TargetValue = CharacterComponent ? CharacterComponent->GetTraitValue(Choice.CheckTrait, Choice.bCheckPrimaryTrait) : 10;
-            UEnum* TraitEnum = StaticEnum<EPendragonTrait>();
+            UEnum* TraitEnum = StaticEnum<ETrait>();
             ResolvedCheckName = TraitEnum ? FName(*TraitEnum->GetDisplayNameTextByValue(static_cast<int64>(Choice.CheckTrait)).ToString()) : FName(TEXT("Trait"));
             break;
         }
@@ -137,7 +137,7 @@ void UStorySubsystem::SelectChoice(int32 ChoiceIndex)
             ResolvedCheckName = Choice.CheckName;
             if (CharacterComponent)
             {
-                for (const FPendragonPassion& Passion : CharacterComponent->Passions)
+                for (const FPassion& Passion : CharacterComponent->Passions)
                 {
                     if (Passion.Target.Equals(Choice.CheckName.ToString(), ESearchCase::IgnoreCase) ||
                         Passion.GetDisplayName().ToString().Equals(Choice.CheckName.ToString(), ESearchCase::IgnoreCase))
@@ -166,12 +166,12 @@ void UStorySubsystem::SelectChoice(int32 ChoiceIndex)
 
         // 2. Jet d20
         int32 Roll = 0;
-        EPendragonCheckResult Result = UPendragonCharacterComponent::PerformD20Check(TargetValue, Roll);
+        EDiceCheckResult Result = UCharacterComponent::PerformD20Check(TargetValue, Roll);
 
         OnCheckResolved.Broadcast(Result, Roll, TargetValue, ResolvedCheckName);
 
         // 3. Application de la case de progression (Check for Improvement) en cas de succès
-        if ((Result == EPendragonCheckResult::Success || Result == EPendragonCheckResult::CriticalSuccess) && CharacterComponent)
+        if ((Result == EDiceCheckResult::Success || Result == EDiceCheckResult::CriticalSuccess) && CharacterComponent)
         {
             switch (Choice.CheckType)
             {
@@ -183,7 +183,7 @@ void UStorySubsystem::SelectChoice(int32 ChoiceIndex)
                 break;
             case ERequirementType::Passion:
                 // Coche la passion correspondante
-                for (FPendragonPassion& Passion : CharacterComponent->Passions)
+                for (FPassion& Passion : CharacterComponent->Passions)
                 {
                     if (Passion.Target.Equals(Choice.CheckName.ToString(), ESearchCase::IgnoreCase) ||
                         Passion.GetDisplayName().ToString().Equals(Choice.CheckName.ToString(), ESearchCase::IgnoreCase))
@@ -194,11 +194,11 @@ void UStorySubsystem::SelectChoice(int32 ChoiceIndex)
                 }
                 break;
             case ERequirementType::Attribute:
-                if (Choice.CheckName == "Size") CharacterComponent->CheckAttributeForImprovement(EPendragonAttribute::Size);
-                else if (Choice.CheckName == "Strength") CharacterComponent->CheckAttributeForImprovement(EPendragonAttribute::Strength);
-                else if (Choice.CheckName == "Dexterity") CharacterComponent->CheckAttributeForImprovement(EPendragonAttribute::Dexterity);
-                else if (Choice.CheckName == "Constitution") CharacterComponent->CheckAttributeForImprovement(EPendragonAttribute::Constitution);
-                else if (Choice.CheckName == "Appeal") CharacterComponent->CheckAttributeForImprovement(EPendragonAttribute::Appeal);
+                if (Choice.CheckName == "Size") CharacterComponent->CheckAttributeForImprovement(EAttribute::Size);
+                else if (Choice.CheckName == "Strength") CharacterComponent->CheckAttributeForImprovement(EAttribute::Strength);
+                else if (Choice.CheckName == "Dexterity") CharacterComponent->CheckAttributeForImprovement(EAttribute::Dexterity);
+                else if (Choice.CheckName == "Constitution") CharacterComponent->CheckAttributeForImprovement(EAttribute::Constitution);
+                else if (Choice.CheckName == "Appeal") CharacterComponent->CheckAttributeForImprovement(EAttribute::Appeal);
                 break;
             }
         }
@@ -208,16 +208,16 @@ void UStorySubsystem::SelectChoice(int32 ChoiceIndex)
 
         switch (Result)
         {
-        case EPendragonCheckResult::CriticalSuccess:
+        case EDiceCheckResult::CriticalSuccess:
             TargetNode = Choice.CriticalSuccessNode.IsNull() ? Choice.SuccessNode : Choice.CriticalSuccessNode;
             break;
-        case EPendragonCheckResult::Success:
+        case EDiceCheckResult::Success:
             TargetNode = Choice.SuccessNode;
             break;
-        case EPendragonCheckResult::Failure:
+        case EDiceCheckResult::Failure:
             TargetNode = Choice.FailureNode;
             break;
-        case EPendragonCheckResult::Fumble:
+        case EDiceCheckResult::Fumble:
             TargetNode = Choice.FumbleNode.IsNull() ? Choice.FailureNode : Choice.FumbleNode;
             break;
         }

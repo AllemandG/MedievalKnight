@@ -1,9 +1,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MedievalKnightEnums.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
-#include "PendragonTypes.h"
-#include "PendragonOpposedCheck.generated.h"
+#include "DiceOpposedCheck.generated.h"
 
 /** Résultat détaillé pour un participant à un jet opposé */
 USTRUCT(BlueprintType)
@@ -18,7 +18,7 @@ struct FOpposedCheckParticipantResult
     int32 DiceRoll = 0;
 
     UPROPERTY(BlueprintReadOnly, Category = "Pendragon|Check")
-    EPendragonCheckResult Quality = EPendragonCheckResult::Failure;
+    EDiceCheckResult Quality = EDiceCheckResult::Failure;
 
     /** Score effectif utilisé pour départager (Critique = 21, Succès = Valeur du Dé, Échec = 0, Fumble = -1) */
     UPROPERTY(BlueprintReadOnly, Category = "Pendragon|Check")
@@ -55,7 +55,7 @@ struct FOpposedCheckResult
 };
 
 UCLASS()
-class MEDIEVALKNIGHT_API UPendragonOpposedCheck : public UBlueprintFunctionLibrary
+class MEDIEVALKNIGHT_API UDiceOpposedCheck : public UBlueprintFunctionLibrary
 {
     GENERATED_BODY()
 

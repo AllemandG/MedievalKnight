@@ -1,8 +1,8 @@
-#include "Combat/PendragonCombatSubsystem.h"
-#include "Components/PendragonCharacterComponent.h"
-#include "Components/PendragonInventoryComponent.h"
+#include "Combat/CombatSubsystem.h"
+#include "Components/CharacterComponent.h"
+#include "Components/InventoryComponent.h"
 
-void UPendragonCombatSubsystem::StartCombat(UPendragonCharacterComponent* PlayerChar, UPendragonInventoryComponent* PlayerInv, const FPendragonNPC& Enemy)
+void UCombatSubsystem::StartCombat(UCharacterComponent* PlayerChar, UInventoryComponent* PlayerInv, const FPendragonNPC& Enemy)
 {
     PlayerCharacterComp = PlayerChar;
     PlayerInventoryComp = PlayerInv;
@@ -13,7 +13,7 @@ void UPendragonCombatSubsystem::StartCombat(UPendragonCharacterComponent* Player
     OnCombatStateChanged.Broadcast(CurrentState);
 }
 
-int32 UPendragonCombatSubsystem::RollDice(int32 NumDice) const
+int32 UCombatSubsystem::RollDice(int32 NumDice) const
 {
     int32 Total = 0;
     for (int32 i = 0; i < NumDice; ++i)
@@ -23,7 +23,7 @@ int32 UPendragonCombatSubsystem::RollDice(int32 NumDice) const
     return Total;
 }
 
-void UPendragonCombatSubsystem::ExecutePlayerAttack(EPendragonCombatTactic Tactic, FName SkillUsed)
+void UCombatSubsystem::ExecutePlayerAttack(ECombatTactic Tactic, FName SkillUsed)
 {
     if (CurrentState != ECombatState::PlayerTurn || !PlayerCharacterComp) return;
 
@@ -42,16 +42,16 @@ void UPendragonCombatSubsystem::ExecutePlayerAttack(EPendragonCombatTactic Tacti
 
     switch (Tactic)
     {
-    case EPendragonCombatTactic::AllOutAttack:
+    case ECombatTactic::AllOutAttack:
         PlayerSkill -= 5;
         PlayerDamageBonus += 4;
         break;
 
-    case EPendragonCombatTactic::Defensive:
+    case ECombatTactic::Defensive:
         PlayerSkill += 5;
         break;
 
-    case EPendragonCombatTactic::Prudent:
+    case ECombatTactic::Prudent:
         PlayerSkill += 2;
         break;
 
@@ -60,7 +60,7 @@ void UPendragonCombatSubsystem::ExecutePlayerAttack(EPendragonCombatTactic Tacti
     }
 
     // 3. Résolution du jet opposé
-    Log.CheckResult = UPendragonOpposedCheck::ResolveOpposedCheck(PlayerSkill, EnemySkill);
+    Log.CheckResult = UDiceOpposedCheck::ResolveOpposedCheck(PlayerSkill, EnemySkill);
 
     FString AttackerResultStr = FString::Printf(TEXT("Attacker : %d (Dice: %d)"), Log.CheckResult.Attacker.TargetValue, Log.CheckResult.Attacker.DiceRoll);
     FString DefenderResultStr = FString::Printf(TEXT("Defender : %d (Dice: %d)"), Log.CheckResult.Defender.TargetValue, Log.CheckResult.Defender.DiceRoll);
@@ -68,7 +68,7 @@ void UPendragonCombatSubsystem::ExecutePlayerAttack(EPendragonCombatTactic Tacti
     // 4. Traitement des dégâts
     if (Log.CheckResult.Outcome == EOpposedOutcome::AttackerWins)
     {
-        if (Tactic == EPendragonCombatTactic::Defensive)
+        if (Tactic == ECombatTactic::Defensive)
         {
             // En posture défensive, une victoire permet seulement d'annuler les dégâts adverses
             Log.LogMessage = FText::FromString(FString::Printf(
@@ -90,7 +90,7 @@ void UPendragonCombatSubsystem::ExecutePlayerAttack(EPendragonCombatTactic Tacti
             }
             
             // Dégâts doublés en Critique
-            bool bIsCritical = (Log.CheckResult.Attacker.Quality == EPendragonCheckResult::CriticalSuccess);
+            bool bIsCritical = (Log.CheckResult.Attacker.Quality == EDiceCheckResult::CriticalSuccess);
         
             if (bIsCritical) DiceToRoll *= 2;
 
@@ -122,7 +122,7 @@ void UPendragonCombatSubsystem::ExecutePlayerAttack(EPendragonCombatTactic Tacti
     else if (Log.CheckResult.Outcome == EOpposedOutcome::DefenderWins)
     {
         int32 DiceToRoll = CurrentEnemy.GetDamageDice();
-        if (Log.CheckResult.Defender.Quality == EPendragonCheckResult::CriticalSuccess)
+        if (Log.CheckResult.Defender.Quality == EDiceCheckResult::CriticalSuccess)
         {
             DiceToRoll *= 2;
         }

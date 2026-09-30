@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "DomainEnums.h"
 #include "DomainTypes.h"
-#include "Core/PendragonPlayerCharacter.h"
+#include "Core/MedievalKnightCharacter.h"
 #include "UObject/Object.h"
 #include "Holding.generated.h"
 
@@ -21,7 +21,7 @@ public:
 	ETitle HoldingTitle = ETitle::Knight;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding")
-	APendragonPlayerCharacter* Lord;
+	AMedievalKnightCharacter* Lord;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Holding")
 	FManor CaputMajor;

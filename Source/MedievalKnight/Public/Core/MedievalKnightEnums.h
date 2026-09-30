@@ -1,10 +1,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PendragonEnums.generated.h"
+#include "MedievalKnightEnums.generated.h"
 
 UENUM(BlueprintType)
-enum class EPendragonTrait : uint8
+enum class ETrait : uint8
 {
 	Chaste			UMETA(DisplayName = "Chaste"),
 	Lustful			UMETA(DisplayName = "Lustful"),
@@ -35,7 +35,7 @@ enum class EPendragonTrait : uint8
 };
 
 UENUM(BlueprintType)
-enum class EPendragonCheckResult : uint8
+enum class EDiceCheckResult : uint8
 {
 	CriticalSuccess UMETA(DisplayName = "Critical Success"),
 	Success         UMETA(DisplayName = "Success"),
@@ -44,7 +44,7 @@ enum class EPendragonCheckResult : uint8
 };
 
 UENUM(BlueprintType)
-enum class EPendragonAttribute : uint8
+enum class EAttribute : uint8
 {
 	Size,
 	Dexterity,
@@ -55,7 +55,7 @@ enum class EPendragonAttribute : uint8
 
 // Types de Passions dans Pendragon
 UENUM(BlueprintType)
-enum class EPendragonPassionGroup : uint8
+enum class EPassionGroup : uint8
 {
 	None        UMETA(DisplayName = "None / Individual"),
 	Fidelitas   UMETA(DisplayName = "Fidelitas"),
@@ -65,7 +65,7 @@ enum class EPendragonPassionGroup : uint8
 };
 
 UENUM(BlueprintType)
-enum class EPendragonPassionType : uint8
+enum class EPassionType : uint8
 {
 	// Fidelitas
 	Duty        UMETA(DisplayName = "Duty"),
@@ -101,7 +101,7 @@ enum class EPendragonPassionType : uint8
 };
 
 UENUM(BlueprintType)
-enum class EPendragonSkillCategory : uint8
+enum class ESkillCategory : uint8
 {
 	Combat      UMETA(DisplayName = "Combat"),
 	Civilian    UMETA(DisplayName = "Civilian"),
@@ -319,7 +319,7 @@ enum class EDisadvantageType : uint8
 };
 
 UENUM(BlueprintType)
-enum class EPendragonCombatTactic : uint8
+enum class ECombatTactic : uint8
 {
 	Normal,         // Jet standard
 	AllOutAttack,   // Attaque féroce (+4 aux dégâts, mais -5 à la compétence de défense)
@@ -328,15 +328,15 @@ enum class EPendragonCombatTactic : uint8
 };
 
 UENUM(BlueprintType)
-enum class EPendragonGender : uint8
+enum class EGender : uint8
 {
-	Male        UMETA(DisplayName = "Homme"),
-	Female      UMETA(DisplayName = "Femme")
+	Male        UMETA(DisplayName = "Man"),
+	Female      UMETA(DisplayName = "Woman")
 };
 
 /** Les 7 choix d'augmentation lors de la création de personnage */
 UENUM(BlueprintType)
-enum class EPendragonBonusType : uint8
+enum class ECreationBonusType : uint8
 {
 	Attribute   UMETA(DisplayName = "+1 Attribut"),
 	Trait       UMETA(DisplayName = "+1 Trait or Passion"),
@@ -351,7 +351,7 @@ enum class ECulture : uint8
 };
 
 UENUM(BlueprintType)
-enum class ELocalFrenchCulture : uint8
+enum class ELocalCulture : uint8
 {
 	Aquitaine	UMETA(DisplayName = "Aquitaine"),
 	Auvergne	UMETA(DisplayName = "Auvergne"),
@@ -363,19 +363,14 @@ enum class ELocalFrenchCulture : uint8
 	Normandie	UMETA(DisplayName = "Normandie"),
 	Occitanie	UMETA(DisplayName = "Occitanie"),
 	Poitou 		UMETA(DisplayName = "Poitou"),
-	Valois		UMETA(DisplayName = "Valois")
-};
-
-UENUM(BlueprintType)
-enum class ELocalEnglishCulture : uint8
-{
+	Valois		UMETA(DisplayName = "Valois"),
 	Cornwall	UMETA(DisplayName = "Cornwall"),
 	Irish		UMETA(DisplayName = "Irish"),
 	Londres		UMETA(DisplayName = "London"),
 	Mercia		UMETA(DisplayName = "Mercia"),
 	Northern 	UMETA(DisplayName = "Northern"),
 	Welsh		UMETA(DisplayName = "Welsh"),
-	Wessex		UMETA(DisplayName = "Wessex"),
+	Wessex		UMETA(DisplayName = "Wessex")
 };
 
 UENUM(BlueprintType)
@@ -401,6 +396,30 @@ enum class EFamilyCharacteristic : uint8
 	Melodic			UMETA(DisplayName = "Melodic"),
 	Clodhopper		UMETA(DisplayName = "Clodhopper"),
 	Gifted			UMETA(DisplayName = "Gifted"),
+};
+
+UENUM(BlueprintType)
+enum class EReligion : uint8
+{
+	Christian		UMETA(DisplayName = "Christian"),
+	Pagan 			UMETA(DisplayName = "Pagan")
+};
+
+UENUM(BlueprintType)
+enum class ERelationType : uint8
+{
+	Father			UMETA(DisplayName = "Father"),
+	Mother			UMETA(DisplayName = "Mother"),
+	Sibling			UMETA(DisplayName = "Sibling"),
+	Spouse			UMETA(DisplayName = "Spouse"),
+	Child			UMETA(DisplayName = "Child"),
+	Friend			UMETA(DisplayName = "Friend"),
+	Mentor			UMETA(DisplayName = "Mentor"),
+	Enemy			UMETA(DisplayName = "Enemy"),
+	Liege			UMETA(DisplayName = "Liege"),
+	Vassal			UMETA(DisplayName = "Vassal"),
+	Squire			UMETA(DisplayName = "Squire"),
+	Subordinate		UMETA(DisplayName = "Subordinate"),
 };
 
 UENUM(BlueprintType)
@@ -440,3 +459,89 @@ enum class ESkills : uint8
 	TwoHafted		UMETA(DisplayName = "Two-Handed Hafted")
 };
 
+UENUM(BlueprintType)
+enum class EHairColor : uint8
+{
+	Blond			UMETA(DisplayName = "Blond"),
+	DarkBlond		UMETA(DisplayName = "Dark Blond"),
+	Brown			UMETA(DisplayName = "Brown"),
+	DarkBrown		UMETA(DisplayName = "Dark Brown"),
+	Black			UMETA(DisplayName = "Black"),
+	Aubrun 			UMETA(DisplayName = "Aubrun"),
+	Red				UMETA(DisplayName = "Red"),
+	Gray			UMETA(DisplayName = "Gray"),
+	White			UMETA(DisplayName = "White"),
+};
+
+UENUM(BlueprintType)
+enum class EEyeColor : uint8
+{
+	Green			UMETA(DisplayName = "Green"),
+	Amber			UMETA(DisplayName = "Amber"),
+	Hazel			UMETA(DisplayName = "Hazel"),
+	Blue			UMETA(DisplayName = "Blue"),
+	LightBrown		UMETA(DisplayName = "Light Brown"),
+	DarkBrown		UMETA(DisplayName = "Dark Brown"),
+	Black			UMETA(DisplayName = "Black"),
+	Heterochromia	UMETA(DisplayName = "Heterochromia"),
+};
+
+UENUM(BlueprintType)
+enum class EDistinctiveFeatures : uint8
+{
+	// Physique Positive
+	BarrelChested	UMETA(DisplayName = "Barrel-chested"),
+	Brawny 			UMETA(DisplayName = "Brawny"),
+	Buxom 			UMETA(DisplayName = "Buxom"),
+	Curvy 			UMETA(DisplayName = "Curvy"),
+	Muscular		UMETA(DisplayName = "Muscular"),
+	Petite			UMETA(DisplayName = "Petite"),
+	Solid			UMETA(DisplayName = "Solid"),
+	Statuesque 		UMETA(DisplayName = "Statuesque"),
+
+	// Physique Negative
+	Flabby			UMETA(DisplayName = "Flabby"),
+	Gangly			UMETA(DisplayName = "Gangly"),
+	Gawky			UMETA(DisplayName = "Gawky"),
+	Hunched			UMETA(DisplayName = "Hunched"),
+	Lanky			UMETA(DisplayName = "Lanky"),
+	Overweight		UMETA(DisplayName = "Overweight"),
+	Skinny			UMETA(DisplayName = "Skinny"),
+	Stooped			UMETA(DisplayName = "Stooped"),
+
+	// Hair Positive
+	Curly			UMETA(DisplayName = "Curly"),
+	Flowing			UMETA(DisplayName = "Flowing"),
+	Straight		UMETA(DisplayName = "Straight"),
+	Wavy			UMETA(DisplayName = "Wavy"),
+
+	// Hair Negative
+	Bald 			UMETA(DisplayName = "Bald"),
+	Patchy			UMETA(DisplayName = "Patchy"),
+	PrematurelyGrey	UMETA(DisplayName = "Prematurely Grey"),
+	Thinning		UMETA(DisplayName = "Thinning"),
+
+	// Face Positive
+	BroadNose 		UMETA(DisplayName = "Broad Nose"),
+	ButtonNose 		UMETA(DisplayName = "Button Nose"),
+	CleanShaven		UMETA(DisplayName = "Clean Shaven"),
+	StraightTeeth 	UMETA(DisplayName = "Straight Teeth"),
+
+	// Face Negative
+	BigEars 		UMETA(DisplayName = "BigEars"),
+	CrookedTeeth 	UMETA(DisplayName = "Crooked Teeth"),
+	Pockmarks 		UMETA(DisplayName = "Pockmarks"),
+	Scars 			UMETA(DisplayName = "Scars"),
+
+	// Speech Positive
+	Charming 		UMETA(DisplayName = "Charming"),
+	Clear 			UMETA(DisplayName = "Clear"),
+	Deep 			UMETA(DisplayName = "Deep"),
+	Resonant		UMETA(DisplayName = "Resonant"),
+
+	// Speech Negative
+	Bellowing 		UMETA(DisplayName = "Bellowing"),
+	Nasal			UMETA(DisplayName = "Nasal"),
+	Lisp			UMETA(DisplayName = "Lisp"),
+	Stutter 		UMETA(DisplayName = "Stutter"),
+};

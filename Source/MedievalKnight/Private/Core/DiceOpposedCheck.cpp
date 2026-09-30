@@ -1,6 +1,6 @@
-#include "Core/PendragonOpposedCheck.h"
+#include "Core/DiceOpposedCheck.h"
 
-FOpposedCheckParticipantResult UPendragonOpposedCheck::EvaluateSingleParticipant(int32 TargetValue, int32 DiceRoll)
+FOpposedCheckParticipantResult UDiceOpposedCheck::EvaluateSingleParticipant(int32 TargetValue, int32 DiceRoll)
 {
     FOpposedCheckParticipantResult Result;
     Result.TargetValue = TargetValue;
@@ -22,44 +22,44 @@ FOpposedCheckParticipantResult UPendragonOpposedCheck::EvaluateSingleParticipant
         // En 6e édition, 20 est toujours un Fumble sauf si le Target effectif est de 20
         if (EffectiveTarget == 20)
         {
-            Result.Quality = EPendragonCheckResult::CriticalSuccess;
+            Result.Quality = EDiceCheckResult::CriticalSuccess;
         }
         else
         {
-            Result.Quality = EPendragonCheckResult::Fumble;
+            Result.Quality = EDiceCheckResult::Fumble;
         }
     }
     else if (DiceRoll == EffectiveTarget)
     {
-        Result.Quality = EPendragonCheckResult::CriticalSuccess;
+        Result.Quality = EDiceCheckResult::CriticalSuccess;
     }
     else if (DiceRoll < EffectiveTarget)
     {
-        Result.Quality = EPendragonCheckResult::Success;
+        Result.Quality = EDiceCheckResult::Success;
     }
     else
     {
-        Result.Quality = EPendragonCheckResult::Failure;
+        Result.Quality = EDiceCheckResult::Failure;
     }
 
     // Calcul du Score Effectif d'opposition
     switch (Result.Quality)
     {
-    case EPendragonCheckResult::CriticalSuccess:
+    case EDiceCheckResult::CriticalSuccess:
         // En cas de compétence > 20, le bonus s'ajoute au score du Critique (ex: 20 + 2 = 22)
         Result.EffectiveScore = 21 + ValueBonus;
         break;
 
-    case EPendragonCheckResult::Success:
+    case EDiceCheckResult::Success:
         // Le score effectif est la valeur du dé + le bonus si compétence > 20
         Result.EffectiveScore = DiceRoll + ValueBonus;
         break;
 
-    case EPendragonCheckResult::Failure:
+    case EDiceCheckResult::Failure:
         Result.EffectiveScore = 0;
         break;
 
-    case EPendragonCheckResult::Fumble:
+    case EDiceCheckResult::Fumble:
         Result.EffectiveScore = -1;
         break;
     }
@@ -67,7 +67,7 @@ FOpposedCheckParticipantResult UPendragonOpposedCheck::EvaluateSingleParticipant
     return Result;
 }
 
-FOpposedCheckResult UPendragonOpposedCheck::ResolveOpposedCheck(int32 AttackerTarget, int32 DefenderTarget)
+FOpposedCheckResult UDiceOpposedCheck::ResolveOpposedCheck(int32 AttackerTarget, int32 DefenderTarget)
 {
     FOpposedCheckResult FinalResult;
 
@@ -90,8 +90,8 @@ FOpposedCheckResult UPendragonOpposedCheck::ResolveOpposedCheck(int32 AttackerTa
     else
     {
         // Scores égaux
-        if (FinalResult.Attacker.Quality == EPendragonCheckResult::Fumble && 
-            FinalResult.Defender.Quality == EPendragonCheckResult::Fumble)
+        if (FinalResult.Attacker.Quality == EDiceCheckResult::Fumble && 
+            FinalResult.Defender.Quality == EDiceCheckResult::Fumble)
         {
             FinalResult.Outcome = EOpposedOutcome::BothFumbled;
         }

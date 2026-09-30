@@ -1,9 +1,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Core/PendragonTypes.h"
+#include "Core/MedievalKnightTypes.h"
 #include "Items/InventoryTypes.h"
-#include "PendragonNPCData.generated.h"
+#include "NPCData.generated.h"
 
 USTRUCT(BlueprintType)
 struct FPendragonNPC
@@ -46,7 +46,7 @@ struct FPendragonNPC
 	int32 CombatSkillValue = 13;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC|Skills")
-	TMap<FName, FPendragonSkillData> CharacterSkills;
+	TMap<FName, FSkillData> CharacterSkills;
 
 	// Équipement & Protection
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")

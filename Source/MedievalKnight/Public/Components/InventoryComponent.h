@@ -3,17 +3,17 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Items/InventoryTypes.h"
-#include "PendragonInventoryComponent.generated.h"
+#include "InventoryComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryUpdated);
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class MEDIEVALKNIGHT_API UPendragonInventoryComponent : public UActorComponent
+class MEDIEVALKNIGHT_API UInventoryComponent : public UActorComponent
 {
     GENERATED_BODY()
 
 public:
-    UPendragonInventoryComponent();
+    UInventoryComponent();
 
     UPROPERTY(BlueprintAssignable, Category = "Pendragon|Inventory")
     FOnInventoryUpdated OnInventoryUpdated;
