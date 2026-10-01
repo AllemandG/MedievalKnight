@@ -420,6 +420,7 @@ enum class ERelationType : uint8
 	Vassal			UMETA(DisplayName = "Vassal"),
 	Squire			UMETA(DisplayName = "Squire"),
 	Subordinate		UMETA(DisplayName = "Subordinate"),
+	Superior		UMETA(DisplayName = "Superior"),
 };
 
 UENUM(BlueprintType)

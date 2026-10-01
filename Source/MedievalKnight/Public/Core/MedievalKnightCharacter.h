@@ -16,14 +16,14 @@ public:
 	AMedievalKnightCharacter();
 
 	/** Composant gérant les statistiques, traits, passions et compétences */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pendragon|Components", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pendragon|Components")
 	UCharacterComponent* CharacterComponent;
 
 	/** Composant gérant l'inventaire et les objets équipés */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pendragon|Components", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pendragon|Components")
 	UInventoryComponent* InventoryComponent;
 
 	/** Getters d'accès rapide aux composants */
-	FORCEINLINE UCharacterComponent* GetCharacterComponent() const { return CharacterComponent; }
-	FORCEINLINE UInventoryComponent* GetInventoryComponent() const { return InventoryComponent; }
+	UCharacterComponent* GetCharacterComponent() const { return CharacterComponent; }
+	UInventoryComponent* GetInventoryComponent() const { return InventoryComponent; }
 };

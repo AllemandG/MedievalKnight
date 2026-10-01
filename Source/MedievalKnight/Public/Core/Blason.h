@@ -37,7 +37,19 @@ class MEDIEVALKNIGHT_API UBlason : public UObject
 
 public:
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Border", meta = (EditCondition = "bHasBorder == true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason")
+	FName HouseID = NAME_None;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason")
+	FName HouseHeadID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason")
+	FText HouseMotto;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason")
+	FText HouseDescription;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason")
 	FBlasonBorder Border;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason")

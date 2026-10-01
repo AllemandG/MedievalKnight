@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BlazonTypes.h"
 #include "MedievalKnightEnums.h"
 #include "Domain/DomainEnums.h"
 #include "MedievalKnightTypes.generated.h"
@@ -362,6 +363,18 @@ struct FAppearanceDetails
 	FText HeightAndWeight = FText::FromString(TEXT("1m80, 82 kg"));
 };
 
+USTRUCT(BlueprintType)
+struct FRelation
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Relations")
+	ERelationType RelationType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Relations")
+	FName CharacterID;
+};
+
 /** Données temporaires durant la création de personnage */
 USTRUCT(BlueprintType)
 struct FCreationData
@@ -409,4 +422,76 @@ struct FCreationData
 	// Adjustements de Passions (Nom -> Valeur attribuée)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Passions")
 	TMap<FName, int32> PassionModifiers;
+};
+
+USTRUCT(BlueprintType)
+struct FCharacterGenerationData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	FName CharacterID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	bool bIsHistorical = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	FText FirstName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	FText HouseName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	EGender Gender;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	int32 Glory;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	FCharacterOrigin Origins;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	FAttributes BaseAttributes;
+
+	// Liste des 13 paires de traits (Chaste/Lustful, Energetic/Lazy, etc.)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	TArray<FTraitPair> Traits;
+
+	// Liste des Passions du chevalier
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	TArray<FPassion> Passions;
+
+	// Dictionnaire enrichi des Compétences
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	TMap<FName, FSkillData> CharacterSkills;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	FCoatOfArms CoatOfArms;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	TArray<FRelation> Relations;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	int32 DenariiOwned;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	TArray<FName> GeneralItemIDs;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	TArray<FName> ClothesIDs;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	TArray<FName> WeaponsIDs;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	TArray<FName> ShieldsIDs;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	TArray<FName> ArmorsIDs;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	TArray<FName> MountsIDs;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterGeneration")
+	TArray<FName> HorseArmorsIDs;
 };

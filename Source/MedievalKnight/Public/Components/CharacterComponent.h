@@ -46,6 +46,9 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
     TArray<FFamilyLink> FamilyLinks;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
+    TArray<FRelation> Relations;
     
     // Primary Attributes
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")

@@ -110,3 +110,30 @@ struct FBlasonComplexDivision
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blason|Division", meta = (EditCondition = "Division != EBlasonDivision::None", EditConditionHides))
 	FBlasonSimpleDivision SecondPart;
 };
+
+USTRUCT(BlueprintType)
+struct FCoatOfArms
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CoatOfArms")
+	FName HouseID = NAME_None;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CoatOfArms")
+	FName HouseHeadID = NAME_None;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CoatOfArms")
+	FText HouseMotto = FText::GetEmpty();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CoatOfArms")
+	FText HouseDescription = FText::GetEmpty();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CoatOfArms")
+	FBlasonBorder Border;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CoatOfArms")
+	FBlasonSimpleDivision Content;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CoatOfArms")
+	FCharge Charge;
+};
