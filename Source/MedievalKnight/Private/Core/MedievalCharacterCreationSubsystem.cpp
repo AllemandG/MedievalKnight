@@ -11,10 +11,11 @@ void UMedievalCharacterCreationSubsystem::StartNewCreation()
     CreationData = FCreationData();
 
     // Valeurs par défaut adaptées à la Guerre de Cent Ans
-    CreationData.FirstName = FText::FromString(TEXT("Guislain"));
-    CreationData.LastName = FText::FromString(TEXT("de Latour"));
-    CreationData.HomeCulture = FText::FromString(TEXT("French"));
-    CreationData.Religion = FText::FromString(TEXT("Christian"));
+    CreationData.FirstName = FText::FromString(TEXT("Godefroy"));
+    CreationData.LastName = FText::FromString(TEXT("de Montmirail"));
+    CreationData.Origins.Culture = ECulture::French;
+    CreationData.Origins.LocalCulture = ELocalCulture::Aquitaine;
+    CreationData.Origins.Religion = EReligion::Christian;
     
     // Valeurs de base standard (6e édition)
     CreationData.BaseAttributes.Size = 10;
@@ -55,7 +56,7 @@ void UMedievalCharacterCreationSubsystem::StartNewCreation()
     // Liens par défaut
     FFamilyLink Father;
     Father.RelationName = FText::FromString(TEXT("Father"));
-    Father.NPCName = FText::FromString(TEXT("Henri de Latour"));
+    Father.NPCName = FText::FromString(TEXT("Henri de Montmirail"));
     Father.RoleOrTitle = FText::FromString(TEXT("Knight"));
     Father.bIsAlive = true;
     CreationData.FamilyLinks.Add(Father);
@@ -257,14 +258,10 @@ bool UMedievalCharacterCreationSubsystem::FinalizeCharacterCreation(UCharacterCo
     // 1. Transfert des données d'identité & lignage
     TargetCharacterComp->FirstName = CreationData.FirstName;
     TargetCharacterComp->LastName = CreationData.LastName;
-    TargetCharacterComp->HomeCulture = CreationData.HomeCulture;
-    TargetCharacterComp->Religion = CreationData.Religion;
+    TargetCharacterComp->Origin = CreationData.Origins;
     TargetCharacterComp->FamilyLinks = CreationData.FamilyLinks;
-    TargetCharacterComp->BirthYear = 1312; // ex: 20 ans en 1332
 
     // Héraldique & Apparence
-    TargetCharacterComp->Heraldry = CreationData.Heraldry;
-    TargetCharacterComp->Appearance = CreationData.Appearance;
     TargetCharacterComp->ParentHistory = CreationData.ParentHistory;
     TargetCharacterComp->Glory = CreationData.Glory;
 

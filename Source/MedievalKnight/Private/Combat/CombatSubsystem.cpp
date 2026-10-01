@@ -2,7 +2,7 @@
 #include "Components/CharacterComponent.h"
 #include "Components/InventoryComponent.h"
 
-void UCombatSubsystem::StartCombat(UCharacterComponent* PlayerChar, UInventoryComponent* PlayerInv, const FPendragonNPC& Enemy)
+void UCombatSubsystem::StartCombat(UCharacterComponent* PlayerChar, UInventoryComponent* PlayerInv, const FNPC& Enemy)
 {
     PlayerCharacterComp = PlayerChar;
     PlayerInventoryComp = PlayerInv;

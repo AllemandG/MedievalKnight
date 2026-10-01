@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "MedievalKnightEnums.h"
+#include "Domain/DomainEnums.h"
 #include "MedievalKnightTypes.generated.h"
 
 USTRUCT(BlueprintType)
@@ -98,6 +99,9 @@ struct FCharacterOrigin
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Origins")
 	TArray<EDistinctiveFeatures> DistinctiveFeatures;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Origins")
+	TArray<EFamilyCharacteristic> FamilyCharacteristics;
 };
 
 // Structure d'une Passion (ex: Loyalty (Lord) 15, Hate (Saxons) 12)
@@ -219,7 +223,7 @@ struct FFamilyLink
     FText RelationName = FText::FromString(TEXT("Father"));
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
-    FText NPCName = FText::FromString(TEXT("Henri de Latour"));
+    FText NPCName = FText::FromString(TEXT("Henri de Montmirail"));
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
     FText RoleOrTitle = FText::FromString(TEXT("Knight"));
@@ -247,12 +251,91 @@ struct FHeraldry
 };
 
 USTRUCT(BlueprintType)
+struct FNPC
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	FName NPCID = NAME_None;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	FText Name = FText::FromString(TEXT("Enemy Knight"));
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	FText HouseName;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	ECulture Culture = ECulture::French;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	ELocalCulture LocalCulture = ELocalCulture::Aquitaine;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	int32 BirthYear = 1315;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	bool bIsNoble = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	ETitle Title = ETitle::None;
+
+	// Attributs principaux
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	int32 Size = 12;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	int32 Dexterity = 10;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	int32 Strength = 14;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	int32 Constitution = 12;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	int32 Appeal = 12;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	int32 CurrentHealth = 26;
+
+	// Compétence de combat principale (ex: Épée / Lance)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	int32 CombatSkillValue = 13;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC|Skills")
+	TMap<FName, FSkillData> CharacterSkills;
+
+	// Équipement & Protection
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	int32 ArmorProtection = 10; // ex: Haubert de maille (10)
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPC")
+	int32 ShieldProtection = 0;  // ex: Bouclier (+6)
+
+	// Calculs dérivés
+	int32 GetKnockdown () const { return Size; }
+	int32 GetDamageDice() const { return RoundDivide(Size + Strength, 6); }
+	int32 GetBrawlingDamage() const { return RoundDivide(Size + Strength, 6); }
+	int32 GetMovementRate() const { return (RoundDivide(Strength + Dexterity, 2)+5); }
+	int32 GetMajorWoundThreshold() const { return Constitution; }
+	int32 GetHealRate() const { return FMath::Max(1, RoundDivide(Constitution, 5)); }
+	int32 GetMaxHealth() const { return Constitution + Size; }
+	int32 GetUnconscious() const { return RoundDivide(GetMaxHealth(),4); }
+
+	static FORCEINLINE int32 RoundDivide(int32 Dividend, int32 Divisor)
+	{
+		if (Divisor == 0) return 0;
+		return FMath::RoundToInt(static_cast<float>(Dividend) / static_cast<float>(Divisor));
+	}
+};
+
+USTRUCT(BlueprintType)
 struct FParentHistory
 {
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "History")
-	FText FatherName = FText::FromString(TEXT("Henri de Latour"));
+	FText FatherName = FText::FromString(TEXT("Henri de Montmirail"));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "History")
 	int32 FatherBirthYear = 1287;
@@ -286,28 +369,19 @@ struct FCreationData
 	GENERATED_BODY()
 
 	// Identity
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-	FText FirstName = FText::FromString(TEXT("Guislain"));
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-	FText LastName = FText::FromString(TEXT("de Latour"));
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
+	FText FirstName = FText::FromString(TEXT("Godefroy"));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
-	FText HomeCulture = FText::FromString(TEXT("French"));
+	FText LastName = FText::FromString(TEXT("de Montmirail"));
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
-	FText Religion = FText::FromString(TEXT("Christian"));
+	FCharacterOrigin Origins;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-	FHeraldry Heraldry;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
-	FAppearanceDetails Appearance;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
 	FParentHistory ParentHistory;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pendragon|Identity")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Identity")
 	int32 Glory = 1000;
 
 	// Liens PNJ initiaux

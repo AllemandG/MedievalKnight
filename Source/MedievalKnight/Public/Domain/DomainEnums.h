@@ -19,8 +19,10 @@ UENUM(BlueprintType)
 enum class ETitle : uint8
 {
 	None		UMETA(DisplayName = "None"),
-	Sir			UMETA(DisplayName = "Sir"),
+	Page 		UMETA(DisplayName = "Page "),
+	Squire 		UMETA(DisplayName = "Squire"),
 	Esquire 	UMETA(DisplayName = "Esquire"),
+	Sir			UMETA(DisplayName = "Sir"),
 	Knight		UMETA(DisplayName = "Knight"),
 	Lord		UMETA(DisplayName = "Lord"),
 	Banneret	UMETA(DisplayName = "Banneret"),

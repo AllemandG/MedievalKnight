@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "DomainEnums.h"
-#include "Combat/NPCData.h"
+#include "Core/MedievalKnightTypes.h"
 #include "DomainTypes.generated.h"
 
 USTRUCT(BlueprintType)
@@ -114,5 +114,5 @@ struct FManor
 	TMap<ESoldierType, int32> Retinue;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Manor|Personnel", meta = (EditCondition = "ManorType != EManorType::None", EditConditionHides))
-	TMap<EProfession, FPendragonNPC> Personnel;
+	TMap<EProfession, FNPC> Personnel;
 };

@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/WorldSubsystem.h"
 #include "Core/DiceOpposedCheck.h"
-#include "NPCData.h"
+#include "Core/MedievalKnightTypes.h"
 #include "CombatSubsystem.generated.h"
 
 class UCharacterComponent;
@@ -66,7 +66,7 @@ public:
 
     /** Démarrer un combat 1v1 contre un PNJ */
     UFUNCTION(BlueprintCallable, Category = "Pendragon|Combat")
-    void StartCombat(UCharacterComponent* PlayerChar, UInventoryComponent* PlayerInv, const FPendragonNPC& Enemy);
+    void StartCombat(UCharacterComponent* PlayerChar, UInventoryComponent* PlayerInv, const FNPC& Enemy);
 
     /** 
      * Exécute le round de combat avec une tactique spécifique
@@ -91,7 +91,7 @@ protected:
     UInventoryComponent* PlayerInventoryComp;
 
     UPROPERTY(BlueprintReadOnly, Category = "Pendragon|Combat")
-    FPendragonNPC CurrentEnemy;
+    FNPC CurrentEnemy;
 
     UPROPERTY(BlueprintReadOnly, Category = "Pendragon|Combat")
     ECombatState CurrentState = ECombatState::NotStarted;
